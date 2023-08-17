@@ -44,4 +44,7 @@ Second:
 ```sh
 node app.js
 ```
+
+budges: https://ileriayo.github.io/markdown-badges/
+
 kisses

@@ -5,6 +5,8 @@ COM: 47300
 */
 
 const fs = require('fs');
+const path = require('path');
+
 /*
 f: recibe un arreglo de productos y
 valida si el codigo de producto existe en ese arreglo
@@ -39,7 +41,7 @@ const separacion = (titulo) =>{
 }
 class ProductManager {
   constructor() {
-    this.path = "./prods.json"
+    this.path = path.join(__dirname,"../db/prods.json")
     // si el archivo no existe, lo genera cómo array vacío.
     if (!fs.existsSync(this.path)){
       let empty_array = []
@@ -125,9 +127,8 @@ class ProductManager {
         }
       })
       .catch(error =>{
-        console.log ("error")
-        console.log (error)
-        return
+        console.log(error);
+        return { error: "Ooops, ocurrió un error"}
       })
     return aux
   }
@@ -151,7 +152,7 @@ class ProductManager {
       if (find) {
         return find
       } else {
-        return { message: "no existe el producto con id: ",id}
+        return { message: `no existe el producto con id: ${id}`}
       }
     } catch (err) {
       return { error: "ocurrió un error-> ",err}
@@ -264,36 +265,5 @@ class ProductManager {
 }
 
 soft = new ProductManager();
-
-const agregarProductos = async(product)=>{
-  for (const prod of product){
-    let err = await soft.addProduct(prod)
-    if (err.error){
-      console.log (err.error)
-    } else {
-      console.log (err.message)
-    }
-  }
-  await mostrarTodo();
- 
-}
-const mostrarTodo  = async()=>{
-  all_products = await soft.getProducts();
-  console.log (all_products);
-}
-const solicitarPorId = async(id)=>{
-  console.log(await soft.getProductById(id))
-}
-
-const updateProducts = async(product) =>{
-  console.log(await soft.updateProduct(product))
-  mostrarTodo();
-}
-
-const deleteProduct = async(id) =>{
-  const ok = await soft.deleteProduct(id)
-  mostrarTodo();
-  console.log(ok)
-}
 
 module.exports = ProductManager;

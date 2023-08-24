@@ -41,7 +41,7 @@ const separacion = (titulo) =>{
 }
 class ProductManager {
   constructor() {
-    this.path = path.join(__dirname,"../db/prods.json")
+    this.path = path.join(__dirname,"../db/prods2.json")
     // si el archivo no existe, lo genera cómo array vacío.
     if (!fs.existsSync(this.path)){
       let empty_array = []

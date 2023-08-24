@@ -15,7 +15,7 @@ app.use((express.urlencoded({extended:true})))
 
 const productM = new ProductManager();
 const Response = require('./errorMessages.js')
-// solicita productos del sistema
+// solicita productos del sistema [verificado]
 app.get('/products', async(req,res)=>{
   // creo una instancia de mi sistema de respuesta
   let r = new Response()
@@ -40,7 +40,7 @@ app.get('/products', async(req,res)=>{
   res.status(200).json(r.ok(productos));
 })
 
-// solicita un producto por numero de id
+// solicita un producto por numero de id [verificado]
 app.get('/products/:pid', async(req,res)=>{
   // creo una instancia de mi sistema de respuesta
   let r = new Response()  
@@ -73,6 +73,8 @@ app.get('/products/:pid', async(req,res)=>{
   res.status(200).json(r.ok(product))
 
 })
+
+// si no existe el url
 app.all('*', (req,res)=>{
   // creo una instancia de mi sistema de respuesta
   let r = new Response()

@@ -9,7 +9,7 @@ const ProductManager = require('./entregable2.js')
 
 app = express();
 
-const PORT = process.env.PORT || 8088;
+const PORT = process.env.PORT || 8080;
 
 app.use((express.urlencoded({extended:true})))
 

@@ -23,22 +23,6 @@ const notDuplicatedCode = (code, products) =>{
   return error
 }
 
-/*
-f: hace una separación visual en la consola para separa el contenido
-r: nada
-*/
-const separacion = (titulo) =>{
-  let str = ""
-  for (let i = 0; i <= 20; i++) {
-    str += "#"
-    if (i == 10 ) {
-      str += ` -  ${titulo}  - `
-    }
-  }
-  console.log ("")
-  console.log (str)
-  console.log ("")
-}
 class ProductManager {
   constructor() {
     this.path = path.join(__dirname,"../db/prods2.json")
@@ -60,7 +44,6 @@ class ProductManager {
   r: un posible error y mensaje
   */
   async addProduct(newProduct) {
-    separacion("addProduct")
 
     // se validan datos 
     if ( !newProduct.title ||
@@ -114,7 +97,6 @@ class ProductManager {
 
   // retorna el arreglo products
   async getProducts(){
-    separacion("getProducts")
     let aux
 
     // se lee el archivo
@@ -136,7 +118,6 @@ class ProductManager {
   // busca y retorna un producto por su numero de id
   async getProductById(id) {
     let db_aux
-    separacion("getProductById")
 
     try {
 
@@ -160,7 +141,6 @@ class ProductManager {
   }
   
   async updateProduct (oneProduct){
-    separacion("updateProduct")
 
     let db
     let idx
@@ -216,7 +196,6 @@ class ProductManager {
 
   // borra un producto por id
   async deleteProduct (id){
-    separacion("deleteProduct")
 
     let db
     let idx

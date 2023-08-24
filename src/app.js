@@ -6,6 +6,7 @@ COM: 47300
 
 const express = require ('express')
 const ProductManager = require('./entregable2.js')
+const path = require('path')
 
 app = express();
 
@@ -42,7 +43,7 @@ app.get('/products', async(req,res)=>{
       return
     }
   }
-  
+
   // retorna el arreglo de productos
   res.status(200).json(r.ok(productos));
 })
@@ -85,17 +86,18 @@ app.get('/products/:pid', async(req,res)=>{
 app.all('*', (req,res)=>{
   // creo una instancia de mi sistema de respuesta
   let r = new Response()
-  res.status(418).json(r.teaPot("I'm a teapot ~ URL NOT EXIST"))
+  res.status(418).json(r.teaPot(":/ Ooops, this URL is inválid..."));
 })
 
 app.listen(PORT,()=>{
   console.log (`Listening on port: ${PORT}\n
   TESTING:\n
-  \x1b[36mhttp://localhost:${PORT}/products [list of products]\n
-  http://localhost:${PORT}/products/5 [exist]\n
-  http://localhost:${PORT}/products/40 [not exist]\n
+  \x1b[36mhttp://localhost:${PORT}/products [list of products / 200]\n
+  http://localhost:${PORT}/products/5 [exist / 200]\n
+  http://localhost:${PORT}/products/40 [not exist / 404]\n
   http://localhost:${PORT}/products?limit=9 [list of products]\n
-  http://localhost:${PORT}/invalidurl [not exist]\n
+  http://localhost:${PORT}/products?lomit=9 [not exist / 400]\n
+  http://localhost:${PORT}/invalidurl [not exist / 418]\n
   \x1b[0m
   `)
 })

@@ -34,8 +34,8 @@ class Response {
     return this
   }
 
-  teaPot(){
-    this.msg = "418 I'm a teapot"
+  teaPot(msg="418 I'm a teapot"){
+    this.msg = msg
     this.status = "418"
     this.content = {}
     return this

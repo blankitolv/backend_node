@@ -31,8 +31,7 @@ app.get('/products', async(req,res)=>{
 
 
   // verifico si tiene query params 
-  if (req.query) {
-    
+  if (Object.keys(req.query).length !== 0) {
     //valido el url
     // y altera el arreglo de productos
     if (req.query.limit) {

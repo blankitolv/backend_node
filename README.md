@@ -8,7 +8,7 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
 ## Features
-The latest updates are related to incorporating nodemon, npm libraries like moment and nodemo, and handling GET requests.
+The latest updates are related to incorporating nodemon, npm libraries like moment and nodemon, and handling GET requests.
 
 ## Installation
 

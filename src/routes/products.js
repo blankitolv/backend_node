@@ -116,7 +116,6 @@ router.post('/', upload.array("img",7), async (req,res)=>{
     // console.log (req.files.length)
     for (const element of req.files){
       product.thumbnail.push("/"+element.filename)
-      console.log ("p:> ",element)
       if ((element.size / 1024)>4096){
         await deleteFiles([element.filename])
         res.status(400).json(r.badRequest("Tamaño máximo del archivo es 4Mb"));

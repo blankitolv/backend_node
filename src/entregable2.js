@@ -4,14 +4,21 @@ Tutor: Leonardo Pihuala
 COM: 47300
 */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url';
+
+// const path = require ('path')
 
 /*
 f: recibe un arreglo de productos y
 valida si el codigo de producto existe en ese arreglo
 r: un posible error y mensaje
 */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log (path.join(__dirname,"../db/prods2.json"))
+
 const notDuplicatedCode = (code, products) =>{
   console.log (code, products)
   const error = {valid:false, msg:""}
@@ -44,17 +51,6 @@ class ProductManager {
   r: un posible error y mensaje
   */
   async addProduct(newProduct) {
-
-    // se validan datos 
-    if ( !newProduct.title ||
-      !newProduct.description ||
-      !newProduct.price ||
-      !newProduct.thumbnail ||
-      !newProduct.code ||
-      !newProduct.stock
-      ) {
-        return { error: "todos los campos son obligatorios"}
-      }
       let db_aux = []
       let uid
       // se trae el archivo
@@ -236,13 +232,14 @@ class ProductManager {
     // a eliminar
     try {
       await fs.promises.writeFile(this.path, JSON.stringify(aux,null,2))
-      return {message:`producto ${JSON.stringify(db[idx])} \n fue eliminado`}
+      return {message:`producto eliminado`, product:db[idx]}
     } catch (error) {
       return { error: "error al escribir en el archivo."}
     }
   }
 }
 
-soft = new ProductManager();
+const soft = new ProductManager();
 
-module.exports = ProductManager;
+// module.exports = ProductManager;
+export default ProductManager

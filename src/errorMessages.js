@@ -1,4 +1,3 @@
-
 class Response {
   constructor() {
     this.msg = ""
@@ -42,4 +41,4 @@ class Response {
   }
 }
 
-module.exports = Response;
+export default Response

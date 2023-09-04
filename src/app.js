@@ -20,12 +20,18 @@ app.use(express.json())
 
 app.use((express.urlencoded({extended:true})))
 
-app.use(express.static('public'))
+app.use(express.static('./src/public'))
 
 // routes
 app.use('/api/products',routerProducts)
 app.use('/api/carts',routerCarts)
+// app.use('*',(req,res)=>{
+//   console.log("no existe el url")
+// })
 
 app.listen(PORT,()=>{
-  console.log (`Listening on port: ${PORT}\n`)
+  console.log ("Creando y abriendo archivos necesarios...")
+  setTimeout(()=>{
+    console.log (`Listening on port: ${PORT}\n`)
+  },1000)
 })

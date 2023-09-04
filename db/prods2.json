@@ -1,14 +1,15 @@
 [
   {
-    "code": "77945408",
+    "code": "772658",
     "title": "Interestellar",
-    "description": "\\\"Interstellar\\\" es una película de ciencia ficción dirigida por Christopher Nolan. La trama se desarrolla en un futuro donde la Tierra está enfrentando una crisis ambiental que amenaza la supervivencia de la humanidad. Un grupo de astronautas es enviado en una misión espacial a través de un agujero de gusano cerca de Saturno para encontrar un nuevo hogar para la especie humana. La película explora temas de espacio-tiempo, amor y sacrificio a medida que los personajes se enfrentan a desafíos científicos y personales en su búsqueda por la supervivencia. \\\"Interstellar\\\" combina elementos de ciencia ficción con conceptos científicos complejos en una narrativa emocionalmente cargada.\n\n\n\n",
-    "price": "1025.325",
-    "stock": "50",
-    "category": "Ciencia ficción",
-    "thumbnail": "N/C",
-    "uid": "2",
-    "status": true
+    "description": "\"Interstellar\" es una película de ciencia ficción dirigida por Christopher Nolan. La trama se desarrolla en un futuro donde la Tierra está enfrentando una crisis ambiental que amenaza la supervivencia de la humanidad. Un grupo de astronautas es enviado en una misión espacial a través de un agujero de gusano cerca de Saturno para encontrar un nuevo hogar para la especie humana. La película explora temas de espacio-tiempo, amor y sacrificio a medida que los personajes se enfrentan a desafíos científicos y personales en su búsqueda por la supervivencia. \"Interstellar\" combina elementos de ciencia ficción con conceptos científicos complejos en una narrativa emocionalmente cargada.",
+    "price": 150,
+    "stock": 51,
+    "category": "Ciencia ficcións",
+    "thumbnail": [
+      "/img-1693618205648"
+    ],
+    "uid": 2
   },
   {
     "code": "77987654",
@@ -89,36 +90,6 @@
     "stock": 12,
     "status": true,
     "uid": 11
-  },
-  {
-    "code": "765432113",
-    "title": "The Sixth Sense",
-    "description": "Dirigida por M. Night Shyamalan, \"El Sexto Sentido\" sigue la historia de Cole Sear (interpretado por Haley Joel Osment), un niño que dice ver y hablar con espíritus. El Dr. Malcolm Crowe (interpretado por Bruce Willis), un psicólogo infantil, comienza a tratar a Cole después de un traumático incidente. A medida que trabaja con Cole, Crowe se enfrenta a sus propios problemas personales y descubre que el niño podría tener un don real para comunicarse con el mundo de los muertos. La película es conocida por su inesperado giro final.",
-    "price": 56.25,
-    "thumbnail": "N/C",
-    "stock": 5,
-    "status": true,
-    "uid": 31
-  },
-  {
-    "code": "7654352178",
-    "title": "The Goodfellas",
-    "description": "\"The Goodfellas\" es una película dirigida por Martin Scorsese, basada en el libro \"Wiseguy\" de Nicholas Pileggi. La trama se centra en la vida de Henry Hill (interpretado por Ray Liotta), un hombre que crece dentro de la mafia ítalo-estadounidense y se involucra en actividades criminales desde una edad temprana. La película sigue la vida de Henry desde su adolescencia hasta su ascenso en la jerarquía de la mafia junto con sus amigos Tommy DeVito (interpretado por Joe Pesci) y Jimmy Conway (interpretado por Robert De Niro). A medida que el trío comete crímenes y prospera en el mundo del crimen organizado, también enfrentan las consecuencias de sus acciones. La trama aborda temas de lealtad, traición, poder y la dinámica de la vida dentro de la mafia. A medida que Henry se convierte en un miembro influyente de la organización, también se enfrenta a problemas personales y conflictos internos. La película muestra tanto la opulencia como la violencia de la vida de gángsters, así como la caída inevitable de muchos involucrados en actividades criminales. \"The Goodfellas\" es conocida por su estilo cinematográfico distintivo, sus personajes memorables y su narrativa visceral que ofrece una mirada cruda y realista a la vida de la mafia. La película es considerada uno de los clásicos del cine de crimen y ha dejado una influencia duradera en la cultura cinematográfica.",
-    "price": 56.25,
-    "thumbnail": "N/C",
-    "stock": 5,
-    "status": true,
-    "uid": 32
-  },
-  {
-    "code": "765435374",
-    "title": "Casino",
-    "description": "\"Casino\" es una película dirigida por Martin Scorsese y está basada en un libro de Nicholas Pileggi, quien también coescribió el guión de la película. La trama sigue la historia de Sam \"Ace\" Rothstein (interpretado por Robert De Niro), un hábil jugador y gerente de casinos en Las Vegas durante la década de 1970. Sam Rothstein es contratado por la mafia para administrar el casino Tangiers, un negocio que se convierte en un próspero centro de juego y entretenimiento. Sam es conocido por su habilidad para maximizar las ganancias del casino mientras mantiene la apariencia de legalidad. Sin embargo, también se enfrenta a la interferencia de Nicky Santoro (interpretado por Joe Pesci), un violento matón que representa la facción más despiadada de la mafia. La película también se centra en Ginger McKenna (interpretada por Sharon Stone), una atractiva y ambiciosa mujer que se casa con Sam. A medida que el casino prospera, las tensiones entre los personajes aumentan, junto con los problemas de gestión, la corrupción y la traición en el mundo del juego y la mafia. \"Casino\" muestra los excesos y las intrigas detrás de la industria del juego en Las Vegas, así como los entresijos de la relación entre el crimen organizado y los negocios legales. La película explora temas de poder, lealtad, obsesión y los peligros de la ambición. A lo largo de la trama, los personajes se enfrentan a dilemas morales y personales mientras sus vidas se entrelazan en un torbellino de traición y consecuencias.",
-    "price": 56.25,
-    "thumbnail": "N/C",
-    "stock": 5,
-    "status": true,
-    "uid": 33
   },
   {
     "code": "765243536",
@@ -274,13 +245,26 @@
     "title": "El prestigio",
     "description": "\"El Prestigio\" es una película de misterio y drama dirigida por Christopher Nolan. La trama gira en torno a la rivalidad entre dos magos en el Londres del siglo XIX. A medida que compiten por la supremacía en sus trucos de magia, su obsesión los lleva por un camino oscuro de secretos, traición y sacrificio. La película explora temas como la obsesión, el engaño y el precio de la grandeza, dejando a los espectadores cuestionando la realidad en un emocionante juego de ilusiones.\n\n\n\n\n",
     "code": "7795825132",
-    "price": "1025.325",
-    "stock": "50",
+    "price": 1025.325,
+    "stock": 51,
     "category": "Ciencia ficción",
     "thumbnail": [
       "/img-1693383496261"
     ],
     "status": true,
     "uid": 28
+  },
+  {
+    "title": "El hombre bicentenario",
+    "description": "La película \"El Hombre Bicentenario\" es una adaptación de la novela de ciencia ficción escrita por Isaac Asimov. La trama se centra en Andrew Martin, un robot doméstico interpretado por Robin Williams, que a lo largo de los años desarrolla una conciencia y deseos de convertirse en humano. A medida que transcurren los años, Andrew busca la manera de alcanzar su deseo de convertirse en un ser humano de verdad, lo que lo lleva a un viaje emocional y existencial. La película aborda temas profundos sobre la humanidad, la identidad y la búsqueda de la felicidad a lo largo de la vida de Andrew. Es una historia conmovedora que explora la evolución de un robot en busca de su propia humanidad.\n\n\n\n",
+    "code": "7793535352",
+    "price": 53,
+    "stock": 12,
+    "category": "Ciencia ficción",
+    "thumbnail": [
+      "/img-1693785915816"
+    ],
+    "status": true,
+    "uid": 30
   }
 ]

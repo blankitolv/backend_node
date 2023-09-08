@@ -3,6 +3,9 @@ class Response {
     this.ref=ref
   }
   
+  // en bad request toma el mensaje que recibe
+  // lo convierte para poder ser convertido en un url
+  // y redirecciona con el mensaje en query param
   badRequest(res, msg="Bad request"){
     console.log ("BAD REQUEST\n")
     const errorMessage = encodeURIComponent(msg);

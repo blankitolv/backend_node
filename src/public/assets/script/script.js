@@ -1,8 +1,11 @@
 const socket = io();
+// es una función que retorna un numero entero para
+// generar imagenes de perros distintos
 const randomNum = ()=>{
   return Math.floor(Math.random() * 8) + 1;
 }
 
+// acomoda los productos recibidos del websocket
 const addProducts = async (data) =>{
   if (data.length == 0) {
     return
@@ -10,11 +13,14 @@ const addProducts = async (data) =>{
   const urlActual = window.location.href;
   console.log(urlActual);
   
+  // está en http://localhost:8080/realtime sigue, sino retorna
   let divd = urlActual.split('/') 
   const res = divd.filter(e => e == "realtime")
   if (res.length==0) {
     return
   }
+
+  // agrega los productos al dom
   const app = document.getElementById('realtime_list_products')
   let html =`
   <div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
@@ -22,11 +28,12 @@ const addProducts = async (data) =>{
 `;
   data.forEach(oneMovie => {
     const num = randomNum()
+    const num2 = randomNum()
     html +=`
         <div class="col col_product d-flex align-items-stretch" data-product-id="${oneMovie.uid}">
             <div class="card bg-dark text-light shadow p-3 mb-5 rounded" style="width: 15rem;">
               <a href="/api/products/${oneMovie.uid}"}>
-                <img src=${oneMovie.thumbnail == 'N/C'?`https://placedog.net/200/30${num}`:"./img/"+oneMovie.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
+                <img src=${oneMovie.thumbnail == 'N/C'?`https://placedog.net/20${num2}/30${num}`:"./img/"+oneMovie.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
               </a>
               <div class="card-body">
                 <h5 class="card-title">${oneMovie.title}</h5>
@@ -67,7 +74,10 @@ const addProducts = async (data) =>{
   });
 
 }
+// al principio solicita los productos en un mensaje -> message: "allProducts"
 socket.emit("message","allProducts")
+
+// cuando recibe un mensaje "allProducts" agrega los elementos al dom
 socket.on('allProducts',async(data)=>{
  try {
   await addProducts(data)
@@ -75,6 +85,8 @@ socket.on('allProducts',async(data)=>{
   console.log(e)
  }
 })
+
+// si recibe un mensaje "del_product" borra ese elemento del dom
 socket.on('del_product',(data) => {
   console.log ("borrá un producto: ",data)
   const col_product = document.querySelectorAll('.col_product')
@@ -88,13 +100,10 @@ socket.on('del_product',(data) => {
 
 })
 
+// si recibe un mesaje "new_product" incorpora un producto al dom
 socket.on('new_products',(data)=>{
-  console.log ("nuevo producto")
-  console.log (data)
-  console.log (data.uid)
-  console.log (data.thumbnail)
-  console.log (data.title)
   const num = randomNum()
+  const num2 = randomNum()
   const card_container = document.getElementById('cards_container')
   const div_col = document.createElement('div');
   div_col.className = "col"
@@ -102,12 +111,12 @@ socket.on('new_products',(data)=>{
     <div class="col col_product d-flex align-items-stretch" data-product-id="${oneMovie.uid}">
       <div class="card bg-dark text-light shadow p-3 mb-5 rounded" style="width: 15rem;">
         <a href="/api/products/${data.uid}"}>
-          <img src=${data.thumbnail == 'N/C'?`https://placedog.net/200/30${num}`:"./img/"+data.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
+          <img src=${data.thumbnail == 'N/C'?`https://placedog.net/20${num2}/30${num}`:"./img/"+data.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
         </a>
         <div class="card-body">
           <h5 class="card-title">${data.title}</h5>
           <div class="container" data-product-id="${oneMovie.uid}">
-            <button class="btn btn-danger delete_product"><i class="bi bi-trash3"></i> Delete</button>
+            <button class="btn btn-danger delete_product"><i class="bi bi-trash3 p-2 m-2"></i> Delete</button>
           </div>
         </div>
       </div>

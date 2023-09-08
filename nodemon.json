@@ -1,3 +1,4 @@
 {
-  "ignore": ["./db/**"]
+  "ignore": ["./db/**"],
+  "ext": "js,mjs,cjs,json,handlebars,hbs"
 }

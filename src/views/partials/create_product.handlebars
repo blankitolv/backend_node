@@ -1,0 +1,54 @@
+{{!-- 
+    "title": "El hombre bicentenario",
+    "description": "La película \"El Hombre Bicentenario\" es una adaptación de la novela de ciencia ficción escrita por Isaac Asimov. La trama se centra en Andrew Martin, un robot doméstico interpretado por Robin Williams, que a lo largo de los años desarrolla una conciencia y deseos de convertirse en humano. A medida que transcurren los años, Andrew busca la manera de alcanzar su deseo de convertirse en un ser humano de verdad, lo que lo lleva a un viaje emocional y existencial. La película aborda temas profundos sobre la humanidad, la identidad y la búsqueda de la felicidad a lo largo de la vida de Andrew. Es una historia conmovedora que explora la evolución de un robot en busca de su propia humanidad.\n\n\n\n",
+    "code": "7793535352",
+    "price": 53,
+    "stock": 12,
+    "category": "Ciencia ficción",
+    "thumbnail": [
+      "/img-1693785915816"
+    ],
+ --}}
+ <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-8 col-xl-6 col-xs-12">
+      <div class="container">
+        <form method="POST" action="/api/products" enctype="application/x-www-form-urlencoded" class="m-3">
+          <div class="mb-2">
+            <label for="title" class="form-label">Name</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="ex: Back to the future Part I">
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text">Synopsis</span>
+            <textarea class="form-control" id="description" name="description" style="resize:none;" rows="10" aria-label="With textarea" placeholder="'Back to the Future' es la primera película de la famosa trilogía. La película sigue la historia de Marty McFly, un adolescente..."></textarea>
+          </div>
+          <div class="mb-2">
+            <label for="code_new_product" class="form-label">Code </label>
+            <input type="text" class="form-control" id="code" name="code" placeholder="77978785">
+          </div>
+          <div class="mb-2 input-group ">
+            <label for="price" class="form-label">Price </label>
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" >$</span>
+              <input type="number" class="form-control" placeholder="445.00" id="price" name="price" aria-label="movie price" aria-describedby="price">
+            </div>
+          </div>
+          <div class="mb-2">
+            <label for="stock" class="form-label">Stock </label>
+            <input type="number" class="form-control" id="stock" name="stock" placeholder="150">
+          </div>
+          <div class="mb-2">
+            <label for="category" class="form-label">Category </label>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Ciencia Ficción">
+          </div>
+          <div class="mb-3 input-group ">
+            <input type="file" class="form-control" id="img" name="img" multiple>
+            <label class="input-group-text" for="img">Upload</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+ </div>

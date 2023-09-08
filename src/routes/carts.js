@@ -10,7 +10,7 @@ const Cart = new CartManager();
 // crea un carrito de compras, recibe un arreglo de productos
 router.post('/',async(req,res)=>{
   // inicia el sistema de respuestas
-  const r = new Response();
+  const r = new Response(req.headers.referer || '');
 
   // take body of request
   const raw_array_data = req.body;
@@ -87,7 +87,7 @@ router.post('/',async(req,res)=>{
 
 // recibe un id de carrito y retorna un arreglo de productos con cantidades
 router.get('/:cid', async(req,res)=>{
-  const r = new Response();
+  const r = new Response(req.headers.referer || '');
   const { cid } = req.params;
   const icid = parseInt(cid);
   
@@ -148,7 +148,7 @@ router.get('/:cid', async(req,res)=>{
 /* recibe un id de carrito y un id de producto e incorpora ese producto al carrito 
 y de existir lo suma */
 router.post('/:cid/product/:pid', async(req,res)=>{
-  const r = new Response();
+  const r = new Response(req.headers.referer || '');
   const { cid, pid } = req.params;
   const icid = parseInt(cid);
   const pcid = parseInt(pid);

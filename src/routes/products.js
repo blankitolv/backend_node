@@ -6,10 +6,15 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs'
+
+import { socketServer } from '../app.js'
+
 const router = Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// post ok: { continue: true, content: { message: ' Producto cargado ', id: 36 } }
 
 // si el producto es eliminado o actualizado con imagenes, el archivo anterior se borra
 // luego de 3 segundos para poder ser visualizado, posteriormente se va a eliminar el tiempo
@@ -46,7 +51,7 @@ const productM = new ProductManager();
 // solicita productos del sistema [verificado]
 router.get('/', async(req,res)=>{
   // creo una instancia de mi sistema de respuesta
-  let r = new Response()
+  const r = new Response(req.headers.referer || '');
 
   // solicito todos los productos
   let productos = await productM.getProducts()
@@ -63,7 +68,7 @@ router.get('/', async(req,res)=>{
       const limit = parseInt(req.query.limit)
       productos = productos.slice(0,limit)
     } else {
-      res.status(400).json(r.badRequest());
+      res.status(400).json(r.badRequest(res,));
       return
     }
   }
@@ -75,7 +80,7 @@ router.get('/', async(req,res)=>{
 // solicita un producto por numero de id [verificado]
 router.get('/:pid', async(req,res)=>{
   // creo una instancia de mi sistema de respuesta
-  let r = new Response()  
+  const r = new Response(req.headers.referer || '');
   
   // parseo el id de param para validar tipo de dato
   const pid = parseInt(req.params.pid);
@@ -83,7 +88,7 @@ router.get('/:pid', async(req,res)=>{
   // valido que sea un número y que sea mayor o igual a 0
   // console.log("isNaN", isNaN(pid))
   if (pid<=0 || isNaN(pid) ){
-    res.status(400).json(r.badRequest());
+    res.status(400).json(r.badRequest(res,));
     return
   }
   
@@ -110,19 +115,20 @@ router.get('/:pid', async(req,res)=>{
 // img es el nombre que tiene en el formulario html
 router.post('/', upload.array("img",7), async (req,res)=>{
   // creo una instancia de mi sistema de respuesta
-  const r = new Response()
+  const r = new Response(req.headers.referer || '');
+  console.log ("referido: ",r.ref);
+  console.log ("head: ",req.headers)
 
+  console.log ('product.js post: req:',req.body)
   // convierto en una variable el body del request
   const product = req.body
   product.price = Number(product.price)
   product.stock = parseInt(product.stock)
   // valido que tenga o no imagenes asociadas en el request
   if (req.files) {
-
     // genero una variable auxiliar que contendrá los path de los thumbnails
     const auxiliar = []
     for (const element of req.files){
-
       
       // valido que el peso sea menor que 4096 (discutible, debe haber otra forma)
       if ((element.size / 1024)>4096){
@@ -131,7 +137,8 @@ router.post('/', upload.array("img",7), async (req,res)=>{
         await deleteFiles([element.filename])
         
         // retorno bad request
-        res.status(400).json(r.badRequest("Tamaño máximo del archivo es 4Mb"));
+        res.status(400).json(r.badRequest(res,"Tamaño máximo del archivo es 4Mb"));
+        // res.redirect('/badRequest')
         return
       }
       // si pasó la validación, lo agrego al arreglo auxiliar
@@ -143,11 +150,24 @@ router.post('/', upload.array("img",7), async (req,res)=>{
       product.thumbnail = auxiliar
     }
   }
+
   
   // si product no está asignado, le asigno "N/C" (no contiene) al producto
   if (product.thumbnail == undefined ){
     product.thumbnail = "N/C"
   }
+
+  // valido que los campos obligatorios se encuentren presentes
+  if ( !product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
+    console.log (product)
+    if (product.thumbnail != "N/C"){
+      await deleteFiles(product.thumbnail)
+    }
+    r.badRequest(res, "Existen campos vacíos o no válidos")
+    // r.badRequest(res, "Existen campos vacíos o no válidos")
+    return
+  }
+
 
   // elimino los espacios en las palabras y valido valores iguales a 0
   // en caso de error, si tiene elementos cargados, los borra y retorna un 400
@@ -157,18 +177,10 @@ router.post('/', upload.array("img",7), async (req,res)=>{
       await deleteFiles(product.thumbnail)
     }
     console.log (product)
-    res.status(400).json(r.badRequest("Existen campos vacíos o no válidos"));
+    r.badRequest(res,"Existen campos vacíos o no válidos");
     return
   }
 
-
-  // valido que los campos obligatorios se encuentren presentes
-  if ( !product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
-    console.log (product)
-    await deleteFiles(product.thumbnail)
-    res.status(400).json(r.badRequest("Todos los campos son requeridos"));
-    return
-  }
 
 
   // le asigno un valor = true a status, doy por sentado que se crean productos con status true
@@ -182,16 +194,23 @@ router.post('/', upload.array("img",7), async (req,res)=>{
   if (!ok.continue) {
     return
   }
+  console.log ("post product.js ok:",ok)
+  console.log ("post product.js response:",response)
+  product.uid = response.id;
+
+  socketServer.sockets.emit('new_products', product);
 
   // caso contrario retorna un 200 con el producto cargado y un mensaje acorde
-  res.status(200).json(r.ok(ok.content.message))
+  // res.status(200).json(r.ok(ok.content.message));
+  res.status(200);
+  res.redirect(r.ref);
 
 })
 
 
 // actualización de un producto
 router.put('/:pid', upload.array("img",7),async(req,res)=>{
-  const r = new Response()
+  const r = new Response(req.headers.referer || '');
 
   // convierto en una variable el contenido del body del request
   const product = req.body
@@ -204,7 +223,7 @@ router.put('/:pid', upload.array("img",7),async(req,res)=>{
     for (const element of req.files){
       if ((element.size / 1024)>4096){
         await deleteFiles([element.filename])
-        res.status(400).json(r.badRequest("Tamaño máximo del archivo es 4Mb"));
+        res.status(400).json(r.badRequest(res,"Tamaño máximo del archivo es 4Mb"));
         return
       }
       product.thumbnail.push("/"+element.filename)
@@ -219,7 +238,7 @@ router.put('/:pid', upload.array("img",7),async(req,res)=>{
   
   // se valida que el id del producto luego de ser parseado no es un numero
   if (isNaN(product.uid)){
-    res.status(400).json(r.badRequest("Todos los campos son requeridos"));
+    res.status(400).json(r.badRequest(res,"Todos los campos son requeridos"));
     return
   }
 
@@ -228,7 +247,7 @@ router.put('/:pid', upload.array("img",7),async(req,res)=>{
   // y retorna con un error 400
   if (product.uid <= 0 ) {
     await deleteFiles(product.thumbnail)
-    res.status(400).json(r.badRequest("Error en el id de producto"));
+    res.status(400).json(r.badRequest(res,"Error en el id de producto"));
     return
   }
 
@@ -237,7 +256,7 @@ router.put('/:pid', upload.array("img",7),async(req,res)=>{
     if (req.files.length > 0) {
       await deleteFiles(product.thumbnail)
     }
-    res.status(400).json(r.badRequest("Existen campos vacíos o no válidos"));
+    res.status(400).json(r.badRequest(res, "Existen campos vacíos o no válidos"));
     return
   }
 
@@ -246,7 +265,7 @@ router.put('/:pid', upload.array("img",7),async(req,res)=>{
     if (req.files.length > 0) {
       await deleteFiles(product.thumbnail)
     }
-    res.status(400).json(r.badRequest("Todos los campos son requeridos"));
+    res.status(400).json(r.badRequest(res,res,"Todos los campos son requeridos"));
     return
   }
 
@@ -267,20 +286,21 @@ router.put('/:pid', upload.array("img",7),async(req,res)=>{
 
 // eliminar un producto
 router.delete('/:pid', async(req,res)=>{
+  console.log ("se va a borrar un producto")
   // genero una instancia de mi clase de respuesta al front
-  const r = new Response()
+  const r = new Response(req.headers.referer || '');
 
   // tomo id que se quiere eliminar desde el url y se hacen validaciones
   const { pid } = req.params
   const pid_int = parseInt(pid)
   if (isNaN(pid_int)){
-    res.status(400).json(r.badRequest("error en id, solo se aceptan numeros"));
+    r.badRequest(res,"error en id, solo se aceptan numeros");
     return
   }
 
   // se valida el id no sea negativo ni igual a 0
   if (pid_int <= 0  ){
-    res.status(400).json(r.badRequest("error en id f2"));
+    r.badRequest(res,"error en id f2");
     return
   }
 
@@ -308,6 +328,7 @@ router.delete('/:pid', async(req,res)=>{
   }
 
   // si llego hasta acá se hace una respuesta acorde y se retorna un 200
+  socketServer.sockets.emit('del_product', {uid:pid_int});
   res.status(200).json(r.ok(response.message));
 })
 

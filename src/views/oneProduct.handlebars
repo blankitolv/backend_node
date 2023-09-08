@@ -1,0 +1,16 @@
+<div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
+  <div class="row row-cols-4 g-3">
+      <div class="col">
+          <div class="card" style="width: 15rem;">
+            {{!-- <img src="..." class="card-img-top" alt="..."> --}}
+            <a href={{concat "/api/products/" this.uid}}>
+              <img src={{isNC this.thumbnail}} class="card-img-top" alt="poster pelicula"/>
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{this.title}} {{@index}}</h5>
+              <a href="#" class="btn btn-primary">un botón</a>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

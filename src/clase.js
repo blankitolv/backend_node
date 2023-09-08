@@ -66,7 +66,6 @@ export class ProductManager {
       let db_aux = []
       let uid
       delete newProduct.img
-      console.log ("clase: thumb:",newProduct.thumbnail)
       // se trae el archivo
       try {
         const res = await fs.promises.readFile(this.path,"utf8")
@@ -96,7 +95,7 @@ export class ProductManager {
         // se guarda el documento
         try {
           await fs.promises.writeFile(this.path,JSON.stringify(db_aux,null,2))
-          return ( { message:" Producto cargado " } )
+          return ( { message:" Producto cargado ", id:uid } )
         } catch (err) {
           return { error: "Error escribiendo el archivo", internalServerError: err.message}
         }
@@ -122,6 +121,9 @@ export class ProductManager {
         console.log(error);
         return { error: "Ooops, ocurrió un error"}
       })
+    aux.forEach(element => {
+      element.description = element.description.slice(0, 150)+"...";
+    });
     return aux
   }
 

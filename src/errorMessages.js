@@ -1,15 +1,12 @@
 class Response {
-  constructor() {
-    this.msg = ""
-    this.status = 0
-    this.content
+  constructor(ref) {
+    this.ref=ref
   }
   
-  badRequest(msg="Bad request"){
-    this.msg = msg
-    this.status = "400"
-    this.content = {}
+  badRequest(res, msg="Bad request"){
     console.log ("BAD REQUEST\n")
+    const errorMessage = encodeURIComponent(msg);
+    res.redirect(`/badRequest?message=${errorMessage}`)
     return this
   }
   
@@ -49,10 +46,10 @@ class Response {
   // Envia estado, y mensaje personalizado
   handler_message(res, response){
     if (response.badRequest) {
-      res.status(400).send(this.badRequest(response.badRequest))
+      res.status(400).send(res, this.badRequest(response.badRequest))
       return { continue: false, content:"" }
     } else if (response.error) {
-      res.status(500).send(this.internalServerError(response.error))
+      res.status(500).send(res, this.internalServerError(response.error))
       return { continue: false, content:"" }
     } else {
       return { continue: true, content:response }

@@ -1,0 +1,18 @@
+<div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
+  <div class="row row-cols-xs-2 row-cols-lg-4 row-cols-sm-2 row-cols-md-3 g-3">
+    {{#each product}}
+      <div class="col">
+          <div class="card bg-dark text-light shadow p-3 mb-5 rounded" style="width: 15rem;">
+            {{!-- <img src="..." class="card-img-top" alt="..."> --}}
+            <a href={{concat "/api/products/" this.uid}}>
+              <img src={{isNC this.thumbnail}} class="card-img-top" alt="poster pelicula"/>
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{this.title}}</h5>
+              <a href="#" class="btn btn-primary">un botón <i class="bi bi-apple"></i> </a>
+            </div>
+          </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

@@ -66,20 +66,19 @@ socketServer.on("connection",async socket =>{
 
 // WEBSOCKET AND MOUNTING HTTP SERVER
 
-
-
-// Cambia la configuración de Handlebars así:
+// agrego nuevas funcionalidades a handlebars
 const hbs = handlebars.create({
-  // Otras configuraciones de Handlebars
+  // isNC si tiene imagen la retorna y sino retorna una ficticia
   helpers: {
     isNC: function (value) {
       const numeroRandom = Math.floor(Math.random() * 8) + 1;
-      return value === 'N/C' ? `https://placedog.net/200/30${numeroRandom}` : './img/'+value
+      const numeroRandom2 = Math.floor(Math.random() * 8) + 1;
+      return value === 'N/C' ? `https://placedog.net/20${numeroRandom2}/30${numeroRandom}` : './img/'+value
     },
+  // concatena dos palabras y las retorna
     concat: function (val1, val2){
       return `${val1}${val2}`;
     }
-    // Agrega más helpers si es necesario
   },
 });
 
@@ -90,7 +89,6 @@ app.set('views',path.join(__dirname,'views'));
 
 app.set('view engine', 'handlebars')
 
-console.log ("--->: ",path.join(__dirname,'public'))
 app.use(express.static(path.join(__dirname,'public')))
 
 
@@ -100,15 +98,3 @@ app.use('/', viewRouter);
 app.use('/api/products',routerProducts);
 
 app.use('/api/carts',routerCarts);
-
-// app.use('*',(req,res)=>{
-//   console.log("no existe el url")
-// })
-
-
-// app.listen(PORT,()=>{
-//   console.log ("Creando y abriendo archivos necesarios...")
-//   setTimeout(()=>{
-//     console.log (`Listening on port: ${PORT}\n`)
-//   },1000)
-// })

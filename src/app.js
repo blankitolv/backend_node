@@ -41,14 +41,17 @@ export const socketServer = new Server(httpServer);
 socketServer.on("connection",async socket =>{
   console.log ("nuevo usuario conectado: ",socket.id)
 
+  // se genera desde el method POST product.js
   socket.on("new_products", data => {
     socket.emit('new_products',data);
   })
-
+  
+  // se genera desde el method DELETE product.js
   socket.on("del_product", data => {
     socket.emit('del_product',data);
   })
 
+  // se llama desde public script.js 
   socket.on("message",async data => {
     console.log("se recibió mensaje: ",data)
     switch (data){

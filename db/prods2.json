@@ -266,5 +266,38 @@
     ],
     "status": true,
     "uid": 30
+  },
+  {
+    "title": "El hombre bicentenario",
+    "description": "La película \"El Hombre Bicentenario\" es una adaptación de la novela de ciencia ficción escrita por Isaac Asimov. La trama se centra en Andrew Martin, un robot doméstico interpretado por Robin Williams, que a lo largo de los años desarrolla una conciencia y deseos de convertirse en humano. A medida que transcurren los años, Andrew busca la manera de alcanzar su deseo de convertirse en un ser humano de verdad, lo que lo lleva a un viaje emocional y existencial. La película aborda temas profundos sobre la humanidad, la identidad y la búsqueda de la felicidad a lo largo de la vida de Andrew. Es una historia conmovedora que explora la evolución de un robot en busca de su propia humanidad.\n\n\n\n",
+    "code": "7793535435212",
+    "price": 53,
+    "stock": 12,
+    "category": "Ciencia ficción",
+    "thumbnail": "N/C",
+    "status": true,
+    "uid": 31
+  },
+  {
+    "title": "asdasd",
+    "description": "asdasd",
+    "code": "123",
+    "price": 12312,
+    "stock": 123123,
+    "category": "asdasd",
+    "thumbnail": "N/C",
+    "status": true,
+    "uid": 32
+  },
+  {
+    "title": "asdasd",
+    "description": "asdas",
+    "code": "asdasd",
+    "price": 213123,
+    "stock": 123123,
+    "category": "asdasd",
+    "thumbnail": "N/C",
+    "status": true,
+    "uid": 33
   }
 ]

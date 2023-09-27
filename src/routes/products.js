@@ -203,7 +203,8 @@ router.post('/', upload.array("img",7), async (req,res)=>{
   // caso contrario retorna un 200 con el producto cargado y un mensaje acorde
   // res.status(200).json(r.ok(ok.content.message));
   res.status(200);
-  res.redirect(r.ref);
+  res.send();
+  // res.redirect(r.ref);
 
 })
 

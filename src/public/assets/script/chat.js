@@ -41,6 +41,15 @@ user_email_btn.addEventListener("click", async() => {
   console.log(user_email);
 });
 
+const func_send_msg = () => {
+  const mensaje = document.getElementById("text_msg").value.trim();
+  if (mensaje == "") {
+    return;
+  }
+  document.getElementById("text_msg").value = "";
+  socket.emit("new_messagev2", mensaje);
+}
+
 socket.on("logued", async (data) => {
   try {
     const response = JSON.parse(data);
@@ -48,14 +57,16 @@ socket.on("logued", async (data) => {
     if (response.status !== "success") {
       return;
     }
-    document.getElementById('chat_container').removeAttribute('hidden');
+    const chat_container = document.getElementById('chat_container');
+    chat_container.removeAttribute('hidden');
+    chat_container.classList.add("animate__zoomIn");
+    
     user = response.user;
-    socket.emit("all_messages", {});
 
+    socket.emit("all_messages", {});
     let userId = document.getElementById("user");
     document.getElementById("title").innerHTML = user.username;
-    // userId.setAttribute('hidden', 'true');
-    userId.classList.add("animate__bounceOut");
+    // userId.classList.add("animate__bounceOut");
     setTimeout(() => {
       userId.setAttribute("hidden", "true");
       document
@@ -64,24 +75,23 @@ socket.on("logued", async (data) => {
       document.getElementById("message_box").classList.add("animate__fadeIn");
     }, 1000);
     const send_msg = document.getElementById("send_msg");
-    send_msg.addEventListener("click", (e) => {
-      e.preventDefault();
-      const mensaje = document.getElementById("text_msg").value.trim();
-      if (mensaje == "") {
-        return;
+    send_msg.addEventListener("click", func_send_msg)
+    document.getElementById("text_msg").addEventListener('keydown', (e)=>{
+      if (e.key === "Enter" || e.key === "Return") {
+        func_send_msg()
       }
-      document.getElementById("text_msg").value = "";
-      socket.emit("new_messagev2", mensaje);
     });
   } catch (error) {
     console.error("Error al analizar JSON:", error);
   }
 });
+
 socket.on("new_message_recibed", (data) => {
   console.log("servidor envio mensaje nuevo un usuario ", tiempo());
   const new_message = JSON.parse(data);
   inserta_mensage([new_message]);
 });
+
 socket.on("historic_room_message", (data) => {
   const all_messages = JSON.parse(data);
   inserta_mensage(all_messages);
@@ -95,6 +105,7 @@ const gotoend = () => {
 
 const inserta_mensage = (all_messages) => {
   all_messages.forEach((element) => {
+
     let user_message = "";
     let bgcolor = "";
     if (element.username === user.username) {
@@ -102,7 +113,7 @@ const inserta_mensage = (all_messages) => {
       user_message = "Yo";
     } else {
       alineacion = "text-start";
-      user_message = element.username;
+      user_message = element.username.split('@')[0];
     }
 
     let table_row = document.createElement("tr");
@@ -110,14 +121,17 @@ const inserta_mensage = (all_messages) => {
     table_row.classList.add("animate__fadeIn");
     table_row.classList.add("border");
     table_row.classList.add("rounded");
+    table_row.classList.add("align-middle");
     table_row.innerHTML = `
-    <td class="fs-6 text-wrap" style="width: 10%;"> ${user_message}</td>
+    <td class="fs-6 text-wrap " style="width: 10%;"> ${user_message}</td>
     <td colspan="3" class="${alineacion} text-wrap fs-5 ${user_message == "Yo" ? 'text-info' : ''}"> ${element.message}<td>
-    <td class="text-end fw-lighter font-monospace fs-6" style="width: 5%;"> ${element.timestamp} </td>
+    <td class="text-end fw-lighter font-monospace" style="font-size:12px;"> ${element.timestamp.split('T')[0]} </td>
   `;
     const box_chat = document.getElementById("box_messages_chat").appendChild(table_row);
     gotoend();
   });
+  play_sound("message");
+
 };
 
 const chat_notification = (message, icon) => {
@@ -135,6 +149,8 @@ socket.on("userLogged", (data) => {
   }
   const userConnected = JSON.parse(data);
   chat_notification(`se unió al chat ${userConnected.data}`, "🙋🏼");
+  play_sound("signin");
+  
 });
 
 socket.on("userDisconnected", (data) => {
@@ -142,4 +158,10 @@ socket.on("userDisconnected", (data) => {
     return;
   }
   chat_notification(`se desconectó del chat ${data.username}`, "🤷🏼");
+  play_sound("logout");
 });
+
+const play_sound = (id) => {
+  const notificationSound = document.getElementById(id);
+  notificationSound.play();
+}

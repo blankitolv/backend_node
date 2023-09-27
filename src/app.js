@@ -61,6 +61,7 @@ socketServer.on("connection",async socket =>{
 
   // se genera desde el method POST product.js
   socket.on("new_products", data => {
+    console.log("EMITE MENSAJE DE ACTUALIZACION DE PRODUCTO")
     socket.emit('new_products',data);
   })
 

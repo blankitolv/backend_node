@@ -235,7 +235,7 @@ router.post("/", upload.array("img", 7), async (req, res) => {
   // product.uid = response.id;
 
   // socketServer.sockets.emit('new_products', product);
-
+  
   // caso contrario retorna un 200 con el producto cargado y un mensaje acorde
   // res.status(200).json(r.ok(ok.content.message));
   try {
@@ -248,9 +248,11 @@ router.post("/", upload.array("img", 7), async (req, res) => {
       category,
       thumbnail: thumb_auxiliar
     });
+    socketServer.sockets.emit('new_products', resp);
     res.status(200).json({ status: "ok", payload: resp });
   } catch (error) {
     temp_image && thumb_auxiliar.length != 0 ? await deleteFiles(thumb_auxiliar) : false;
+    console.log(error)
     res.status(500).json({ status: error, error: error.message });
   }
   // res.redirect(r.ref);
@@ -408,7 +410,8 @@ router.delete("/:id", async (req, res) => {
   // borra el producto
   try {
     const response = await pm.delete(id);
-    response.thumbnail.length != 0 ? await deleteFiles(thumb_auxiliar) : false;
+    console.log ("SE RETORNO: ",response);
+    response.thumbnail.length != 0 ? await deleteFiles(response.thumbnail) : false;
     socketServer.sockets.emit("del_product", { uid: id });
     res.status(200).json({ status:"success", payload: response });
     return

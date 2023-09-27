@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ProductManager }  from '../clase.js'
-import { CartManager }  from '../clase.js'
+import { ProductManager }  from '../dao/fsmanager/clase.js'
+import { CartManager }  from '../dao/fsmanager/clase.js'
 import Response from '../errorMessages.js'
 import multer from 'multer';
 import { fileURLToPath } from 'url';

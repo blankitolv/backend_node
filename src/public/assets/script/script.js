@@ -19,6 +19,7 @@ const addProducts = async (data) =>{
   if (res.length==0) {
     return
   }
+  console.log (data)
 
   // agrega los productos al dom
   const app = document.getElementById('realtime_list_products')
@@ -33,7 +34,7 @@ const addProducts = async (data) =>{
         <div class="col col_product d-flex align-items-stretch" data-product-id="${oneMovie.uid}">
             <div class="card bg-dark text-light shadow p-3 mb-5 rounded" style="width: 15rem;">
               <a href="/api/products/${oneMovie.uid}"}>
-                <img src=${oneMovie.thumbnail == 'N/C'?`https://placedog.net/20${num2}/30${num}`:"./img/"+oneMovie.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
+                <img src=${oneMovie.thumbnail.length == 0 ?`https://placedog.net/20${num2}/30${num}`:"./img/"+oneMovie.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
               </a>
               <div class="card-body">
                 <h5 class="card-title">${oneMovie.title}</h5>

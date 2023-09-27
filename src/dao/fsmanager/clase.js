@@ -15,7 +15,7 @@ r: un posible error y mensaje
 */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log (path.join(__dirname,"../db/prods2.json"))
+console.log (path.join(__dirname,"../../../db/prods2.json"))
 
 const notDuplicatedCode = (code, products) =>{
   // console.log (code, products)
@@ -30,7 +30,7 @@ const notDuplicatedCode = (code, products) =>{
 
 export class ProductManager {
   constructor() {
-    this.path = path.join(__dirname,"../db/prods2.json")
+    this.path = path.join(__dirname,"../../../db/prods2.json")
     // si el archivo no existe, lo genera cómo array vacío.
     if (!fs.existsSync(this.path)){
       let empty_array = []
@@ -326,7 +326,7 @@ export class ProductManager {
 // carrito de compras
 export class CartManager {
   constructor() {
-    this.path = path.join(__dirname,"../db/carts.json")
+    this.path = path.join(__dirname,"../../../db/carts.json")
     // si el archivo no existe, lo genera cómo array vacío.
     if (!fs.existsSync(this.path)){
       let empty_array = []

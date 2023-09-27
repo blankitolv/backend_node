@@ -1,16 +1,29 @@
 import { Router } from 'express';
-import { ProductManager } from '../clase.js';
+import { ProductManager } from '../dao/fsmanager/clase.js';
+import pManager from '../dao/bdmanager/products.manager.js';
 const router = Router();
 
 
 // todos los productos (classic)
+const pm = new pManager();
 router.get('/', async (req,res)=>{
 
+  /* // codigo anterior
   const product = new ProductManager();
 
   const all_products = await product.getProducts();
   res.render('products',{product: all_products})
+  */ // codigo anterior
+  try {
+    const resp = await pm.getAll();
+    res.render('products',{product: resp})
+    console.log (resp)
+  } catch (error) {
+    console.log ("ERROR SOLICITANDO TODOS LOS PRODUCTOS MONGO (views)",error)
+  }
 });
+
+
 router.get('/realtime', async (req,res)=>{
   res.render('realtime',{})
 });
@@ -47,6 +60,11 @@ router.get('/badrequest', (req,res)=>{
 router.get('/internalServerError', (req,res)=>{
   const errorMessage = req.query.message || '';
   res.status(500).render('internalServerError', { layout:'secondary', errorMessage })
+});
+// vista generada pero no implementada para 500
+router.get('/chat', (req,res)=>{
+  const errorMessage = req.query.message || '';
+  res.status(500).render('chat', {})
 });
 
 export default router;

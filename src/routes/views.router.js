@@ -61,10 +61,11 @@ router.get('/internalServerError', (req,res)=>{
   const errorMessage = req.query.message || '';
   res.status(500).render('internalServerError', { layout:'secondary', errorMessage })
 });
+
 // vista generada pero no implementada para 500
 router.get('/chat', (req,res)=>{
   const errorMessage = req.query.message || '';
-  res.status(500).render('chat', {})
+  res.status(200).render('chat', {})
 });
 
 export default router;

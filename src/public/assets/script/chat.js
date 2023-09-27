@@ -1,4 +1,8 @@
 const socket = io();
+// document.addEventListener("DOMContentLoaded", function() {
+//   console.log("se cargo el dom")
+// })
+
 let user = {};
 
 const tiempo = () => {
@@ -8,6 +12,7 @@ const tiempo = () => {
   const segundosActuales = fechaActual.getSeconds();
   return `${horaActual}:${minutosActuales}:${segundosActuales}`;
 };
+
 const expresion_email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
@@ -21,7 +26,6 @@ const popup_email = async() => {
   
   if (email) {
     user_email = email;
-    // Swal.fire(`Entered email: ${email}`)
   }
 }
 
@@ -44,6 +48,7 @@ socket.on("logued", async (data) => {
     if (response.status !== "success") {
       return;
     }
+    document.getElementById('chat_container').removeAttribute('hidden');
     user = response.user;
     socket.emit("all_messages", {});
 
@@ -94,7 +99,7 @@ const inserta_mensage = (all_messages) => {
     let bgcolor = "";
     if (element.username === user.username) {
       alineacion = "text-end ps-2";
-      user_message = "yo";
+      user_message = "Yo";
     } else {
       alineacion = "text-start";
       user_message = element.username;
@@ -107,7 +112,7 @@ const inserta_mensage = (all_messages) => {
     table_row.classList.add("rounded");
     table_row.innerHTML = `
     <td class="fs-6 text-wrap" style="width: 10%;"> ${user_message}</td>
-    <td class="${alineacion} text-wrap fs-5"> ${element.message}<td>
+    <td colspan="3" class="${alineacion} text-wrap fs-5 ${user_message == "Yo" ? 'text-info' : ''}"> ${element.message}<td>
     <td class="text-end fw-lighter font-monospace fs-6" style="width: 5%;"> ${element.timestamp} </td>
   `;
     const box_chat = document.getElementById("box_messages_chat").appendChild(table_row);
@@ -118,7 +123,7 @@ const inserta_mensage = (all_messages) => {
 const chat_notification = (message, icon) => {
   let table_row = document.createElement("tr");
   table_row.innerHTML = `
-  <td colspan="4" class="text-center text-primary fw-light fs-6"> ${message} ${icon} </td>
+  <td colspan="6" class="text-center text-primary fw-light fs-6"> ${message} ${icon} </td>
   `;
   document.getElementById("box_messages_chat").appendChild(table_row);
   gotoend();

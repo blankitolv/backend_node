@@ -71,14 +71,18 @@ socketServer.on("connection",async socket =>{
       status ="error";
     }
     const expresion = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/;
+
     if (!expresion.test(data)){
       status="error";
     }
+
     if (status=="error") {
       socket.emit('logued', JSON.stringify({status}))
       return
     }
+
     users.push({conn:socket.id, username: data})
+    
     socket.emit('logued', JSON.stringify(
       {
         status: 'success',

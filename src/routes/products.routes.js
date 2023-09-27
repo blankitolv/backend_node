@@ -100,11 +100,8 @@ router.get("/:id", async (req, res) => {
 
 // img es el nombre que tiene en el formulario html
 router.post("/", upload.array("img", 7), async (req, res) => {
-  // console.log ('product.js post: req:',req.body)
   // convierto en una variable el body del request
   const { title, description, code, price, stock, category } = req.body;
-
-
 
   // variable auxiliar que contendrá los path de los thumbnails
   const thumb_auxiliar = [];
@@ -134,22 +131,6 @@ router.post("/", upload.array("img", 7), async (req, res) => {
     res.status(400).json({ status: "error", message:"bad request" });
     return
   }
-
-  // si product no está asignado, le asigno "N/C" (no contiene) al producto
-  // if (product.thumbnail == undefined ){
-  //   product.thumbnail = "N/C"
-  // }
-
-  // valido que los campos obligatorios se encuentren presentes
-  // if ( !product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
-  // console.log (product)
-  // if (product.thumbnail != "N/C"){
-  //   await deleteFiles(thumb_auxiliar)
-  // }
-  // r.badRequest(res, "Existen campos vacíos o no válidos")
-  // r.badRequest(res, "Existen campos vacíos o no válidos")
-
-  // }
 
   // elimino los espacios en las palabras y valido valores iguales a 0
   // en caso de error, si tiene elementos cargados, los borra y retorna un 400

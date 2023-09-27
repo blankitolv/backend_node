@@ -97,15 +97,24 @@ socketServer.on("connection",async socket =>{
     socket.broadcast.emit("userLogged",JSON.stringify({data}))
   })
 
+
+
   socket.on('disconnect', () => {
     const user_disconected = users.filter(user => user.conn == socket.id)
+
+
     if (user_disconected.length == 0) {
       return
     }
 
     socketServer.emit('userDisconnected', user_disconected[0])
-    users = users.filter(oneUser => { oneUser.conn == socket.id})
+    users = users.filter(oneUser => oneUser.conn !== user_disconected[0].conn);
   })
+
+
+
+
+
 
   socket.on("new_messagev2", data =>{
     console.log (socket.id, "envió el mensaje: ",data);

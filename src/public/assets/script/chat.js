@@ -165,3 +165,7 @@ const play_sound = (id) => {
   const notificationSound = document.getElementById(id);
   notificationSound.play();
 }
+
+socket.on("disconnect", () => {
+  console.log("DESCONECTADO"); // undefined
+});

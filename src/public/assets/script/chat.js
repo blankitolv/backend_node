@@ -105,7 +105,6 @@ const gotoend = () => {
 
 const inserta_mensage = (all_messages) => {
   all_messages.forEach((element) => {
-
     let user_message = "";
     let bgcolor = "";
     if (element.username === user.username) {
@@ -123,15 +122,26 @@ const inserta_mensage = (all_messages) => {
     table_row.classList.add("rounded");
     table_row.classList.add("align-middle");
     table_row.innerHTML = `
-    <td class="fs-6 text-wrap " style="width: 10%;"> ${user_message}</td>
+    <td class="fs-6 text-wrap " style="width: 10%;"> 
+      ${user_message != "Yo" ? "<a href='#' class='zumbido'  data-user=\'"+element.username+"\' >" : ""}
+        ${user_message}
+      ${user_message != "Yo" ? "</a>": ""}
+
+    </td>
     <td colspan="3" class="${alineacion} text-wrap fs-5 ${user_message == "Yo" ? 'text-info' : ''}"> ${element.message}<td>
     <td class="text-end fw-lighter font-monospace" style="font-size:12px;"> ${element.timestamp.split('T')[0]} </td>
   `;
-    const box_chat = document.getElementById("box_messages_chat").appendChild(table_row);
+    document.getElementById("box_messages_chat").appendChild(table_row);
+    if (user_message != "Yo") {
+      const element_to_shake = document.querySelectorAll(`[data-user='${element.username}']`)
+      element_to_shake[element_to_shake.length-1].addEventListener('click',((e)=>{
+        const user_to_shake = e.target.dataset.user
+        socket.emit('shakeit',{socket_id:socket.id, user_to_shake})
+      }))
+    }
     gotoend();
   });
   play_sound("message");
-
 };
 
 const chat_notification = (message, icon) => {
@@ -169,3 +179,16 @@ const play_sound = (id) => {
 socket.on("disconnect", () => {
   console.log("DESCONECTADO"); // undefined
 });
+
+
+socket.on("shake_yourself", data =>{
+  const body = document.getElementsByTagName('body')[0]
+  play_sound('nudge');
+  body.classList.add('animate__tada');
+  setTimeout(()=>{
+    body.classList.remove('animate__tada');
+  },1000)
+  chat_notification(`${data.username} te envió un zumbido`, "( ( 😵‍💫 ) )" );
+
+  console.log("hay que mover el bote: ",data);
+})

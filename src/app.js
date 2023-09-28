@@ -148,6 +148,11 @@ socketServer.on("connection",async socket =>{
       console.log ("error solicitando y enviando historico de mensajes en bd")
     }
   })
+  socket.on("shakeit", data => {
+    console.log ("se quiere sacudir a alguien: ", data);
+    const shake_this = users.find((e) => e.username == data.user_to_shake);
+    socket.to(shake_this.conn).emit("shake_yourself",users.find((e) => e.conn == socket.id))
+  })
   
   // se genera desde el method DELETE product.js
   socket.on("del_product", data => {

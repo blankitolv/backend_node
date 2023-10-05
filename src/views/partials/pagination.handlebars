@@ -1,21 +1,47 @@
   <nav aria-label="Page navigation example navbar-dark  bg-dark">
-    <ul class="pagination  justify-content-center">
-      {{#if data.hasPrevPage}}
-      <li class="page-item"><a class="page-link" href="http://localhost:8080/?page={{data.prevPage}}" >Prev</a></li>
-      {{else}}
-      <li class="page-item disabled"><a class="page-link" href="#" >Prev</a></li>
-      {{/if}}
-      {{#each data.all_prev}}
-      <li class="page-item"><a class="page-link" href="http://localhost:8080/?page={{this}}">{{this}}</a></li>
-      {{/each}}
-      <li class="page-item active"><a class="page-link" href="http://localhost:8080/?page={{data.page}}">{{data.page}}</a></li>
-      {{#each data.all}}
-      <li class="page-item"><a class="page-link" href="http://localhost:8080/?page={{this}}">{{this}}</a></li>
-      {{/each}}
-      {{#if data.hasNextPage}}
-      <li class="page-item"><a class="page-link" href="http://localhost:8080/?page={{data.nextPage}}">Next</a></li>
-      {{else}}
-      <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-      {{/if}}
-    </ul>
+    <div class="container d-flex">
+      <ul class="pagination  justify-content-center">
+        {{#if data.hasPrevPage}}
+        <li class="page-item"><a class="page-link" href="{{data.back_url}}" >Prev</a></li>
+        {{!-- <li class="page-item"><a class="page-link" href="http://localhost:8080/?page={{data.prevPage}}" >Prev</a></li> --}}
+        {{else}}
+        <li class="page-item disabled"><a class="page-link" href="#" >Prev</a></li>
+        {{/if}}
+        {{#each data.all_prev}}
+        <li class="page-item"><a class="page-link" href="{{this.url}}">{{this.page}}</a></li>
+        {{/each}}
+        <li class="page-item active"><a class="page-link" href="http://localhost:8080/?page={{data.page}}">{{data.page}}</a></li>
+        {{#each data.all}}
+        <li class="page-item"><a class="page-link" href="{{this.url}}">{{this.page}}</a></li>
+        {{/each}}
+        {{#if data.hasNextPage}}
+        {{!-- <li class="page-item"><a class="page-link" href="http://localhost:8080/?page={{data.nextPage}}">Next</a></li> --}}
+        {{log data}}
+        <li class="page-item"><a class="page-link" href="{{data.next_url}}">Next</a></li>
+        {{else}}
+        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        {{/if}}
+      </ul>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Limit
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="?limit=5">5</a></li>
+          <li><a class="dropdown-item" href="?limit=25">25</a></li>
+          <li><a class="dropdown-item" href="?limit=50">50</a></li>
+          <li><a class="dropdown-item" href="?limit=100">100</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Limit
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="?sort=asc">asc</a></li>
+          <li><a class="dropdown-item" href="?sort=desc">desc</a></li>
+        </ul>
+      </div>
+
+    </div>
   </nav>

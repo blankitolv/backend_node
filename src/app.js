@@ -200,8 +200,8 @@ const hbs = handlebars.create({
   // isNC si tiene imagen la retorna y sino retorna una ficticia
   helpers: {
     isNC: function (value) {
-      console.log ("viajo: ",value)
-      console.log ("typeof: ",typeof value)
+      // console.log ("viajo: ",value)
+      // console.log ("typeof: ",typeof value)
       const numeroRandom = Math.floor(Math.random() * 8) + 1;
       const numeroRandom2 = Math.floor(Math.random() * 8) + 1;
       if (value== undefined) {

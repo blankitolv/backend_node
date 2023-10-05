@@ -10,77 +10,78 @@ const expresion = new RegExp("/[a-z0-9]+/");
 // todos los productos (classic)
 const pm = new pManager();
 router.get("/", async (req, res) => {
-  let limit;
-  let page;
-  req.query.limit != undefined
-    ? (limit = Number(req.query.limit))
-    : (limit = 10);
+  res.redirect('/products')
+  // let limit;
+  // let page;
+  // req.query.limit != undefined
+  //   ? (limit = Number(req.query.limit))
+  //   : (limit = 10);
 
-  req.query.page != undefined ? (page = Number(req.query.page)) : (page = 1);
+  // req.query.page != undefined ? (page = Number(req.query.page)) : (page = 1);
 
-  let query = {};
-  let options = { limit, page };
+  // let query = {};
+  // let options = { limit, page };
 
-  if (req.query.sort != undefined) {
-    options["sort"] = req.query.sort == "asc" ? 1 : -1;
-  }
-
-  if (req.query.category != undefined) {
-    query["category"] = req.query.category;
-  } else {
-    if (req.query.status != undefined) {
-      if (req.query.status == "true" || req.query.status == "false") {
-        query["status"] = req.query.status;
-      } else {
-        res.status(400).json({ status: "error", message: "Invalid url param" });
-      }
-    }
-  }
-  console.log("original: ", req.originalUrl);
-  // console.log(myFilters);
-  try {
-    let data = await pm.getAll(options, query);
-    if (data.payload == 0) {
-      throw new Error("length of products are zero");
-    }
-    // let myFilters = req.originalUrl.slice(2).split("&");
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-
-    // let newURL
-    // for (let i=0; i<= myFilters.length-1;i++){
-    //   if (data.hasPrevPage){
-
-    //   }
-    // }
-
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-    let all_prev = [];
-    for (let i=1; i< data.page; i++) {
-      all_prev.push(i)
-    }
-
-    let all = []
-    for (let i=(data.page+1); i<= data.totalPages; i++) {
-      all.push(i)
-    }
-    data.all_prev = all_prev;
-    data.all = all;
-    res.render("products", { data });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json();
-  }
-  // try {
-  //   const resp = await pm.getAll();
-  //   res.render('products',{product: resp})
-  //   console.log (resp)
-  // } catch (error) {
-  //   console.log ("ERROR SOLICITANDO TODOS LOS PRODUCTOS MONGO (views)",error)
+  // if (req.query.sort != undefined) {
+  //   options["sort"] = req.query.sort == "asc" ? 1 : -1;
   // }
+
+  // if (req.query.category != undefined) {
+  //   query["category"] = req.query.category;
+  // } else {
+  //   if (req.query.status != undefined) {
+  //     if (req.query.status == "true" || req.query.status == "false") {
+  //       query["status"] = req.query.status;
+  //     } else {
+  //       res.status(400).json({ status: "error", message: "Invalid url param" });
+  //     }
+  //   }
+  // }
+  // console.log("original: ", req.originalUrl);
+  // // console.log(myFilters);
+  // try {
+  //   let data = await pm.getAll(options, query);
+  //   if (data.payload == 0) {
+  //     throw new Error("length of products are zero");
+  //   }
+  //   // let myFilters = req.originalUrl.slice(2).split("&");
+  //   // NO BORRAR FUTUROS FILTROS
+  //   // NO BORRAR FUTUROS FILTROS
+  //   // NO BORRAR FUTUROS FILTROS
+
+  //   // let newURL
+  //   // for (let i=0; i<= myFilters.length-1;i++){
+  //   //   if (data.hasPrevPage){
+
+  //   //   }
+  //   // }
+
+  //   // NO BORRAR FUTUROS FILTROS
+  //   // NO BORRAR FUTUROS FILTROS
+  //   // NO BORRAR FUTUROS FILTROS
+  //   let all_prev = [];
+  //   for (let i=1; i< data.page; i++) {
+  //     all_prev.push(i)
+  //   }
+
+  //   let all = []
+  //   for (let i=(data.page+1); i<= data.totalPages; i++) {
+  //     all.push(i)
+  //   }
+  //   data.all_prev = all_prev;
+  //   data.all = all;
+  //   res.render("products", { data });
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).json();
+  // }
+  // // try {
+  // //   const resp = await pm.getAll();
+  // //   res.render('products',{product: resp})
+  // //   console.log (resp)
+  // // } catch (error) {
+  // //   console.log ("ERROR SOLICITANDO TODOS LOS PRODUCTOS MONGO (views)",error)
+  // // }
 });
 
 router.get("/products", async (req, res) => {
@@ -132,15 +133,25 @@ router.get("/products", async (req, res) => {
     // NO BORRAR FUTUROS FILTROS
     // NO BORRAR FUTUROS FILTROS
     // NO BORRAR FUTUROS FILTROS
+
+    data.back_url = `?limit=${options.limit}&page=${options.page - 1}${options.sort?`&sort=${req.query.sort}`:''}${query.category?`&category=${query.category}`:""}`
+    data.next_url = `?limit=${options.limit}&page=${options.page + 1}${options.sort?`&sort=${req.query.sort}`:''}${query.category?`&category=${query.category}`:""}`
+    console.log (">.>.>",data.back_url)
+    console.log (">.>.>",data.next_url)
     let all_prev = [];
     for (let i=1; i< data.page; i++) {
-      all_prev.push(i)
+      // all_prev.push(i)
+      const aux = `?limit=${options.limit}&page=${i}${options.sort?`&sort=${req.query.sort}`:''}${query.category ? `&category=${query.category}` : ""}`;
+      all_prev.push({url: aux, page: i})
     }
 
     let all = []
     for (let i=(data.page+1); i<= data.totalPages; i++) {
-      all.push(i)
+      // all.push(i)
+      const aux = `?limit=${options.limit}&page=${i}${options.sort?`&sort=${req.query.sort}`:''}${query.category ? `&category=${query.category}` : ""}`;
+      all.push({url: aux, page: i})
     }
+    
     data.all_prev = all_prev;
     data.all = all;
     res.render("products", { data });

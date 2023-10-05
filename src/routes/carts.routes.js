@@ -10,29 +10,21 @@ const router = Router();
 const Cart = new CartManager();
 const Cartv2 = new CartManagerv2();
 
+
+const expresion = new RegExp("/[a-z0-9]+/");
+
 // crea un carrito de compras, recibe un arreglo de productos
 router.post('/',async(req,res)=>{
-  // inicia el sistema de respuestas
-  // const r = new Response(req.headers.referer || '');
-
   // take body of request
   const raw_array_data = req.body;
   
-  // // create a var to collect verified data
-  // const array_product = []
-
-  // // create a var to collect ids to verify if the product exists in the system
-  // const product_to_verify = []
-
-
+  console.log(raw_array_data)
+  let product_to_send = []
   for (const one of raw_array_data) {
     if (!one.id || !one.quantity){
       res.status(400).json({status:"error", message:"error, id and quantity are required"});
       return
     }
-
-    // converts data from string to int to check if the collected data is valid (int in this case)
-    // const aux_id = parseInt(one.id)
 
     // converts data from string to a number to check if the collected data is valid (int/double/float)
     const aux_quantity = Number(one.quantity)
@@ -40,54 +32,14 @@ router.post('/',async(req,res)=>{
     // if the result of converts the values is "NAN", then is an error an returns 400
     if (isNaN(aux_quantity) || aux_quantity <= 0 ){
       res.status(400).json({ status:"error",message:"quantity error" });
-      
       return
     }
-
-    
-
-    // accumulate all ids of the products to after verify it
-    // product_to_verify.push({id:aux_id})
-
-    // accumulate all correct data of products
-    // array_product.push({id:aux_id, quantity:aux_quantity})
+    product_to_send.push( {product: one.id, quantity: one.quantity})
   }
-
-  // si el arreglo que almacena datos correctos está vacío retorna con badrequest
-  // if (array_product.length == 0) {
-  //   res.status(400).json(r.badRequest());
-  //   return
-  // }
-
-  /*
-  creo una instancia de productos para verificar 
-  que los productos que quiere agregar existan en base de datos
-  */  
-  // const prods = new ProductManager();
-  // const response3 = await prods.ExistsProducts(product_to_verify)
-  // si el resultado es un internal server error o bad request lo filtro y sale automáticamente
-  // const ok = r.handler_message(res, response3)
-  // if (!ok.continue) {
-  //   return
-  // }
-  
-  /* NOTA
-
-  no se está validando que la cantidad que quiere
-  agregar esté disponible en stock
-
-  */
-
-  // se crea el carrito
-  // const resp = await Cart.createCart(array_product)
-  // if (resp.error) {
-  //   res.status(500).json(r.internalServerError());
-  //   return
-  // }
-
   try {
-    const resp = await Cartv2.save(raw_array_data)
-    res.status(200).json({ status:"success",message:"carrito creado" });
+    const resp = await Cartv2.save(product_to_send)
+    res.status(200).json({ status:"success", message:"carrito creado", payload: resp._id });
+    console.log(resp);  
     return
   } catch (error) {
     console.log(error)
@@ -100,12 +52,68 @@ router.post('/',async(req,res)=>{
   // console.log ("carrito creado")
   // res.status(200).json(r.ok(resp));
 })
+router.delete('/:cid',async(req,res) =>{
+  const { cid } = req.params;
+
+  if (expresion.test(cid)) {
+    res.status(400).json({ status: "error", message: "Invalid cart id" });
+    return;
+  }
+
+  try {
+    const resp = await Cartv2.toEmptyCart( cid );
+    console.log(resp);
+    res.status(200).json({ status:"success", message:"carrito vaciado", payload: resp });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ status: "error" });
+  }
+
+})
+
+router.delete('/:cid/products/:pid',async(req,res) =>{
+  const { cid, pid } = req.params;
+
+  if (expresion.test(cid)) {
+    res.status(400).json({ status: "error", message: "Invalid cart id" });
+    return;
+  }
+  if (expresion.test(pid)) {
+    res.status(400).json({ status: "error", message: "Invalid product id" });
+    return;
+  }
+  const toSend = { cart_id: cid, product_id:pid}
+
+  try {
+    const resp = Cartv2.deleteOneProduct(toSend);
+    res.status(200).json({ status:"success", message:"carrito actualizado", payload: resp });
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({ status: "error" });
+
+  }
+  
+  
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+  // TENGO QUE BORRAR UN ELEMENTO DEL CARRITO
+
+})
+
 // recibe un id de carrito y retorna un arreglo de productos con cantidades
 router.get('/:cid', async(req,res)=>{
   // const r = new Response(req.headers.referer || '');
   const { cid } = req.params;
   
-  const expresion = new RegExp("/[a-z0-9]+/");
 
   if (expresion.test(cid)) {
     res.status(400).json({ status: "error", message: "Invalid cart id" });
@@ -113,8 +121,9 @@ router.get('/:cid', async(req,res)=>{
   }
   
   try {
-    const resp = await Cartv2.getOne(cid);
-    res.status(200).json({ status: "success", payload:resp });
+    const resp = await Cartv2.getOne(cid) ;
+    res.status(200).json({ status: "success", payload:resp});
+    console.log(JSON.stringify(resp,null,2));
     return
   } catch (error) {
     console.log(error);
@@ -179,6 +188,83 @@ router.get('/:cid', async(req,res)=>{
   // res.status(200).json(r.ok(products_to_response));
 })
 
+
+router.put('/:cid/products/:pid', async(req,res)=>{
+  const { cid, pid } = req.params;
+  const { quantity } = req.body;
+
+  if (expresion.test(cid)) {
+    res.status(400).json({ status: "error", message: "Invalid cart id" });
+    return;
+  }
+
+  if (expresion.test(pid)) {
+    res.status(400).json({ status: "error", message: "Invalid product id" });
+    return;
+  }
+  
+  console.log(cid, pid, quantity)
+  if (!quantity) {
+    res.status(400).json({ status: "error", message: "Invalid quantity 1" });
+    return
+  }else {
+    if (quantity < 0) {
+      res.status(400).json({ status: "error", message: "Invalid quantity 2" });
+      return
+    }
+  };
+
+  try {
+    const resp = await Cartv2.updateProductQuantity(pid, cid, quantity)
+  } catch (error) {
+    
+  }
+  res.status(200).json({ status: "success", message: "all ok" });
+
+});
+
+router.put('/:cid', async(req,res)=>{
+  const { cid } = req.params;
+
+  const raw_array_data = req.body;
+  
+  let product_to_send = []
+  for (const one of raw_array_data) {
+    if (!one.id || !one.quantity){
+      res.status(400).json({status:"error", message:"error, id and quantity are required"});
+      return
+    }
+
+    // converts data from string to a number to check if the collected data is valid (int/double/float)
+    const aux_quantity = Number(one.quantity)
+
+    // if the result of converts the values is "NAN", then is an error an returns 400
+    if (isNaN(aux_quantity) || aux_quantity <= 0 ){
+      res.status(400).json({ status:"error",message:"quantity error" });
+      return
+    }
+    
+    product_to_send.push({ product: one.id, quantity: one.quantity })
+  }
+
+
+  if (expresion.test(cid)) {
+    res.status(400).json({ status: "error", message: "Invalid cart id" });
+    return
+  }
+  
+  try {
+    const resp = await Cartv2.updateAllProducts(product_to_send, cid)
+    console.log(resp)
+    res.status(200).json({status: "success", message:"carrito actualizado"})
+  } catch (error) {
+    console.log (error.message)
+    res.status(500).json({ status: "error", message: "Error actualizando el carrito" });
+  }
+
+})
+
+
 /* recibe un id de carrito y un id de producto e incorpora ese producto al carrito 
 y de existir lo suma */
 router.post('/:cid/product/:pid', async(req,res)=>{
@@ -194,7 +280,6 @@ router.post('/:cid/product/:pid', async(req,res)=>{
   // }
 
 
-  const expresion = new RegExp("/[a-z0-9]+/");
 
   if (expresion.test(cid)) {
     res.status(400).json({ status: "error", message: "Invalid cart id" });
@@ -222,9 +307,14 @@ router.post('/:cid/product/:pid', async(req,res)=>{
 
     // creo un objeto nuevo con los datos ya validados
     const product_to_add = { pid, quantity:aux_quantity, cid };
-    const resp = await Cartv2.addProduct(product_to_add);
-    console.log (resp);
-    res.status(200).send();
+    try {
+      const resp = await Cartv2.addProduct(product_to_add);
+      console.log (resp);
+      res.status(200).send();
+    } catch (error) {
+      console.log(error);
+      res.status(500).send();
+    }
 
     // creo un arreglo con el id a validar
     // lo hago de esta manera para no repetir código y reutilizar ExistsProduct

@@ -1,18 +1,42 @@
 {{!-- 
       vista de un producto -- no implementada
  --}}
-<div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
+{{!-- <div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
   <div class="row row-cols-4 g-3">
       <div class="col">
-          <div class="card" style="width: 15rem;">
-            <a href={{concat "/api/products/" this.uid}}>
-              <img src={{isNC this.thumbnail}} class="card-img-top" alt="poster pelicula"/>
-            </a>
+          <div class="card" style="width: 15rem;"> --}}
+            {{!-- <img src={{isNC this.thumbnail}} class="card-img-top" alt="poster pelicula"/> --}}
+            {{!-- <img src="{{isNC this.thumbnail}}" class="card-img-top" alt="poster pelicula"/>
             <div class="card-body">
-              <h5 class="card-title">{{this.title}} {{@index}}</h5>
+              <h5 class="card-title">{{this.product.title}}</h5>
               <a href="#" class="btn btn-primary">un botón</a>
             </div>
           </div>
       </div>
   </div>
-</div>
+</div> --}}
+<section class="py-5">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="row gx-4 gx-lg-5 align-items-center">
+          <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src={{isNC this.thumbnail}} alt="..."></div>
+          <div class="col-md-6">
+              <div class="small mb-1">code: {{this.code}} | stock: {{this.stock}}</div>
+              <h1 class="display-5 fw-bolder" id="product_title">{{this.title}}</h1>
+              <div class="fs-5 mb-5">
+                  {{!-- <span class="text-decoration-line-through">{{this.price}}</span> --}}
+                  <span>{{this.price}}</span>
+              </div>
+              <p class="lead">{{this.description}}</p>
+              <div class="d-flex">
+                  <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">
+                  <button class="btn btn-dark flex-shrink-0 animate__animated" type="button" id="add_product_w_quantity" data-product_id="{{this._id}}">
+                      <i class="bi-cart-fill me-1"></i>
+                      Agregar al carrito
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<script src="/assets/script/oneproduct.js"></script>
+<script src="/assets/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>

@@ -57,17 +57,37 @@ const upload = multer({ storage });
 
 // solicita productos del sistema [verificado]
 router.get("/", async (req, res) => {
-  let productos;
-
-  if (req.query.limit != undefined) {
-    const limit = parseInt(req.query.limit);
-    
-    productos = await pm.getLimit(limit);
-  } else {
-    // solicito todos los productos
-    productos = await pm.getAll();
+  let limit
+  let page
+  req.query.limit != undefined ? limit = Number(req.query.limit) : limit = 10;
+  
+  req.query.page != undefined ? page = Number(req.query.page) : page = 1;
+  
+  let query = {}
+  let options = { limit, page }
+  
+  if (req.query.sort != undefined) { 
+    options["sort"] = req.query.sort == 'asc' ? 1 : -1
   }
-  res.status(200).json(productos);
+
+  if (req.query.category != undefined) {
+    query["category"] = req.query.category
+  } else { 
+    if (req.query.status != undefined) {
+      if (req.query.status == "true" || req.query.status == "false") {
+        query["status"] = req.query.status
+      } else {
+        res.status(400).json({ status: "error", message: "Invalid url param" });
+      }
+    }
+  }
+  try {
+    let productos = await pm.getAll(options, query);
+    res.status(200).json(productos);
+  } catch (error) {
+    console.log(error)
+    res.status(500).json();
+  }
 });
 
 // solicita un producto por numero de id [verificado]
@@ -84,7 +104,6 @@ router.get("/:id", async (req, res) => {
 
   // solicito el producto por id
   try {
-    
     const product = await pm.getOne(id);
     res.status(200).json({ status: "success", payload: product });
     return;

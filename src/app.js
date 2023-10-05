@@ -34,6 +34,12 @@ import { tiempo } from './utils.js'
 
 import ChatManager from './dao/bdmanager/chat.manager.js'
 
+
+// SI SE QUIEREN CARGAR PRODUCTOS DESDE EL JSON QUE ESTÁ EN LA CARPETA BD
+// import movies from '../db/prods_mongoose.json' assert { type: 'json' }
+
+// import { productsModel } from './dao/models/products.model.js'
+
 const PORT = process.env.PORT || 8080;
 
 const app = express();
@@ -45,12 +51,20 @@ app.use((express.urlencoded({extended:true})))
 // WEBSOCKET AND MOUNTING HTTP SERVER
 const httpServer = app.listen (PORT, ()=>{
   console.log ("listening on port: ",PORT);
+  console.log("http://localhost:"+PORT);
 })
-
-mongoose.connect(mongo_data.get('cloud'))
+const conn = mongo_data.get('cloud')
+mongoose.connect(conn)
 .then(console.log ("connection with mongo"))
+.then(()=> console.log (" 💾 "+conn))
 .catch(e => console.log ("error in connection DB: ",e.message))
 .finally(()=> console.log ("MONGODB: running"))
+// try {
+//   const responseInsert = await productsModel.insertMany(movies)
+//   console.log(responseInsert)
+// } catch (error) {
+//   console.log (error);
+// }
 
 let users = []
 let public_messages = []
@@ -190,15 +204,33 @@ const hbs = handlebars.create({
       console.log ("typeof: ",typeof value)
       const numeroRandom = Math.floor(Math.random() * 8) + 1;
       const numeroRandom2 = Math.floor(Math.random() * 8) + 1;
-      return value.length === 0 ? `https://placedog.net/20${numeroRandom2}/30${numeroRandom}` : './img/'+value
+      if (value== undefined) {
+        return `https://placedog.net/20${numeroRandom2}/30${numeroRandom}`
+      }
+      return value.length === 0 ? `https://placedog.net/20${numeroRandom2}/30${numeroRandom}` : '/img'+value
     },
   // concatena dos palabras y las retorna
     concat: function (val1, val2){
-      return `${val1}${val2}`;
+      return `http://localhost:${PORT}/${val1}/${val2}`;
+    },
+    sum_res: function (val, action) {
+      return action == '+' ? val+1 : val-1
+    },
+    make_nav_li: function (num, actual) {
+      console.log ("num")
+      console.log (num)
+      console.log ("actual")
+      console.log (actual)
+      let all = []
+      for (let i=actual; i<= num; i++) {
+        all.push(`<li class="page-item"><a class="page-link" href="http://localhost:8080/?page=${num}">${num}</a></li>`)
+      }
+      return all
     }
   },
 });
 
+app.locals.baseURL = "/";
 
 app.engine('handlebars', hbs.engine);
 
@@ -207,6 +239,7 @@ app.set('views',path.join(__dirname,'views'));
 app.set('view engine', 'handlebars')
 
 app.use(express.static(path.join(__dirname,'public')))
+app.use('/static',express.static(path.join(__dirname,'public')))
 
 
 // routes

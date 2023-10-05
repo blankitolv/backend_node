@@ -178,3 +178,5 @@ socket.on('new_products',(data)=>{
   card_container.append(div_col)
   event_delete()
 })
+
+

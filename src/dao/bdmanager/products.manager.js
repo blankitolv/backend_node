@@ -8,10 +8,85 @@ export default class ProductManagerv2 {
    *  Y MANDAR A LA BASE DE DATOS
    *  
    */
-  getAll = async () => {
-    const products = await productsModel.find().lean();
-    return products;
+  // getAll = async (options) => {
+  //   let sort
+  //   if (options.sort == null){
+  //     sort = {}
+  //   } else {
+  //     sort =  { price: options.sort}
+  //   }
+
+  //   let filter = {}
+  //   if (options.category != null){
+  //     filter.category = options.category
+  //   } else if (options.status != null) {
+  //     filter.status = options.status
+  //   }
+
+  //   console.log(options.status);
+  //   const products = await productsModel.paginate( filter ,{ limit: options.limit, page: options.page, sort })
+  //   return products;
+  // }
+  getAll = async (options, queries) => {
+    // let sort
+    // if (options.sort == null){
+      //   sort = {}
+      // } else {
+        //   sort =  { price: options.sort}
+    // }
+    // option = limit, page, sort
+    // query = category, status
+    let option = {}
+    let query = {}
+
+    option["page"] = options.page
+    option["limit"] = options.limit
+
+    if (options.sort) {
+      option["sort"] = { price: options.sort }
+    }
+    if (queries.category) {
+      query["category"] = queries.category
+    } else if (queries.status != undefined) {
+      console.log ("status -> ",queries.status)
+      query["status"] = queries.status
+    }
+    console.log(" ===== MANAGER =====")
+    console.log(query, option)
+    // let filter = {}
+    // if (options.category != null){
+    //   filter.category = options.category
+    // } else if (options.status != null) {
+    //   filter.status = options.status
+    // }
+
+    // console.log(options.status);
+    option["lean"]=true
+    const { docs,
+      totalDocs,
+      page,
+      totalPages, // cantpage
+      prevPage, //n paginaanterio 
+      nextPage, // npag sig
+      hasPrevPage,
+      hasNextPage,
+      
+    } = await productsModel.paginate(query, option);
+
+    const resultObject = {
+      status: 'success',
+      payload: docs,
+      totalDocs,
+      totalPages,
+      prevPage,
+      nextPage,
+      page,
+      hasPrevPage,
+      hasNextPage,
+    };
+    return resultObject
   }
+
 
   getLimit = async (limit) => {
     const products = await productsModel.find().limit(limit).lean();
@@ -24,8 +99,7 @@ export default class ProductManagerv2 {
   }
 
   getOne = async (id) => {
-    const oneProduct = await productsModel.findById(id).lean();
-    return oneProduct;
+    return await productsModel.findById(id).lean();
   }
 
   update = async (id, product) => {
@@ -35,5 +109,5 @@ export default class ProductManagerv2 {
   delete = async (id) => {
     return await productsModel.findOneAndDelete( { _id:id} ).lean();
   }
- 
+  
 }

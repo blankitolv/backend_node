@@ -8,7 +8,7 @@ export default class CartManagerv2 {
   save = async (products) =>{
     let all_ids = [];
     for (const one of products){
-      all_ids.push(one.id);
+      all_ids.push(one.product);
     }
     const all_products = await productsModel.find(
       { 
@@ -18,71 +18,88 @@ export default class CartManagerv2 {
         },
         status: true
       })
+    // si la base de datos no retornó la misma cantidad de productos
+    // que se solicitó, retorna con un error
     if (all_ids.length !== all_products.length) {
       throw new Error ("Hay productos no válidos");
     }
-
     return await cartsModel.create({ products });
   }
   /* FALTA IMPLEMENTAR ONE, FALTA VERIFICAR SAVE */
   getOne = async (id) => {
-    const oneCart = await cartsModel.findById(id).lean();
+    const oneCart = await cartsModel.findById(id).populate('products.product');
     console.log(oneCart);
     return oneCart;
   }
 
   // findOneAndUpdate(filtro, acción, opción adicional)
   addProduct = async (compossition) => {
+    console.log("COMP: ",compossition)
     const { pid, quantity, cid } = compossition;
     const cart = await cartsModel.findById({_id: cid}).lean();
+
     if (cart == null){
       throw new Error ("Error en id carrito")
     }
     const product = await productsModel.findById({_id: pid}).lean();
+
     if (product == null){
       throw new Error ("Error en id producto")
     }
+
     // console.log(cart)
     let exist = new Boolean(false);
-    let old_quantity
+    let new_quantity
     for (const oneProduct of cart.products ){
-      if (oneProduct.id == pid){
-        console.log (oneProduct.id," ES IGUAL A ",pid)
-        exist = true
-        old_quantity = oneProduct.quantity
-        // oneProduct.quantity += quantity;
-      }
-    }
-    // console.log (quantity+old_quantity)
-    // console.log ( typeof quantity)
-    // console.log ( typeof old_quantity)
-    // return true
-    if (exist == false) {
-      console.log ("PRODUCTO NUEVO")
-      return await cartsModel.updateOne(
-        // busqueda
-        {
-          _id: cid
-        },
-        // asignación
-        {
-          $push: { products: {id: product._id.toString(), quantity} }
+      // console.log(oneProduct.product._id.toString(), " || ",pid)
+      if (oneProduct.product._id.toString() == pid){
+          // console.log (oneProduct.id," ES IGUAL A ",pid)
+          exist = true
+          new_quantity = oneProduct.quantity + quantity
+          // oneProduct.quantity += quantity;
         }
+      }
+
+      if (exist == false) {
+      console.log ("PRODUCTO NUEVO")
+      return await cartsModel.updateOne({ _id: cid },
+        // asignación
+        { $push: { 'products': { product: product._id, quantity} } }
       );
     } else {
       console.log ("PRODUCTO EXISTENTE")
-      return await cartsModel.updateOne(
-        // busqueda
-        {_id: cid,
-        'products.id':pid
-        },
+      console.log ("MODIFICACION: quantity = ",new_quantity);
+      console.log ("MODIFICACION: carrito = ",cid);
+      console.log ("MODIFICACION: producto = ",pid);
+      
+      return await cartsModel.findOneAndUpdate({ _id: cid, 'products.product':pid },
         // asignación -- del arreglo de productos actualizo el campo quantity
-        {
-          $set: { 'products.$.quantity': (quantity+old_quantity) }
-        }
+        { $set: { 'products.$.quantity': new_quantity } }
       );
     }
-    console.log(cart)
+  }
 
+  deleteOneProduct = async (data) => {
+    return await cartsModel.updateOne({_id:data.cart_id},
+      { $pull: { 'products': { product:data.product_id } } })
+  }
+
+  toEmptyCart = async (data) => {
+    return await cartsModel.updateOne({_id:data},
+      { $set: { 'products': [] } });
+  }
+
+  updateAllProducts = async (prod, cartID) => {
+    console.log (prod[0], cartID);
+    return await cartsModel.findOneAndUpdate(
+      { _id: cartID },
+      { products: prod}
+    )
+  }
+  updateProductQuantity = async (prodID, cid, quantity) => {
+    return await cartsModel.findOneAndUpdate(
+      { _id: cid, 'products.product':prodID },
+      { $set: { 'products.$.quantity': quantity} }
+    )
   }
 } 

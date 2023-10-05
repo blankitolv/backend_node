@@ -4,8 +4,15 @@ const cartsCollection = 'carts';
 
 const cartsSchema = new mongoose.Schema({
   products: {
-    type: Array,
-    required: true
+    type: [
+      {
+        quantity: Number,
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'products'
+        }
+      }
+    ],
   }
 });
 // se puede utilizar middleware pre para validar si contiene algo

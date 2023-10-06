@@ -25,11 +25,10 @@ export default class CartManagerv2 {
     }
     return await cartsModel.create({ products });
   }
-  /* FALTA IMPLEMENTAR ONE, FALTA VERIFICAR SAVE */
+
   getOne = async (id) => {
-    const oneCart = await cartsModel.findById(id).populate('products.product');
-    console.log(oneCart);
-    return oneCart;
+    console.log("entro")
+    return await cartsModel.findById(id).populate('products.product');
   }
 
   // findOneAndUpdate(filtro, acción, opción adicional)
@@ -96,6 +95,7 @@ export default class CartManagerv2 {
       { products: prod}
     )
   }
+  
   updateProductQuantity = async (prodID, cid, quantity) => {
     return await cartsModel.findOneAndUpdate(
       { _id: cid, 'products.product':prodID },

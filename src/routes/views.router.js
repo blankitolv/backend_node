@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ProductManager } from "../dao/fsmanager/clase.js";
 import pManager from "../dao/bdmanager/products.manager.js";
-import { throws } from "assert";
+import cartManager from "../dao/bdmanager/carts.manager.js";
 const router = Router();
 
 const expresion = new RegExp("/[a-z0-9]+/");
@@ -9,6 +9,7 @@ const expresion = new RegExp("/[a-z0-9]+/");
 
 // todos los productos (classic)
 const pm = new pManager();
+const cart = new cartManager();
 router.get("/", async (req, res) => {
   res.redirect('/products')
   // let limit;
@@ -119,20 +120,6 @@ router.get("/products", async (req, res) => {
       throw new Error("length of products are zero");
     }
     // let myFilters = req.originalUrl.slice(2).split("&");
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-
-    // let newURL
-    // for (let i=0; i<= myFilters.length-1;i++){
-    //   if (data.hasPrevPage){
-
-    //   }
-    // }
-
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
-    // NO BORRAR FUTUROS FILTROS
 
     data.back_url = `?limit=${options.limit}&page=${options.page - 1}${options.sort?`&sort=${req.query.sort}`:''}${query.category?`&category=${query.category}`:""}`
     data.next_url = `?limit=${options.limit}&page=${options.page + 1}${options.sort?`&sort=${req.query.sort}`:''}${query.category?`&category=${query.category}`:""}`
@@ -140,14 +127,12 @@ router.get("/products", async (req, res) => {
     console.log (">.>.>",data.next_url)
     let all_prev = [];
     for (let i=1; i< data.page; i++) {
-      // all_prev.push(i)
       const aux = `?limit=${options.limit}&page=${i}${options.sort?`&sort=${req.query.sort}`:''}${query.category ? `&category=${query.category}` : ""}`;
       all_prev.push({url: aux, page: i})
     }
 
     let all = []
     for (let i=(data.page+1); i<= data.totalPages; i++) {
-      // all.push(i)
       const aux = `?limit=${options.limit}&page=${i}${options.sort?`&sort=${req.query.sort}`:''}${query.category ? `&category=${query.category}` : ""}`;
       all.push({url: aux, page: i})
     }
@@ -222,6 +207,26 @@ router.get("/internalServerError", (req, res) => {
   res
     .status(500)
     .render("internalServerError", { layout: "secondary", errorMessage });
+});
+
+router.get("/cart/:cid", async(req, res) => {
+  const { cid } = req.params;
+
+  if (expresion.test(cid)) {
+    res.status(400).json({ status: "error", message: "Invalid cart id" });
+    return;
+  }
+
+
+  try {
+    const data = await cart.getOne(cid);
+    const objeto = data.toObject();
+    console.log(objeto)
+    // console.log("getOneCart: ",data);
+    res.status(200).render("cart", objeto );
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 // vista generada pero no implementada para 500

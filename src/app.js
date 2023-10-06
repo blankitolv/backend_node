@@ -53,7 +53,7 @@ const httpServer = app.listen (PORT, ()=>{
   console.log ("listening on port: ",PORT);
   console.log("http://localhost:"+PORT);
 })
-const conn = mongo_data.get('cloud')
+const conn = mongo_data.get('local')
 mongoose.connect(conn)
 .then(console.log ("connection with mongo"))
 .then(()=> console.log (" 💾 "+conn))

@@ -1,6 +1,7 @@
 if (localStorage.getItem('cart_id')) {
   cartID = JSON.parse(localStorage.getItem('cart_id'))
   console.log ("tiene carrito: ",cartID)
+  document.getElementById('input_cart_id').value = cartID;
 } else {
   console.log("No tiene un carrito de compras asociado...")
 }
@@ -15,7 +16,6 @@ add_product_w_quantity.addEventListener('click',async()=>{
   createAnimation(add_product_w_quantity,'animate__bounceIn', 1000)
   let bandera
   if (cartID == "") {
-    console.log ("es vacio")
     const product = [{ id: uid, quantity: inputQuantity }]
     fetch('/api/carts', {
       method: 'POST',
@@ -29,7 +29,12 @@ add_product_w_quantity.addEventListener('click',async()=>{
       if (data.status != 'success') {
         throw new Error ("error en el carrito")
       }
-      localStorage.setItem('cart_id',JSON.stringify(data.payload))
+      localStorage.setItem('cart_id',JSON.stringify(data.payload));
+      cartID = data.payload;
+      console.log("SE CREO: ",data.payload);
+      document.getElementById('input_cart_id').value = data.payload;
+      document.getElementById("nav_cart").classList.remove("disabled");
+      handle_cart()
       notification({ msg: 'carrito creado y producto agregado', icon:'success', timer: 2000})
     })
     .catch(error => {
@@ -37,29 +42,6 @@ add_product_w_quantity.addEventListener('click',async()=>{
       notification(bandera.msg, bandera.icon, bandera.timer)
       console.log (error)
     })
-
-    // try {
-    //   const product = [{ id: uid, quantity: inputQuantity }]
-    //   const response = await fetch('/api/carts', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify(product)
-    //   })
-    //   if (response.ok) {
-    //       const data = await response.json();
-    //       localStorage.setItem('cart_id',JSON.stringify(data.payload))
-    //       bandera = { msg: 'carrito creado y producto agregado', icon:'success', timer: 2000}
-    //       await notification(bandera.msg, bandera.icon, bandera.timer)
-    //       console.log(data);
-    //   } else {
-    //       // La solicitud no fue exitosa
-    //       throw new Error(`Error en la solicitud: ${response.status} ${response.message}`);
-    //   }
-    // } catch (err) {
-    //     console.log(err);
-    // }
 
   } else {
     try {
@@ -76,10 +58,9 @@ add_product_w_quantity.addEventListener('click',async()=>{
       if (response.ok) {
           const data = await response.json();
           localStorage.setItem('cart_id',data.payload)
+          handle_cart()
           bandera = { msg: 'carrito actualizado', icon:'success', timer: 2000}
           await notification(bandera.msg, bandera.icon, bandera.timer)
-
-
           console.log(data);
       } else {
           // La solicitud no fue exitosa

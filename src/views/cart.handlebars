@@ -1,32 +1,38 @@
-{{!-- 
+{{! 
       vista de todos los productos sin websocket
- --}}
- {{> pagination}}
+ }}
 <div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
-  <div class="row row-cols-xs-2 row-cols-lg-4 row-cols-sm-2 row-cols-md-3 g-3">
-    {{#each data.payload}}
-      <div class="col">
-          <div class="card bg-dark text-light shadow p-3 mb-5 rounded" style="width: 15rem;">
-            {{!-- <img src="..." class="card-img-top" alt="..."> --}}
-            {{!-- <a href={{concat "/api/products/" this.uid}}> --}}
-            <a href="http://localhost:8080/product/{{this._id}}">
-              <img src={{isNC this.thumbnail}} class="card-img-top" alt="poster pelicula"/>
-            </a>
-            {{!-- <a href={{concat "products" this._id}}>
-              <img src={{isNC this.thumbnail}} class="card-img-top" alt="poster pelicula"/>
-            </a> --}}
-            <div class="card-body">
-              <h5 class="card-title">{{this.title}}</h5>
-              <div class="container d-flex">
-                {{!-- <a href="#" class="btn btn-primary mt-2">un botón <i class="bi bi-apple"></i> </a> --}}
-                <a href="#" class="btn btn-warning mt-2 add_cart_product" data-id_product="{{this._id}}">Agregar<i class="bi bi-bag-plus"></i> </a>
-              </div>
-            </div>
-          </div>
-      </div>
-    {{/each}}
+  <div class="row">
+    <div class="col-6 d-flex">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">quantity</th>
+            <th scope="col">price</th>
+            <th scope="col">actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products}}
+            <th scope="row">{{@index}}</th>
+              <td>{{this.product.title}}</td>
+              <td>{{this.quantity}}</td>
+              <td>{{this.product.price}}</td>
+              <td> 
+                <div class="container d-flex justify-content-around">
+                  <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover future_action" ><i class="bi bi-pencil-square"></i></a> 
+                  <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover future_action"><i class="bi bi-trash"></i></a> </td>
+                </div> 
+              </td>
+            </tr> 
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<script src="/assets/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+{{!-- <script src="/assets/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script> --}}
 <script src="/assets/script/products.js"></script>

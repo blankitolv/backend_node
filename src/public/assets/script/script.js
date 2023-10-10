@@ -75,7 +75,7 @@ const addProducts = async (data) =>{
   <div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
   <div id="cards_container" class="row row-cols-xs-2 row-cols-lg-4 row-cols-sm-2 row-cols-md-3 g-3">
 `;
-  data.forEach(oneMovie => {
+  data.payload.forEach(oneMovie => {
     const num = randomNum()
     const num2 = randomNum()
     html +=`

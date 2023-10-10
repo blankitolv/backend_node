@@ -6,14 +6,14 @@
     "price": 150,
     "stock": 51,
     "category": "Ciencia ficcións",
-    "thumbnail": ["/img-1693618205648"]
+    "thumbnail": ["/interestellar"]
   },
   {
     "code": "77987654",
     "title": "Back to the future",
     "description": "\"Back to the Future\" es una película de ciencia ficción dirigida por Robert Zemeckis. La trama sigue a Marty McFly (interpretado por Michael J. Fox), un joven que accidentalmente viaja en el tiempo desde 1985 hasta 1955 a través de un DeLorean modificado por el excéntrico científico Doc Brown (interpretado por Christopher Lloyd). En 1955, Marty se encuentra con una versión joven de sus padres y debe asegurarse de que se enamoren para garantizar su propia existencia en el futuro. Sin embargo, sus acciones tienen un impacto en la línea de tiempo y debe resolver una serie de problemas para asegurarse de que sus padres terminen juntos y regresar al presente. La película combina elementos de comedia, aventura y viajes en el tiempo mientras Marty lucha por corregir las alteraciones en la línea de tiempo mientras intenta volver a su época. \"Back to the Future\" se ha convertido en un clásico del cine, apreciado por su emocionante narrativa, personajes memorables y la forma en que explora los efectos del viaje en el tiempo de manera entretenida y cautivadora.",
     "price": 12.99,
-    "thumbnail": [],
+    "thumbnail": ["/back2future"],
     "category": "Ciencia ficción",
     "stock": 20,
     "status": true
@@ -23,7 +23,7 @@
     "title": "The Godfather",
     "description": "\"The Godfather\" es una película dirigida por Francis Ford Coppola y está basada en la novela homónima de Mario Puzo. La trama se centra en la familia mafiosa Corleone y su líder, Don Vito Corleone (interpretado por Marlon Brando). La historia abarca varias décadas y sigue la vida de la familia mientras luchan por mantener su poder en el mundo del crimen organizado. La película explora temas de lealtad, honor, traición y poder a medida que Vito Corleone pasa el control de su imperio criminal a su hijo Michael (interpretado por Al Pacino). A medida que Michael se involucra en los asuntos familiares, se ve arrastrado hacia la violencia y la corrupción que rodean a su familia. \"The Godfather\" es aclamada por su narrativa poderosa, personajes icónicos y su representación de la mafia italiana en Estados Unidos.",
     "price": 23.3,
-    "thumbnail": [],
+    "thumbnail": ["/thegoldgather"],
     "stock": 15,
     "category": "Ciencia ficción",
     "status": true
@@ -33,7 +33,7 @@
     "title": "Pulp Fiction",
     "description": "\"Pulp Fiction\" es una película dirigida por Quentin Tarantino y es conocida por su estilo narrativo no lineal y sus diálogos ingeniosos. La trama presenta varias historias entrelazadas que siguen a personajes diversos y sus interacciones en el mundo del crimen y la violencia. La película sigue a Vincent Vega (interpretado por John Travolta) y Jules Winnfield (interpretado por Samuel L. Jackson), dos sicarios que trabajan para el jefe criminal Marsellus Wallace. A lo largo de la película, se exploran situaciones de secuestros, asesinatos, boxeo y tráfico de drogas, todo ello presentado en un estilo visual y narrativo característico de Tarantino. \"Pulp Fiction\" es elogiada por su originalidad, su enfoque en la cultura pop y su capacidad para subvertir las expectativas del público. La película ha dejado una huella duradera en la cultura cinematográfica y es considerada un clásico moderno.",
     "price": 45,
-    "thumbnail": [],
+    "thumbnail": ["/pulp"],
     "category": "Ciencia ficción",
     "stock": 10,
     "status": true
@@ -43,7 +43,7 @@
     "title": "The clockwork orange",
     "description": "\"La naranja mecánica\" es una película dirigida por Stanley Kubrick, basada en la novela homónima de Anthony Burgess. La trama se sitúa en un futuro distópico y sigue a Alex DeLarge (interpretado por Malcolm McDowell), un joven líder de una pandilla violenta que se deleita en cometer actos de ultraviolencia junto con sus amigos. La película explora temas de libre albedrío, psicología y el impacto de la violencia en la sociedad. Alex es arrestado y sometido a un controvertido tratamiento experimental conocido como \"La Técnica Ludovico\", que busca eliminar su comportamiento violento. Sin embargo, esto lo deja incapaz de tomar decisiones conscientes, incluso en contra de su propia voluntad. A medida que la trama se desarrolla, \"La naranja mecánica\" cuestiona la naturaleza de la moralidad y la autoridad, así como los peligros de la manipulación del comportamiento. La película es conocida por su estilo visual distintivo, su uso de la música clásica y su impactante representación de la violencia. \"La naranja mecánica\" ha dejado una marca duradera en la cultura cinematográfica y es considerada una obra maestra del cine de Kubrick.",
     "price": 12.99,
-    "thumbnail": [],
+    "thumbnail": ["/theclockwork"],
     "category": "Ciencia ficción",
     "stock": 20,
     "status": true
@@ -53,7 +53,7 @@
     "title": "Inception",
     "description": "\"Inception\" es una película de ciencia ficción dirigida por Christopher Nolan. La trama se desarrolla en un mundo donde la tecnología permite a las personas entrar en los sueños de otras personas para extraer información valiosa de sus mentes. Dom Cobb (interpretado por Leonardo DiCaprio) es un \"extractor\", un ladrón hábil en el arte de robar secretos del subconsciente de las personas mientras sueñan. La oportunidad de realizar \"inception\", que implica implantar una idea en lugar de extraerla, se presenta a Cobb. Para lograr esto, forma un equipo de especialistas en sueños y planificación, que incluye a Arthur (Joseph Gordon-Levitt), Ariadne (Ellen Page), Eames (Tom Hardy) y otros. El objetivo de Cobb es implantar una idea en la mente del heredero de un imperio corporativo rival. La película explora conceptos complejos de la realidad, los sueños y las percepciones mientras el equipo se aventura a través de capas de sueños dentro de sueños. La línea entre la realidad y el subconsciente se difumina, y las consecuencias de las acciones en los sueños se vuelven cada vez más impactantes en el mundo real. \"Inception\" es conocida por su intrincada trama, efectos visuales impresionantes y su capacidad para sumergir al espectador en un mundo de sueños y realidades alternativas. La película combina la acción y el suspenso con temas filosóficos sobre la mente humana y la naturaleza de la realidad.",
     "price": 37.5,
-    "thumbnail": [],
+    "thumbnail": ["/inception"],
     "category": "Ciencia ficción",
     "stock": 8,
     "status": true
@@ -63,7 +63,7 @@
     "title": "Thank You for Smoking",
     "description": "\"Thank You for Smoking\" es una película de comedia satírica dirigida por Jason Reitman. La trama sigue a Nick Naylor (interpretado por Aaron Eckhart), un portavoz de la industria del tabaco y defensor de los derechos de los fumadores. Nick es hábil en el arte de la persuasión y utiliza su elocuencia para defender los intereses de la industria tabacalera, a pesar de la creciente conciencia sobre los peligros del tabaco para la salud. La película explora el mundo de las relaciones públicas y la manipulación de la opinión pública a través de personajes carismáticos que representan diferentes industrias, como el alcohol y las armas. Nick Naylor lucha por mantener su imagen y su trabajo a pesar de ser blanco de críticas y desafíos éticos. A medida que la historia avanza, Nick se enfrenta a dilemas morales y personales que lo hacen cuestionar sus propias acciones y la ética detrás de su trabajo. La película utiliza la sátira y el humor para examinar temas controvertidos y la influencia de los grupos de presión en la sociedad moderna. \"Thank You for Smoking\" ofrece una visión cínica y humorística de las tácticas de relaciones públicas y la manipulación de la verdad en el mundo actual, y plantea preguntas sobre la ética, la integridad y la responsabilidad personal en un contexto de intereses comerciales y políticos.",
     "price": 8.75,
-    "thumbnail": [],
+    "thumbnail": ["/thanks4smoke"],
     "category": "Ciencia ficción",
     "stock": 25,
     "status": true
@@ -73,7 +73,7 @@
     "title": "Lord of War",
     "description": "\"El Señor de la Guerra\" (título original: \"Lord of War\") es una película dirigida por Andrew Niccol. La trama se centra en la vida de Yuri Orlov (interpretado por Nicolas Cage), un traficante de armas internacional que se sumerge en el lucrativo y peligroso mundo del comercio ilegal de armas. La película sigue a Yuri mientras asciende en el negocio del tráfico de armas, pasando por diversas situaciones y conflictos en diferentes países del mundo. A lo largo de la trama, Yuri es perseguido por el agente de la Interpol Jack Valentine (interpretado por Ethan Hawke), quien está decidido a detener sus actividades ilegales. \"El Señor de la Guerra\" explora las consecuencias éticas y humanas de la venta de armas en conflictos internacionales y regionales. Yuri navega por un mundo de corrupción, violencia y peligro, mientras intenta mantener a su familia al margen de sus actividades ilícitas. La película aborda temas como el poder del dinero, la ambigüedad moral y las implicaciones de la industria de armamentos en la política global. A medida que la trama avanza, Yuri enfrenta desafíos personales y éticos que lo hacen cuestionar su propio papel en el mundo y las ramificaciones de su negocio. \"El Señor de la Guerra\" ofrece una visión cruda y provocadora del comercio de armas y las complejidades morales que rodean este tema controvertido.",
     "price": 55,
-    "thumbnail": [],
+    "thumbnail": ["/thelordofthewar"],
     "stock": 7,
     "category": "Ciencia ficción",
     "status": true
@@ -84,7 +84,7 @@
     "description": "\"I.A. Inteligencia Artificial\" (título original: \"A.I. Artificial Intelligence\") es una película de ciencia ficción dirigida por Steven Spielberg y basada en un relato de Brian Aldiss. La trama se sitúa en un futuro donde los avances tecnológicos han llevado a la creación de androides similares a humanos llamados \"mechas\". La historia sigue a David (interpretado por Haley Joel Osment), un mecha diseñado para parecer y comportarse como un niño humano. Fue creado para llenar el vacío emocional de una familia cuyo hijo está en estado de animación suspendida debido a una enfermedad incurable. A medida que David interactúa con su \"madre\" adoptiva, Monica (interpretada por Frances O'Connor), comienza a desarrollar sentimientos y deseos genuinos de ser amado. Cuando David se encuentra en una situación dolorosa debido a un conflicto entre él y su familia adoptiva, emprende un viaje para encontrar una manera de convertirse en un \"niño real\" y ganarse el amor de su madre. Su búsqueda lo lleva a través de diversos entornos y encuentros con otros mechas y seres humanos. La película explora temas profundos como la inteligencia artificial, la naturaleza de la humanidad, el deseo de pertenencia y el poder del amor. \"I.A. Inteligencia Artificial\" presenta un mundo futurista visualmente impresionante y con una narrativa emotiva que plantea preguntas sobre lo que significa ser humano y cómo la tecnología puede desafiar nuestras percepciones y emociones. La película combina la visión de Stanley Kubrick, quien originalmente concibió el proyecto, con la sensibilidad cinematográfica de Steven Spielberg.",
     "price": 18.5,
     "category": "Ciencia ficción",
-    "thumbnail": [],
+    "thumbnail": ["/AI_intell_art"],
     "stock": 12,
     "status": true
   },
@@ -93,7 +93,7 @@
     "title": "Schindler's List",
     "description": "\"La Lista de Schindler\" (título original: \"Schindler's List\") es una película dirigida por Steven Spielberg basada en la novela histórica del mismo nombre escrita por Thomas Keneally. La película está ambientada durante el Holocausto y narra la historia real de Oskar Schindler (interpretado por Liam Neeson), un empresario alemán que salva la vida de más de mil judíos polacos durante el régimen nazi. Schindler llega a Cracovia, Polonia, durante la Segunda Guerra Mundial con la intención de beneficiarse de la guerra al dirigir una fábrica de utensilios de cocina. Sin embargo, a medida que es testigo de la persecución y el sufrimiento de los judíos a manos de los nazis, su perspectiva cambia radicalmente. Schindler decide utilizar su influencia y riqueza para salvar a la mayor cantidad posible de trabajadores judíos al incluirlos en su lista de empleados, evitando así su deportación y muerte en campos de concentración. La película sigue la evolución de Schindler, desde un oportunista empresario hasta un defensor comprometido de la vida humana. A través de su esfuerzo por proteger a los judíos en su fábrica, Schindler enfrenta obstáculos burocráticos y riesgos personales. La trama también se centra en la brutalidad y la destrucción causadas por el Holocausto, mostrando las experiencias desgarradoras de los prisioneros en los campos de concentración y el heroísmo de aquellos que luchan por sobrevivir. \"La Lista de Schindler\" es conocida por su representación conmovedora y poderosa del Holocausto, así como por su enfoque en la humanidad y la compasión en medio de la atrocidad. La película es un testimonio visual y emotivo de la tragedia histórica y un recordatorio duradero de la importancia de recordar y aprender de la historia.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/schindler"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -103,7 +103,7 @@
     "title": "Trainspotting",
     "description": "Dirigida por Danny Boyle y basada en la novela de Irvine Welsh, \"Trainspotting\" es una película que sigue la vida de un grupo de jóvenes adictos a la heroína en Edimburgo, Escocia. La trama se centra en Mark Renton (interpretado por Ewan McGregor) y sus amigos, quienes enfrentan la adicción, la desesperación y la vida en la periferia de la sociedad. La película aborda sus luchas, recaídas y las relaciones destructivas con la droga. \"Trainspotting\" explora temas de alienación, hedonismo y la búsqueda de un sentido de identidad en medio de la decadencia. La película es conocida por su estilo visual distintivo y su representación cruda de la adicción y la vida marginal.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/Trainspotting"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -113,7 +113,7 @@
     "title": "Requiem for a Dream",
     "description": "Dirigida por Darren Aronofsky y basada en la novela de Hubert Selby Jr., \"Requiem for a Dream\" narra la historia de cuatro personajes cuyas vidas se ven afectadas por la adicción a las drogas. La trama sigue a Harry (interpretado por Jared Leto) y su novia Marion (interpretada por Jennifer Connelly), quienes luchan por cumplir sus sueños mientras se hunden en una espiral de consumo de heroína. A su vez, la madre de Harry, Sara (interpretada por Ellen Burstyn), se obsesiona con perder peso y toma pastillas recetadas que la llevan a una decadencia física y mental. La película muestra las consecuencias devastadoras de las adicciones en la vida de los personajes, presentando una narrativa visualmente impactante y emocionalmente intensa. \"Requiem for a Dream\" es conocida por su estilo visual provocador y su retrato sin concesiones de la adicción y la autodestrucción.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/requiem"],
     "stock": 5,
     "category": "Ciencia ficción",
     "status": true
@@ -123,7 +123,7 @@
     "title": "The Fight Club",
     "description": "\"The Fight Club\" es una película dirigida por David Fincher, basada en la novela homónima de Chuck Palahniuk. La trama sigue a un protagonista sin nombre (interpretado por Edward Norton) que sufre de insomnio y está desencantado con su vida aparentemente monótona. En su búsqueda de sentido y emoción, conoce a Tyler Durden (interpretado por Brad Pitt), un carismático y desinhibido vendedor de jabón. Juntos, el protagonista y Tyler forman un club clandestino llamado \"Fight Club\", donde los hombres se reúnen para liberar su frustración y agresión a través de peleas físicas. Lo que comienza como una forma de escape se convierte en un movimiento subversivo más grande que cuestiona la sociedad de consumo, el materialismo y la idea de la masculinidad moderna. A medida que la trama se desarrolla, la línea entre la realidad y la fantasía se vuelve cada vez más borrosa, y el protagonista descubre que su relación con Tyler es más compleja de lo que parece. \"The Fight Club\" explora temas de identidad, alienación, anarquía y la búsqueda de significado en un mundo conformista. La película desafía las expectativas narrativas convencionales y presenta un giro sorprendente que invita a los espectadores a cuestionar la realidad y la percepción. La película es conocida por su estilo visual y estético distintivo, así como por su crítica social subyacente. \"The Fight Club\" ha dejado una marca duradera en la cultura cinematográfica y es considerada una película emblemática que desafía las convenciones y estimula la reflexión sobre la vida moderna.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/figth_club"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -133,7 +133,7 @@
     "title": "Forest Gump",
     "description": "\"Forrest Gump\" es una película dirigida por Robert Zemeckis y está basada en la novela del mismo nombre escrita por Winston Groom. La trama sigue la vida de Forrest Gump (interpretado por Tom Hanks), un hombre con discapacidades cognitivas pero un corazón puro y un optimismo inquebrantable. A través de una serie de flashbacks, Forrest relata su vida desde su infancia hasta la adultez. A pesar de sus desafíos, Forrest logra participar en momentos clave de la historia de Estados Unidos durante la segunda mitad del siglo XX. A través de su ingenuidad y bondad, se convierte en testigo y participante involuntario en eventos históricos como la Guerra de Vietnam, el movimiento por los derechos civiles y el surgimiento de la cultura pop. La trama también se centra en la relación de Forrest con su amiga de la infancia, Jenny Curran (interpretada por Robin Wright), quien influye significativamente en su vida y lo acompaña a lo largo de sus altibajos. La película explora temas de amor, amistad, superación y la capacidad de impactar positivamente en la vida de los demás. \"Forrest Gump\" es conocida por su mezcla de comedia, drama y elementos históricos. A través de la perspectiva única de Forrest, la película ofrece una visión conmovedora y a menudo humorística de la vida y la sociedad estadounidense. La película es famosa por sus líneas icónicas y su capacidad para entrelazar la vida de un individuo con la historia de su país en una narrativa emotiva y atractiva.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/forest"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -143,7 +143,7 @@
     "title": "Eternal Sunshine of the Spotless Mind",
     "description": "\"Eternal Sunshine of the Spotless Mind\" es una película dirigida por Michel Gondry y escrita por Charlie Kaufman. La trama sigue la historia de Joel Barish (interpretado por Jim Carrey) y Clementine Kruczynski (interpretada por Kate Winslet), quienes se someten a un procedimiento médico experimental para borrar por completo los recuerdos de su relación fallida. La película comienza con Joel descubriendo que Clementine ha eliminado todos los recuerdos de su relación de su mente. Desconsolado por la pérdida, Joel decide someterse al mismo procedimiento. Mientras los recuerdos de su relación se desvanecen uno a uno, Joel se da cuenta de que aún la ama y lucha por retener los momentos especiales que compartieron. A medida que el procedimiento avanza, la película explora los recuerdos de Joel de manera no lineal, saltando hacia adelante y hacia atrás en el tiempo mientras se sumerge en sus pensamientos y emociones. La trama también revela a los técnicos que llevan a cabo el procedimiento, incluido el Dr. Howard Mierzwiak (interpretado por Tom Wilkinson) y los empleados de la empresa Lacuna, que se especializa en borrar recuerdos dolorosos. \"Eternal Sunshine of the Spotless Mind\" aborda temas de amor, memoria, pérdida y el poder de los recuerdos en la formación de la identidad de una persona. La película cuestiona si es mejor borrar los recuerdos dolorosos o enfrentarlos para aprender y crecer. A medida que la trama avanza, Joel y Clementine descubren que incluso en medio del dolor, los momentos de felicidad y conexión valen la pena. La película se distingue por su estilo visual creativo, que refleja la confusión y el caos de los recuerdos desvaneciéndose. \"Eternal Sunshine of the Spotless Mind\" es elogiada por su enfoque original en el amor y la psicología humana, y ha dejado una impresión duradera en la cultura cinematográfica.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/eternal_sunshine"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -153,7 +153,7 @@
     "title": "The Truman Show",
     "description": "\"The Truman Show\" es una película dirigida por Peter Weir y protagonizada por Jim Carrey. La trama se centra en la vida de Truman Burbank (interpretado por Jim Carrey), un hombre común que vive en un idílico pueblo costero llamado Seahaven. Sin embargo, lo que Truman no sabe es que su vida entera es un reality show televisivo elaborado y controlado por los creadores del programa. Desde su nacimiento, Truman ha sido filmado y observado las 24 horas del día por miles de cámaras ocultas y micrófonos en cada rincón de Seahaven. Los habitantes del pueblo son actores que desempeñan roles en la vida de Truman, y cada situación está cuidadosamente guionizada y dirigida. El objetivo es crear un mundo perfectamente ordenado y libre de peligros para el entretenimiento de los espectadores. Con el tiempo, Truman comienza a notar detalles extraños y eventos inexplicables en su vida cotidiana. Su desconfianza aumenta y empieza a cuestionar la realidad que lo rodea. A medida que investiga, descubre pistas que sugieren que su mundo es una construcción artificial. Truman decide enfrentar sus miedos y escapar de Seahaven para descubrir la verdad detrás de su existencia. La película explora temas de libre albedrío, la búsqueda de la autenticidad y la manipulación mediática. A medida que Truman lucha por su independencia y busca la verdad, su historia se convierte en un comentario sobre la obsesión de la sociedad moderna por la vigilancia y la explotación de la vida privada en nombre del entretenimiento. \"The Truman Show\" es conocida por su premisa original y su exploración de la relación entre la realidad y los medios de comunicación. La película presenta una combinación de comedia, drama y reflexión filosófica, y ha dejado una marca duradera en la cultura popular como una sátira ingeniosa sobre la sociedad contemporánea.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/truman_show"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -163,7 +163,7 @@
     "title": "Dangerous Minds",
     "description": "\"Dangerous Minds\" es una película dirigida por John N. Smith y protagonizada por Michelle Pfeiffer. La trama se centra en la historia de LouAnne Johnson (interpretada por Michelle Pfeiffer), una exmarine que acepta un trabajo como profesora de inglés en una escuela secundaria en un vecindario conflictivo y desfavorecido. LouAnne pronto se da cuenta de que sus estudiantes enfrentan desafíos enormes en sus vidas, incluida la violencia en las calles, la pobreza y la falta de oportunidades. La mayoría de sus estudiantes pertenecen a minorías y están en riesgo de abandonar la escuela debido a las circunstancias difíciles en las que viven. Determinada a hacer una diferencia, LouAnne adopta un enfoque poco convencional para enseñar. Utiliza métodos creativos y relatables para captar la atención de sus estudiantes y hacer que se interesen por el aprendizaje. A través de la música, la poesía y la conexión personal, LouAnne logra inspirar a sus estudiantes a esforzarse más en la educación y a superar sus obstáculos. La película aborda temas de educación, desigualdad social, prejuicio y la importancia de la empatía en la enseñanza. A medida que LouAnne trabaja con sus estudiantes, se enfrenta a desafíos personales y profesionales, pero también experimenta momentos de triunfo a medida que ve el progreso de sus alumnos. \"Dangerous Minds\" se inspira en una historia real y destaca la importancia de la educación en la transformación de las vidas de los jóvenes en situaciones difíciles. La película celebra el poder de los maestros para marcar una diferencia positiva y resalta la importancia de brindar oportunidades a aquellos que a menudo son marginados en la sociedad.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/dangerous_minds"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -173,7 +173,7 @@
     "title": "Seven",
     "description": "\"Los 7 Pecados Capitales\" (también conocida como \"Se7en\") es una película dirigida por David Fincher. La trama sigue a los detectives David Mills (interpretado por Brad Pitt) y William Somerset (interpretado por Morgan Freeman) mientras investigan una serie de horribles asesinatos en una ciudad sombría y decadente. Cada asesinato está diseñado para representar uno de los siete pecados capitales: gula, avaricia, pereza, envidia, ira, lujuria y soberbia. Los detectives se enfrentan a una carrera contrarreloj para descubrir la identidad del asesino y detener sus macabras acciones antes de que cometa el último pecado en su lista. A medida que la trama avanza, los detectives Mills y Somerset se sumergen en la mente retorcida del asesino y descubren su motivo siniestro. La película explora temas oscuros y perturbadores relacionados con la naturaleza humana, la moralidad y el mal. Los detectives enfrentan dilemas éticos y personales mientras luchan por resolver el caso y detener la violencia desenfrenada. \"Los 7 Pecados Capitales\" es conocida por su atmósfera sombría y su estilo visual distintivo que refleja la decadencia y el caos de la ciudad en la que se desarrolla. La película presenta giros inesperados y revelaciones impactantes que mantienen la tensión durante toda la narrativa. Es una película que explora la oscuridad de la mente humana y plantea preguntas sobre la moralidad y la justicia en un mundo marcado por el pecado.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/seven"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -183,7 +183,7 @@
     "title": "Edward Scissorhands",
     "description": "Dirigida por Tim Burton, \"Edward Scissorhands\" narra la historia de Edward (interpretado por Johnny Depp), un joven artificialmente creado por un inventor que fallece antes de poder darle manos humanas. Edward tiene tijeras en lugar de manos, lo que lo hace único pero también lo aísla del mundo. Una mujer llamada Peg (interpretada por Dianne Wiest) lo lleva a su hogar suburbano y lo introduce en la sociedad. A pesar de su habilidad para crear obras de arte con sus tijeras, Edward enfrenta desafíos al ser diferente. La película explora la aceptación, la belleza interior y la naturaleza superficial de la sociedad.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/Edward_Scissorhands"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -193,7 +193,7 @@
     "title": "Big Fish",
     "description": "Dirigida por Tim Burton, \"Big Fish\" sigue la relación entre Edward Bloom (interpretado por Albert Finney en su vejez y Ewan McGregor en su juventud) y su hijo Will (interpretado por Billy Crudup). Edward es un hombre cuyas historias fantásticas y exageradas sobre su vida han distanciado a su hijo. Will intenta separar la verdad de la ficción al investigar las historias de su padre antes de su muerte. La película presenta una mezcla de la realidad y la fantasía, explorando la relación entre padres e hijos, la importancia de las historias personales y la búsqueda de la verdad en medio de la imaginación.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/big_fish"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -203,7 +203,7 @@
     "title": "The Nightmare Before Christmas",
     "description": "Dirigida por Henry Selick y producida por Tim Burton, \"The Nightmare Before Christmas\" es una película de animación stop-motion. La trama sigue a Jack Skellington, el Rey de Halloween Town, quien se cansa de la rutina de Halloween y descubre Christmas Town. Inspirado por la Navidad, decide tomar el control de la festividad, pero su interpretación única y oscura de la Navidad provoca caos. La película explora temas de identidad, aceptación y la fusión de diferentes culturas festivas. Con su estilo visual distintivo y su música memorable de Danny Elfman, la película se ha convertido en un clásico de culto durante las festividades de Halloween y Navidad.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/the_nightmare"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -213,7 +213,7 @@
     "title": "The Exorcist",
     "description": "\"The Exorcist\" es una película de terror dirigida por William Friedkin, basada en la novela del mismo nombre escrita por William Peter Blatty. La trama sigue a la actriz Chris MacNeil (interpretada por Ellen Burstyn) y su hija Regan (interpretada por Linda Blair). Cuando Regan comienza a exhibir un comportamiento perturbador y violento, Chris busca ayuda médica y psiquiátrica, pero su hija parece estar poseída por una entidad demoníaca. Chris se une al padre Damien Karras (interpretado por Jason Miller) para realizar un exorcismo en un intento desesperado por salvar a su hija del mal que la consume.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/the_exorcist"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -223,7 +223,7 @@
     "title": "It",
     "description": "Basada en la novela de Stephen King, \"It\" es una película de terror dirigida por Andrés Muschietti. La trama se desarrolla en dos líneas temporales. En la década de 1980, un grupo de niños en el pueblo de Derry, Maine, se enfrenta a una entidad aterradora que toma la forma de sus peores miedos, especialmente de un payaso llamado Pennywise (interpretado por Bill Skarsgård). Años después, cuando los niños ya son adultos, deben regresar a Derry para enfrentarse a It una vez más y poner fin a su reinado de terror.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/it"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -233,7 +233,7 @@
     "title": "The Breakfast Club",
     "description": "\"The Breakfast Club\" es una película dirigida por John Hughes. La trama se desarrolla en un sábado en una escuela secundaria donde cinco estudiantes de diferentes grupos sociales se encuentran castigados juntos en la biblioteca. Los personajes incluyen al atleta Andrew (interpretado por Emilio Estevez), la princesa Claire (interpretada por Molly Ringwald), el cerebro Brian (interpretado por Anthony Michael Hall), el criminal Bender (interpretado por Judd Nelson) y la marginada Allison (interpretada por Ally Sheedy). A medida que comparten sus historias y problemas personales, los estudiantes se dan cuenta de que tienen más en común de lo que pensaban, rompiendo las barreras de sus estereotipos y formando vínculos inesperados. La película explora temas de identidad, pertenencia y la superación de las diferencias sociales.",
     "price": 56.25,
-    "thumbnail": [],
+    "thumbnail": ["/the_breakfast"],
     "category": "Ciencia ficción",
     "stock": 5,
     "status": true
@@ -245,7 +245,7 @@
     "price": 1025.325,
     "stock": 51,
     "category": "Ciencia ficción",
-    "thumbnail": ["/img-1693383496261"],
+    "thumbnail": ["/the_prestige"],
     "status": true
   },
   {
@@ -255,37 +255,7 @@
     "price": 53,
     "stock": 12,
     "category": "Ciencia ficción",
-    "thumbnail": ["/img-1693785915816"],
-    "status": true
-  },
-  {
-    "code": "77935354352122",
-    "title": "El hombre bicentenario",
-    "description": "La película \"El Hombre Bicentenario\" es una adaptación de la novela de ciencia ficción escrita por Isaac Asimov. La trama se centra en Andrew Martin, un robot doméstico interpretado por Robin Williams, que a lo largo de los años desarrolla una conciencia y deseos de convertirse en humano. A medida que transcurren los años, Andrew busca la manera de alcanzar su deseo de convertirse en un ser humano de verdad, lo que lo lleva a un viaje emocional y existencial. La película aborda temas profundos sobre la humanidad, la identidad y la búsqueda de la felicidad a lo largo de la vida de Andrew. Es una historia conmovedora que explora la evolución de un robot en busca de su propia humanidad.",
-    "price": 150,
-    "stock": 51,
-    "category": "Ciencia ficcion",
-    "thumbnail": [],
-    "status": true
-  },
-  {
-    "title": "asdasd",
-    "description": "asdasd",
-    "code": "123",
-    "price": 12312,
-    "stock": 123123,
-    "category": "asdasd",
-    "thumbnail": [],
-    "status": true
-  },
-  {
-    "title": "interestellar",
-    "description": "sinopsis de interestellar",
-    "code": "7791231",
-    "price": 53,
-    "stock": 12,
-    "category": "Sci Fy",
-    "thumbnail": [],
+    "thumbnail": ["/el_hombre_bicentenario"],
     "status": true
   }
 ]

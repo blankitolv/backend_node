@@ -55,14 +55,13 @@ const upload = multer({ storage });
 // se crea una instancia de product manager para ser utilizada y cargada en memoria
 // const productM = new ProductManager();
 
-// solicita productos del sistema [verificado]
-router.get("/", async (req, res) => {
+// solicita productos del sistema
+router.get("/", async (req, res) => {  
+  console.log("SOLICITA ALL PRODUCTS: ",req.session)
   let limit
   let page
   req.query.limit != undefined ? limit = Number(req.query.limit) : limit = 10;
-  
   req.query.page != undefined ? page = Number(req.query.page) : page = 1;
-  
   let query = {}
   let options = { limit, page }
   

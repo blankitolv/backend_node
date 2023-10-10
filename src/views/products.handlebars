@@ -2,6 +2,10 @@
       vista de todos los productos sin websocket
  --}}
  {{> pagination}}
+ <div class="container p-2 m-3">
+  <h5>Bienvenido {{data.user.name}} <i class="bi bi-balloon-heart"></i>!</h5>
+  <p>Username: <b>{{data.user.email}}</b></p>
+ </div>
 <div class="container-fluid bg-dark text-light" style="min-height: 95vh;">
   <div class="row row-cols-xs-2 row-cols-lg-4 row-cols-sm-2 row-cols-md-3 g-3">
     {{#each data.payload}}
@@ -27,5 +31,6 @@
     {{/each}}
   </div>
 </div>
+{{> pagination}}
 
 <script src="/assets/script/products.js"></script>

@@ -4,41 +4,51 @@ Tutor: Leonardo Pihuala
 COM: 47300
 */
 
+// recursos de terceros
 import express from 'express'
 
-import routerProducts from './routes/products.routes.js'
+import handlebars from 'express-handlebars'
 
-import routerProductsv2 from './routes/products.js'
+import path from 'path'
+
+import mongoose from 'mongoose'
+
+import { Server } from 'socket.io'
+
+import session from 'express-session';
+
+import MongoStore from 'connect-mongo'
+
+
+// mis recursos de terceros
+
+
+import { __dirname, mongo_data } from './utils.js'
+
+
+import ProductManagerv2 from './dao/bdmanager/products.manager.js'
+
+import { ProductManager } from './dao/fsmanager/clase.js'
+
+import ChatManager from './dao/bdmanager/chat.manager.js'
+
+import { tiempo } from './utils.js'
+
+import { charge_products } from './utils.js'
+
+// routers
+import viewRouter from './routes/views.router.js'
 
 import routerCarts from './routes/carts.routes.js'
 
 import routerCartsv2 from './routes/carts.js'
 
-import handlebars from 'express-handlebars'
+import routerProducts from './routes/products.routes.js'
 
-import { __dirname, mongo_data } from './utils.js'
+import routerProductsv2 from './routes/products.js'
 
-import path from 'path'
+import routerUsers from './routes/users.routes.js'
 
-import viewRouter from './routes/views.router.js'
-
-import { Server } from 'socket.io'
-
-import { ProductManager } from './dao/fsmanager/clase.js'
-
-import ProductManagerv2 from './dao/bdmanager/products.manager.js'
-
-import mongoose from 'mongoose'
-
-import { tiempo } from './utils.js'
-
-import ChatManager from './dao/bdmanager/chat.manager.js'
-
-
-// SI SE QUIEREN CARGAR PRODUCTOS DESDE EL JSON QUE ESTÁ EN LA CARPETA BD
-// import movies from '../db/prods_mongoose.json' assert { type: 'json' }
-
-// import { productsModel } from './dao/models/products.model.js'
 
 const PORT = process.env.PORT || 8080;
 
@@ -53,18 +63,28 @@ const httpServer = app.listen (PORT, ()=>{
   console.log ("listening on port: ",PORT);
   console.log("http://localhost:"+PORT);
 })
+
 const conn = mongo_data.get('cloud')
 mongoose.connect(conn)
 .then(console.log ("connection with mongo"))
 .then(()=> console.log (" 💾 "+conn))
 .catch(e => console.log ("error in connection DB: ",e.message))
 .finally(()=> console.log ("MONGODB: running"))
-// try {
-//   const responseInsert = await productsModel.insertMany(movies)
-//   console.log(responseInsert)
-// } catch (error) {
-//   console.log (error);
-// }
+
+// inserta productos en bd
+charge_products(false)
+
+//middleware session cookie
+app.use(session({
+  store: MongoStore.create({
+      client: mongoose.connection.getClient(),
+      ttl: 3600, // time to live = TTL
+      name:"Notflix"
+  }),
+  secret: '¡Palabra-Super-Secreta!',
+  resave: true,
+  saveUninitialized: true,
+}));
 
 let users = []
 let public_messages = []
@@ -111,12 +131,8 @@ socketServer.on("connection",async socket =>{
     socket.broadcast.emit("userLogged",JSON.stringify({data}))
   })
 
-
-
   socket.on('disconnect', () => {
     const user_disconected = users.filter(user => user.conn == socket.id)
-
-
     if (user_disconected.length == 0) {
       return
     }
@@ -252,3 +268,5 @@ app.use('/api/v2/products',routerProductsv2);
 app.use('/api/carts',routerCarts);
 
 app.use('/api/v2/carts',routerCartsv2);
+
+app.use('/api/users',routerUsers);

@@ -1,79 +1,116 @@
-{{!-- 
+{{! 
       genero un codigo parcial para ser implementado en la vista
       y no tener que repetir el nav en todas las vistas
- --}}
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="http://localhost:8080/"  id="logo">
-        <img src="https://fontmeme.com/permalink/230906/e8e360fa37f9df98df8bade5ceb566ac.png" style="max-width:120px;" alt="logo notflix" border="0">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarsExample03">
-        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="http://localhost:8080">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://localhost:8080/products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" >Update product</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://localhost:8080/realtime">RealTime</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://localhost:8080/chat">Chat</a>
-          </li>
-          <li class="nav-item animate__animated">
-            <a class="nav-link" id="nav_cart" data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Cart <i class="bi bi-basket"></i></a>
-          </li>
-        </ul>
-        <form role="search">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        </form>
+ }}
+<nav
+  class="navbar navbar-expand-sm navbar-dark bg-dark"
+  aria-label="Third navbar example"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="http://localhost:8080/" id="logo">
+      <img
+        src="https://fontmeme.com/permalink/230906/e8e360fa37f9df98df8bade5ceb566ac.png"
+        style="max-width:120px;"
+        alt="logo notflix"
+        border="0"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample03"
+      aria-controls="navbarsExample03"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+      <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="http://localhost:8080"
+          >Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:8080/products">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Update product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:8080/realtime">RealTime</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:8080/chat">Chat</a>
+        </li>
+        <li class="nav-item animate__animated">
+          <a
+            class="nav-link"
+            id="nav_cart"
+            data-bs-toggle="offcanvas"
+            href="#offcanvasExample"
+            aria-controls="offcanvasExample"
+          >Cart <i class="bi bi-basket"></i></a>
+        </li>
+      </ul>
+      <div>
+        <button type="button" id="nav_login_btn" class="btn btn-light" hidden>Login</button>
+        <button type="button" id="nav_logout_btn" class="btn btn-light" hidden>Logout</button>
+        <button type="button" id="nav_register_btn" class="btn btn-light" hidden>Register</button>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel"
+>
   <div class="offcanvas-header">
-     <a class="navbar-brand" href="http://localhost:8080/"  id="logo">
-        <img src="https://fontmeme.com/permalink/230906/e8e360fa37f9df98df8bade5ceb566ac.png" style="max-width:120px;" alt="logo notflix" border="0">
-      </a>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <a class="navbar-brand" href="http://localhost:8080/" id="logo">
+      <img
+        src="https://fontmeme.com/permalink/230906/e8e360fa37f9df98df8bade5ceb566ac.png"
+        style="max-width:120px;"
+        alt="logo notflix"
+        border="0"
+      />
+    </a>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
   <div class="offcanvas-body">
     <div class="col-12 order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Carrito de compras</span>
-          <span class="badge bg-primary rounded-pill" id="cart_count">3</span>
-        </h4>
-        <ul class="list-group mb-3" id="canvas_cart_box">
-        </ul>
-
-        <form class="card p-2" id="form_canvas_cart">
-          <div class="input-group">
-            <input type="text" class="form-control" id="input_cart_id" name="cartid" placeholder="ir al carrito">
-            <button type="submit" class="btn btn-secondary">carrito</button>
-          </div>
-        </form>
-      </div>
-    {{!-- <div>
-      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-    </div>
-    <div class="dropdown mt-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Dropdown button
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-primary">Carrito de compras</span>
+        <span class="badge bg-primary rounded-pill" id="cart_count">3</span>
+      </h4>
+      <ul class="list-group mb-3" id="canvas_cart_box">
       </ul>
-    </div> --}}
+
+      <form class="card p-2" id="form_canvas_cart">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="input_cart_id"
+            name="cartid"
+            placeholder="ir al carrito"
+          />
+          <button type="submit" class="btn btn-secondary">carrito</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
+<script src="/assets/script/nav.js"></script>
 <script src="/assets/script/cart.js"></script>

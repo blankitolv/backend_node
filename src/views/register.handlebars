@@ -1,0 +1,98 @@
+<section class="h-100 h-custom" {{! style="background-color: #8fc4b7;" }}>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img
+            src="https://fontmeme.com/permalink/230906/e8e360fa37f9df98df8bade5ceb566ac.png"
+            style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+            alt="logo notflix"
+            border="0"
+            class="w-25 mx-auto d-block mt-5"
+          />
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration</h3>
+            <form class="px-md-2" id="form_reg">
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="first name"
+                  name="first_name"
+                  aria-label="ingrese su primer nombre"
+                  required
+                />
+              </div>
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="last name"
+                  name="last_name"
+                  aria-label="last_name"
+                  required
+                />
+              </div>
+              <div class="form-outline mb-4">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Email"
+                  name="user_email"
+                  aria-label="user_email"
+                  required
+                />
+              </div>
+              <div class="form-outline mb-4">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="password"
+                  name="password"
+                  aria-label="password"
+                  required
+                />
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline mb-4">
+                    <input
+                      type="date"
+                      class="form-control"
+                      placeholder="Birthday"
+                      name="birthday"
+                      aria-label="birthday"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-4 pb-2 pb-md-0 mb-md-5">
+                <div class="col-md-6">
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="registration_code"
+                      name="registration_code"
+                      aria-label="registration_code"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-success btn-lg mb-1">
+                Register
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/assets/script/reg.js"></script>

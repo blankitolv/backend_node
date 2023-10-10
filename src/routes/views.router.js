@@ -7,85 +7,29 @@ const router = Router();
 const expresion = new RegExp("/[a-z0-9]+/");
 
 
+const publicAccess = (req, res, next) => {
+  next();
+}
+const alreadyLogged = (req,res, next) =>{
+  if(req.session.user) return res.redirect('/');
+  next();
+}
+
+const privateAcess = (req, res, next) => {
+  if(!req.session.user) return res.redirect('/login');
+  next();
+}
+
+
 // todos los productos (classic)
 const pm = new pManager();
 const cart = new cartManager();
-router.get("/", async (req, res) => {
+router.get("/",privateAcess, async (req, res) => {
   res.redirect('/products')
-  // let limit;
-  // let page;
-  // req.query.limit != undefined
-  //   ? (limit = Number(req.query.limit))
-  //   : (limit = 10);
-
-  // req.query.page != undefined ? (page = Number(req.query.page)) : (page = 1);
-
-  // let query = {};
-  // let options = { limit, page };
-
-  // if (req.query.sort != undefined) {
-  //   options["sort"] = req.query.sort == "asc" ? 1 : -1;
-  // }
-
-  // if (req.query.category != undefined) {
-  //   query["category"] = req.query.category;
-  // } else {
-  //   if (req.query.status != undefined) {
-  //     if (req.query.status == "true" || req.query.status == "false") {
-  //       query["status"] = req.query.status;
-  //     } else {
-  //       res.status(400).json({ status: "error", message: "Invalid url param" });
-  //     }
-  //   }
-  // }
-  // console.log("original: ", req.originalUrl);
-  // // console.log(myFilters);
-  // try {
-  //   let data = await pm.getAll(options, query);
-  //   if (data.payload == 0) {
-  //     throw new Error("length of products are zero");
-  //   }
-  //   // let myFilters = req.originalUrl.slice(2).split("&");
-  //   // NO BORRAR FUTUROS FILTROS
-  //   // NO BORRAR FUTUROS FILTROS
-  //   // NO BORRAR FUTUROS FILTROS
-
-  //   // let newURL
-  //   // for (let i=0; i<= myFilters.length-1;i++){
-  //   //   if (data.hasPrevPage){
-
-  //   //   }
-  //   // }
-
-  //   // NO BORRAR FUTUROS FILTROS
-  //   // NO BORRAR FUTUROS FILTROS
-  //   // NO BORRAR FUTUROS FILTROS
-  //   let all_prev = [];
-  //   for (let i=1; i< data.page; i++) {
-  //     all_prev.push(i)
-  //   }
-
-  //   let all = []
-  //   for (let i=(data.page+1); i<= data.totalPages; i++) {
-  //     all.push(i)
-  //   }
-  //   data.all_prev = all_prev;
-  //   data.all = all;
-  //   res.render("products", { data });
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json();
-  // }
-  // // try {
-  // //   const resp = await pm.getAll();
-  // //   res.render('products',{product: resp})
-  // //   console.log (resp)
-  // // } catch (error) {
-  // //   console.log ("ERROR SOLICITANDO TODOS LOS PRODUCTOS MONGO (views)",error)
-  // // }
 });
 
-router.get("/products", async (req, res) => {
+router.get("/products",privateAcess, async (req, res) => {
+  console.log(req.session)
   let limit;
   let page;
   req.query.limit != undefined
@@ -112,7 +56,7 @@ router.get("/products", async (req, res) => {
       }
     }
   }
-  console.log("original: ", req.originalUrl);
+  // console.log("original: ", req.originalUrl);
   // console.log(myFilters);
   try {
     let data = await pm.getAll(options, query);
@@ -123,8 +67,6 @@ router.get("/products", async (req, res) => {
 
     data.back_url = `?limit=${options.limit}&page=${options.page - 1}${options.sort?`&sort=${req.query.sort}`:''}${query.category?`&category=${query.category}`:""}`
     data.next_url = `?limit=${options.limit}&page=${options.page + 1}${options.sort?`&sort=${req.query.sort}`:''}${query.category?`&category=${query.category}`:""}`
-    console.log (">.>.>",data.back_url)
-    console.log (">.>.>",data.next_url)
     let all_prev = [];
     for (let i=1; i< data.page; i++) {
       const aux = `?limit=${options.limit}&page=${i}${options.sort?`&sort=${req.query.sort}`:''}${query.category ? `&category=${query.category}` : ""}`;
@@ -139,26 +81,21 @@ router.get("/products", async (req, res) => {
     
     data.all_prev = all_prev;
     data.all = all;
+    data.user = req.session.user
+
     res.render("products", { data });
   } catch (error) {
     console.log(error);
     res.status(500).json();
   }
-  // try {
-  //   const resp = await pm.getAll();
-  //   res.render('products',{product: resp})
-  //   console.log (resp)
-  // } catch (error) {
-  //   console.log ("ERROR SOLICITANDO TODOS LOS PRODUCTOS MONGO (views)",error)
-  // }
 });
 
 
-router.get("/realtime", async (req, res) => {
+router.get("/realtime",privateAcess, async (req, res) => {
   res.render("realtime", {});
 });
 
-router.get("/product/:pid", async (req, res) => {
+router.get("/product/:pid",privateAcess,async (req, res) => {
   // parseo el id de param para validar tipo de dato
   // const pid = parseInt(req.params.pid);
   const { pid } = req.params;
@@ -176,23 +113,10 @@ router.get("/product/:pid", async (req, res) => {
   } catch (error) {
     console.log(error.message)
   }
-
-  // valido que sea un número y que sea mayor o igual a 0
-  // console.log("isNaN", isNaN(pid))
-  // if (pid <= 0 || isNaN(pid)) {
-  //   res.status(400).json(r.badRequest());
-  //   return;
-  // }
-  // res.send("llegaste");
-  // const product = new ProductManager();
-
-  // const all_products = await product.getProducts();
-  // console.log(all_products);
-  // res.render("products", { product: all_products });
 });
 
 // genero una vista para un bad request
-router.get("/badrequest", (req, res) => {
+router.get("/badrequest", publicAccess, (req, res) => {
   // tomo el valor del url que coloqué en la clase que maneja los errores
   // y lo envío a renderizar cómo parametro
   const errorMessage = req.query.message || "";
@@ -202,14 +126,14 @@ router.get("/badrequest", (req, res) => {
 });
 
 // vista generada pero no implementada para 500
-router.get("/internalServerError", (req, res) => {
+router.get("/internalServerError",publicAccess, (req, res) => {
   const errorMessage = req.query.message || "";
   res
     .status(500)
     .render("internalServerError", { layout: "secondary", errorMessage });
 });
 
-router.get("/cart/:cid", async(req, res) => {
+router.get("/cart/:cid", privateAcess, async(req, res) => {
   const { cid } = req.params;
 
   if (expresion.test(cid)) {
@@ -230,9 +154,16 @@ router.get("/cart/:cid", async(req, res) => {
 });
 
 // vista generada pero no implementada para 500
-router.get("/chat", (req, res) => {
-  const errorMessage = req.query.message || "";
+router.get("/chat",privateAcess, (req, res) => {
   res.status(200).render("chat", {});
+});
+
+router.get("/register",publicAccess,alreadyLogged, (req, res) => {
+  res.status(200).render("register", {});
+});
+
+router.get("/login", publicAccess, alreadyLogged, (req, res) => {
+  res.status(200).render("login", {});
 });
 
 export default router;

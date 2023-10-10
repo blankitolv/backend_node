@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { ProductManager } from '../dao/fsmanager/clase.js'
-import { CartManager } from '../dao/fsmanager/clase.js'
+import { ProductManager } from '../../dao/fsmanager/clase.js'
+import { CartManager } from '../../dao/fsmanager/clase.js'
 
-import CartManagerv2 from '../dao/bdmanager/carts.manager.js'
-import Response from '../errorMessages.js'
+import CartManagerv2 from '../../dao/bdmanager/carts.manager.js'
+import Response from '../../errorMessages.js'
 
 const router = Router();
 

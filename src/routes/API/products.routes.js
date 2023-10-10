@@ -5,15 +5,15 @@ import { Router } from "express";
 // import { CartManager } from "../clase.js";
 // deprecar
 
-import ProductManagerv2 from "../dao/bdmanager/products.manager.js";
+import ProductManagerv2 from "../../dao/bdmanager/products.manager.js";
 
-import Response from "../errorMessages.js";
+import Response from "../../errorMessages.js";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import path from "path";
 import fs from "fs";
 
-import { socketServer } from "../app.js";
+import { socketServer } from "../../app.js";
 
 const router = Router();
 

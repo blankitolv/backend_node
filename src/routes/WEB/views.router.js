@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { ProductManager } from "../dao/fsmanager/clase.js";
-import pManager from "../dao/bdmanager/products.manager.js";
-import cartManager from "../dao/bdmanager/carts.manager.js";
+import { ProductManager } from "../../dao/fsmanager/clase.js";
+import pManager from "../../dao/bdmanager/products.manager.js";
+import cartManager from "../../dao/bdmanager/carts.manager.js";
 const router = Router();
 
 const expresion = new RegExp("/[a-z0-9]+/");

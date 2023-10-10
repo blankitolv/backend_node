@@ -37,17 +37,17 @@ import { tiempo } from './utils.js'
 import { charge_products } from './utils.js'
 
 // routers
-import viewRouter from './routes/views.router.js'
+import viewRouter from './routes/WEB/views.router.js'
 
-import routerCarts from './routes/carts.routes.js'
+import routerCarts from './routes/API/carts.routes.js'
 
-import routerCartsv2 from './routes/carts.js'
+import routerCartsv2 from './routes/API/carts.js'
 
-import routerProducts from './routes/products.routes.js'
+import routerProducts from './routes/API/products.routes.js'
 
-import routerProductsv2 from './routes/products.js'
+import routerProductsv2 from './routes/API/products.js'
 
-import routerUsers from './routes/users.routes.js'
+import routerUsers from './routes/API/users.routes.js'
 
 
 const PORT = process.env.PORT || 8080;
@@ -64,7 +64,7 @@ const httpServer = app.listen (PORT, ()=>{
   console.log("http://localhost:"+PORT);
 })
 
-const conn = mongo_data.get('cloud')
+const conn = mongo_data.get('local')
 mongoose.connect(conn)
 .then(console.log ("connection with mongo"))
 .then(()=> console.log (" 💾 "+conn))

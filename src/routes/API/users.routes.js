@@ -2,7 +2,7 @@
 import { Router } from "express";
 
 // propios
-import UsersManager from "../dao/bdmanager/users.manager.js";
+import UsersManager from "../../dao/bdmanager/users.manager.js";
 
 const usersManager = new UsersManager()
 const router = Router();

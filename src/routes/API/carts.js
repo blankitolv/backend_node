@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { ProductManager } from '../dao/fsmanager/clase.js'
-import { CartManager } from '../dao/fsmanager/clase.js'
-import Response from '../errorMessages.js'
+import { ProductManager } from '../../dao/fsmanager/clase.js'
+import { CartManager } from '../../dao/fsmanager/clase.js'
+import Response from '../../errorMessages.js'
 
 const router = Router();
 

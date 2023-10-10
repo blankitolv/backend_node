@@ -17,18 +17,28 @@ form_reg.addEventListener('submit',(e)=>{
     },
     body: JSON.stringify(newBody)
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('La solicitud no fue exitosa');
-    }
-    return response.json(); // Parsear la respuesta JSON
-  })
+  .then(response => response.json())
   .then(data => {
-    window.location.href="/login"
-    console.log(data); // Hacer algo con los datos recibidos
+    console.log(">>>>",data)
+    console.log(">>>>",data.status)
+    console.log(">>>>",data.message)
+    if (data.status != "success") {
+      throw new Error (data.message) 
+    }
+    // if (data.status != 'success') {
+    //   console.log("NO FUE EXITOSO")
+    //   throw new Error(data.message);
+    // }
+    // window.location.href="/login"
   })
   .catch(error => {
-    console.error('Ocurrió un error:', error);
+    console.log("SALIO POR CATCH",error)
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: error.message
+    })
+    console.error('Ocurrió un error:', error.message);
     console.error('enviado: ',newBody);
   });
 })

@@ -21,7 +21,12 @@ router.post("/reg",async(req,res)=>{
   const register = { first_name, last_name, roles, birthday, email: user_email, password }
 
   try {
-    // acá debería consultar si existe el email
+    const userReturned = await usersManager.getOne(user_email)
+    if (userReturned) {
+      console.log("users.routes.js error");
+      res.status(400).json({status: 'fail', message:"Datos icorrectos en la creación del usuario"})
+      return
+    }
     const resp = await usersManager.save(register)
     if (resp) {
       console.log('Usuario creado exitosamente:', resp);

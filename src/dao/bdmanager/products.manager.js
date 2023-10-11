@@ -27,7 +27,7 @@ export default class ProductManagerv2 {
   //   const products = await productsModel.paginate( filter ,{ limit: options.limit, page: options.page, sort })
   //   return products;
   // }
-  getAll = async (options, queries) => {
+  getAll = async (options = {}, queries = {}) => {
     // let sort
     // if (options.sort == null){
       //   sort = {}

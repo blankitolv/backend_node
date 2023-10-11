@@ -1,14 +1,16 @@
-// terceros
+/*            terceros*/
 import { Router } from "express";
 
-// propios
+/*            propios*/
 import { createHash } from "../../utils.js";
+import { isValidPassword } from "../../utils.js";
+
 import UsersManager from "../../dao/bdmanager/users.manager.js";
 
 const usersManager = new UsersManager()
 const router = Router();
 
-export default router
+
 const CODIGO_SECRETO = "soyunadmin" 
 
 router.post("/reg",async(req,res)=>{
@@ -45,16 +47,22 @@ router.post("/reg",async(req,res)=>{
 router.post("/login",async(req,res)=>{
   const {user_email, password} = req.body;
   try {
-    const resp = await usersManager.correctLogin({email:user_email, password})
-    if (resp) {
-      req.session.user = {
-        name: `${resp.first_name} ${resp.last_name}`,
-        email: resp.email,
-      }
-      res.status(200).json({status:"success",message:"ok"})
-    } else {
-      res.status(400).json({status:"fail",message:"fail"})
+    const userReturned = await usersManager.getOne(user_email)
+    if (!userReturned) {
+      console.log("users.routes.js error");
+      res.status(401).json({status: 'fail', message:"Datos icorrectos"})
+      return
     }
+    if (!isValidPassword(password, userReturned.password)) {
+      res.status(401).json({status: 'fail', message:"Datos icorrectos"})
+      return
+    }
+    
+    req.session.user = {
+      name: `${userReturned.first_name} ${userReturned.last_name}`,
+      email: userReturned.email,
+    }
+    res.status(200).json({status:"success",message:"ok"})
   } catch (error) {
     return res.status(400).send({ status: 'error', message: 'incorrect credenetials' });
   }
@@ -76,3 +84,5 @@ router.get('/logout', (req, res) => {
       res.redirect('/login');
   })
 })
+
+export default router

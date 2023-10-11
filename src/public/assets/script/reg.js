@@ -29,7 +29,7 @@ form_reg.addEventListener('submit',(e)=>{
     //   console.log("NO FUE EXITOSO")
     //   throw new Error(data.message);
     // }
-    // window.location.href="/login"
+    window.location.href="/login"
   })
   .catch(error => {
     console.log("SALIO POR CATCH",error)

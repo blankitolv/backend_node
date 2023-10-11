@@ -2,6 +2,7 @@
 import { Router } from "express";
 
 // propios
+import { createHash } from "../../utils.js";
 import UsersManager from "../../dao/bdmanager/users.manager.js";
 
 const usersManager = new UsersManager()
@@ -18,7 +19,7 @@ router.post("/reg",async(req,res)=>{
   } else {
     roles.push('public')
   }
-  const register = { first_name, last_name, roles, birthday, email: user_email, password }
+  const register = { first_name, last_name, roles, birthday, email: user_email, password: createHash(password)}
 
   try {
     // acá debería consultar si existe el email

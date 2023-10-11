@@ -4,7 +4,7 @@
       <div class="container p-1 m-3">
         <p class="text-secondary fw-bold" id="title">USER</p>
         <div id="user" class="animate__animated m-2">
-          {{!-- <input type="email" name="email" id="user_email" /> --}}
+          {{! <input type="email" name="email" id="user_email" /> }}
           <button class="btn btn-primary" id="user_email_btn">login</button>
         </div>
       </div>
@@ -19,24 +19,45 @@
           <audio id="logout" src="./assets/logout.mp3"></audio>
           <audio id="signin" src="./assets/signin.mp3"></audio>
           <audio id="nudge" src="./assets/nudge.mp3"></audio>
-
           <table class="table table-dark table-striped table-borderless">
             <tbody id="box_messages_chat">
             </tbody>
           </table>
         </div>
-        <div class="animate__animated  container d-flex mt-3 mb-5 visually-hidden" id="message_box">
-          <input type="text" id="text_msg" class="ps-2" placeholder="message..." />
+        <div
+          class="animate__animated container d-flex mt-3 mb-5 visually-hidden"
+          id="message_box"
+        >
+          <input
+            type="text"
+            id="text_msg"
+            class="ps-2"
+            placeholder="message..."
+          />
           <button class="btn btn-primary ps-2 ms-5" id="send_msg">Enviar</button>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Audios
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Audio1</a></li>
+              <li><a class="dropdown-item" href="#">Audio2</a></li>
+              <li><a class="dropdown-item" href="#">Audio3</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    {{!-- <div class="col-2">
+    {{! <div class="col-2">
      
-    </div> --}}
+    </div> }}
   </div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/assets/script/chat.js"></script>
-<script src="./assets/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+{{!-- <script src="./assets/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script> --}}

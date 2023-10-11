@@ -4,6 +4,15 @@ import { fileURLToPath } from "url";
 // import movies from '../db/prods_mongoose.json'
 import fs from "fs";
 import { productsModel } from "./dao/models/products.model.js";
+import bcrypt from "bcrypt";
+
+export const createHash = password => 
+  bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+
+export const isValidPassword = (plainPass, hashedPass) => {
+    // retorna bool
+    bcrypt.compareSync(plainPass, hashedPass);
+  }
 
 export const charge_products = async (need_charge = false) => {
   if (!need_charge) {
@@ -54,5 +63,8 @@ mongo_data.set(
   "mongodb+srv://lucasvega2:74xHqd5ppo9pnpV0@cluster0.aykz8q6.mongodb.net/?retryWrites=true&w=majority"
 );
 mongo_data.set("local", "mongodb://localhost:27017/ecommerce");
+
+
+
 
 export const __dirname = path.dirname(__filename);

@@ -196,7 +196,7 @@ socketServer.on("connection",async socket =>{
       case 'allProducts':
         const pm = new ProductManagerv2();
         try {
-          const  all_prods = await pm.getAll();
+          const  all_prods = await pm.getAll({limit:100},{});
           socket.emit('allProducts',all_prods)
         } catch (err) {
           console.log (err)

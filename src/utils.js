@@ -6,13 +6,10 @@ import fs from "fs";
 import { productsModel } from "./dao/models/products.model.js";
 import bcrypt from "bcrypt";
 
-export const createHash = password => 
-  bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+export const createHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-export const isValidPassword = (plainPass, hashedPass) => {
-    // retorna bool
-    bcrypt.compareSync(plainPass, hashedPass);
-  }
+export const isValidPassword = (plainPass, hashedPass) => bcrypt.compareSync(plainPass, hashedPass);
+  
 
 export const charge_products = async (need_charge = false) => {
   if (!need_charge) {

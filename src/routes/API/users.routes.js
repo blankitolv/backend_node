@@ -21,9 +21,10 @@ router.post("/reg",async(req,res)=>{
   } else {
     roles.push('public')
   }
-  const register = { first_name, last_name, roles, birthday, email: user_email, password: createHash(password)}
-
+  
   try {
+    const register = { first_name, last_name, roles, birthday, email: user_email, password: createHash(password)}
+
     const userReturned = await usersManager.getOne(user_email)
     if (userReturned) {
       console.log("users.routes.js error");
@@ -50,11 +51,12 @@ router.post("/login",async(req,res)=>{
     const userReturned = await usersManager.getOne(user_email)
     if (!userReturned) {
       console.log("users.routes.js error");
-      res.status(401).json({status: 'fail', message:"Datos icorrectos"})
+      res.status(401).json({status: 'fail', message:"Datos incorrectos"})
       return
     }
     if (!isValidPassword(password, userReturned.password)) {
-      res.status(401).json({status: 'fail', message:"Datos icorrectos"})
+      console.log("is invalid password")
+      res.status(401).json({status: 'fail', message:"Datos incorrectos"})
       return
     }
     
@@ -64,7 +66,7 @@ router.post("/login",async(req,res)=>{
     }
     res.status(200).json({status:"success",message:"ok"})
   } catch (error) {
-    return res.status(400).send({ status: 'error', message: 'incorrect credenetials' });
+    return res.status(401).send({ status: 'error', message: 'incorrect credenetials' });
   }
 })
 router.get('/authstatus', (req, res) => {

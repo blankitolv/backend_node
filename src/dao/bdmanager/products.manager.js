@@ -39,8 +39,8 @@ export default class ProductManagerv2 {
     let option = {}
     let query = {}
 
-    option["page"] = options.page
-    option["limit"] = options.limit
+    option["page"] = options.page ?? 1
+    option["limit"] = options.limit ?? 10
 
     if (options.sort) {
       option["sort"] = { price: options.sort }

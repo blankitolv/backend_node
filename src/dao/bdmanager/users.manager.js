@@ -8,4 +8,5 @@ export default class UsersManager {
     console.log("LLEGO: ",user)
     return await usersModel.findOne({email: user.email, password: user.password})
   }
+  getOne = async(email) => await usersModel.findOne({email: email})
 }

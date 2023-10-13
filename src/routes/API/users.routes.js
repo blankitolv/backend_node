@@ -51,7 +51,6 @@ router.get("/github-callback",passport.authenticate('github', { failureRedirect:
 
 
 router.get('/authstatus', (req, res) => {
-  console.log("paso por auth")
   if (req.session && req.session.user) {
     // El usuario está autenticado
     res.json({ authenticated: true, user: req.session.user });

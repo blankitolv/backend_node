@@ -1,5 +1,6 @@
 /*            terceros*/
 import { Router } from "express";
+import passport from 'passport';
 
 /*            propios*/
 import { createHash } from "../../utils.js";
@@ -11,64 +12,44 @@ const usersManager = new UsersManager()
 const router = Router();
 
 
-const CODIGO_SECRETO = "soyunadmin" 
 
-router.post("/reg",async(req,res)=>{
-  const { birthday, registration_code, user_email, first_name, last_name, password} = req.body;
-  let roles = []
-  if (registration_code === CODIGO_SECRETO){
-    roles = ['public','admin']
-  } else {
-    roles.push('public')
-  }
-  
-  try {
-    const register = { first_name, last_name, roles, birthday, email: user_email, password: createHash(password)}
-
-    const userReturned = await usersManager.getOne(user_email)
-    if (userReturned) {
-      console.log("users.routes.js error");
-      res.status(400).json({status: 'fail', message:"Datos icorrectos en la creación del usuario"})
-      return
-    }
-    const resp = await usersManager.save(register)
-    if (resp) {
-      console.log('Usuario creado exitosamente:', resp);
-      res.status(200).json({status: 'success', message:"ok"})
-    } else {
-      console.error('La creación del usuario falló');
-      res.status(500).json({status: 'fail', message:"fail"})
-    }
-  } catch (error) {
-    res.status(500).json({status: 'fail', message:"fail"})
-    console.log (error)
-  }
-
+router.post("/reg",passport.authenticate('register', { failureRedirect: ('fail-handler'), successRedirect:'/', failureFlash: true }),
+ async(req,res)=>{
+  res.send({status: 'success', message:'usuario registrado'})
 })
-router.post("/login",async(req,res)=>{
-  const {user_email, password} = req.body;
-  try {
-    const userReturned = await usersManager.getOne(user_email)
-    if (!userReturned) {
-      console.log("users.routes.js error");
-      res.status(401).json({status: 'fail', message:"Datos incorrectos"})
-      return
-    }
-    if (!isValidPassword(password, userReturned.password)) {
-      console.log("is invalid password")
-      res.status(401).json({status: 'fail', message:"Datos incorrectos"})
-      return
-    }
-    
-    req.session.user = {
-      name: `${userReturned.first_name} ${userReturned.last_name}`,
-      email: userReturned.email,
-    }
-    res.status(200).json({status:"success",message:"ok"})
-  } catch (error) {
-    return res.status(401).send({ status: 'error', message: 'incorrect credenetials' });
-  }
+
+router.get("/fail-handler", async(req,res)=>{
+  const mensaje = req.flash('error')[0]
+  console.log(req.session.messages,"<<")
+  const uri = "/fail?message="+encodeURIComponent(mensaje);
+
+  // const msg = {title: req.flash('title'), message: req.flash('message')}
+  res.status(400).json({status: 'fail',redirectTo:uri})
 })
+
+router.post("/login",passport.authenticate('login', { failureRedirect: ('fail-handler') }), 
+async( req, res )=>{
+  console.log("LLEGUE A LOGIN ROUTER")
+  if (!req.user)
+    return res.status(401).send({ status: 'error', error: 'Incorrect credentials' });
+  req.session.user = {
+    name: `${req.user.first_name} ${req.user.last_name}`,
+    email: req.user.email,
+  }
+  res.status(200).send({ status: 'success', message:'Login success' })
+})
+
+router.get("/github",passport.authenticate('github', { scope: ['user:email']}), async (req,res)=>{
+  res.send({ status: 'success', message:'User registered'});
+})
+
+router.get("/github-callback",passport.authenticate('github', { failureRedirect: '/login' }), async (req,res)=>{
+  req.session.user = req.user;
+  res.redirect('/');
+});
+
+
+
 router.get('/authstatus', (req, res) => {
   console.log("paso por auth")
   if (req.session && req.session.user) {

@@ -90,6 +90,12 @@ router.get("/products",privateAcess, async (req, res) => {
   }
 });
 
+router.get("/fail", async(req,res)=>{
+  const message = req.query.message || ""
+  console.log ("ESTO VINO EN URL :> ",message)
+  res.render('fail', { layout: "secondary", data: message })
+})
+
 
 router.get("/realtime",privateAcess, async (req, res) => {
   res.render("realtime", {});

@@ -13,32 +13,22 @@ form_reg.addEventListener('submit',(e)=>{
   fetch('/api/users/reg',{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(newBody)
   })
-  .then(response => response.json())
+  .then (resp => resp.json())
+  
   .then(data => {
-    console.log(">>>>",data)
-    console.log(">>>>",data.status)
-    console.log(">>>>",data.message)
+    console.log(data);
     if (data.status != "success") {
-      throw new Error (data.message) 
+      setTimeout(()=>{
+        return window.location.href=data.redirectTo;
+      },5000)
     }
-    // if (data.status != 'success') {
-    //   console.log("NO FUE EXITOSO")
-    //   throw new Error(data.message);
-    // }
-    window.location.href="/login"
+    // window.location.href="/login"
   })
   .catch(error => {
-    console.log("SALIO POR CATCH",error)
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: error.message
-    })
-    console.error('Ocurrió un error:', error.message);
-    console.error('enviado: ',newBody);
+    console.log (error)
   });
 })

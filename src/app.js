@@ -19,8 +19,12 @@ import session from 'express-session';
 
 import MongoStore from 'connect-mongo'
 
+import passport from 'passport'
 
-// mis recursos de terceros
+import flash from 'express-flash'
+
+
+// mis recursos
 
 
 import { __dirname, mongo_data } from './utils.js'
@@ -35,6 +39,9 @@ import ChatManager from './dao/bdmanager/chat.manager.js'
 import { tiempo } from './utils.js'
 
 import { charge_products } from './utils.js'
+
+import { initPassport } from './config/passport.config.js'
+
 
 // routers
 import viewRouter from './routes/WEB/views.router.js'
@@ -78,13 +85,20 @@ charge_products(false)
 app.use(session({
   store: MongoStore.create({
       client: mongoose.connection.getClient(),
-      ttl: 3600, // time to live = TTL
+      ttl: 15, // time to live = TTL
       name:"Notflix"
   }),
   secret: '¡Palabra-Super-Secreta!',
   resave: true,
   saveUninitialized: true,
 }));
+
+
+
+initPassport();
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 let users = []
 let public_messages = []

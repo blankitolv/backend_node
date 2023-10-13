@@ -24,7 +24,7 @@ form_login.addEventListener('submit',(e)=>{
   })
   .then(data => {
     console.log("ALL OK")
-    window.location.replace("/products");
+    window.location.replace("/chat");
     console.log(data); // Hacer algo con los datos recibidos
   })
   .catch(error => {

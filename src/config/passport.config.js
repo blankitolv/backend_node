@@ -99,9 +99,7 @@ export const initPassport = () => {
     scope: ['user: email']
   }, async (accessToken, refreshToken, profile, done) =>{
     try {
-      console.log("pp.cfg.js: ",profile);
       const email = profile.emails[0].value;
-      console.log("EL EMAIL ES -------->",email);
       const userReturned = await usersManager.getOne(email);
       if (!userReturned) {
         // crear la cuenta
@@ -113,7 +111,6 @@ export const initPassport = () => {
         }
         const resp = await usersManager.save(newUser);
         return done(null, resp);
-        return done(null, false)
       } else {
         return done(null, userReturned);
       }      
@@ -128,7 +125,6 @@ export const initPassport = () => {
   })
 
   passport.deserializeUser( async ( id, done )=>{
-    console.log("desc_id: ",id)
     try {
       const user = await usersManager.getById(id);
       done(null, user) // req.user

@@ -192,3 +192,7 @@ socket.on("shake_yourself", data =>{
 
   console.log("hay que mover el bote: ",data);
 })
+
+socket.on('connect',()=>{
+  socket.emit("session", {});
+})

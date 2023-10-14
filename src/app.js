@@ -72,7 +72,7 @@ app.set('socketio',io);
 
 Sockets(io);
 
-const conn = mongo_data.get('local')
+const conn = mongo_data.get('cloud')
 mongoose.connect(conn)
 .then(console.log ("connection with mongo"))
 .then(()=> console.log (" 💾 "+conn))

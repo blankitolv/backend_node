@@ -1,13 +1,17 @@
+// terceros
+import fs from 'fs'
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// propios
 import { Router } from 'express';
 import { ProductManager }  from '../../dao/fsmanager/clase.js'
 import { CartManager }  from '../../dao/fsmanager/clase.js'
 import Response from '../../errorMessages.js'
-import multer from 'multer';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import fs from 'fs'
+import socketServer from '../../sockets/sockets.js';
 
-import { socketServer } from '../../app.js'
+
 
 const router = Router();
 

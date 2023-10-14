@@ -15,8 +15,7 @@ const router = Router();
 
 router.post("/reg",passport.authenticate('register', { failureRedirect: ('fail-handler'), failureFlash: true }),
  async(req,res)=>{
-  res.redirect('http://localhost:8080/login');
-  // res.send({status: 'success', message:'usuario registrado'})
+  res.send({status: 'success', message:'usuario registrado'})
 })
 
 router.get("/fail-handler", async(req,res)=>{

@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     .catch((error) => {
       console.error("Error al verificar el estado de autenticación:", error);
     });
-    nav_logout_btn.addEventListener('click', logout, true)
-    nav_login_btn.addEventListener('click', login, true)
-    nav_register_btn.addEventListener('click', register, true)
+    nav_logout_btn.addEventListener('click', logout, false)
+    nav_login_btn.addEventListener('click', login, false)
+    nav_register_btn.addEventListener('click', register, false)
 });
 
 const logout = () => {
@@ -44,9 +44,7 @@ const logout = () => {
   });
   nav_logout_btn.setAttribute('hidden',"");
 }
-const login = () => {
-  window.location.replace('/login')
-}
-const register = () => {
-  window.location.replace('/register')
-}
+const login = () => window.location.href='/login'
+
+const register = () =>  window.location.href='/register'
+

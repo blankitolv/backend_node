@@ -7,7 +7,6 @@ if (localStorage.getItem('cart_id')) {
 
 /* -------------------------------- EVENTOS CARRITO -------------------------------- */
 const all_add_products = document.querySelectorAll('.add_cart_product');
-console.log(all_add_products)
 all_add_products.forEach(each_add_cart_btn => {
   each_add_cart_btn.addEventListener('click', () => {
     console.log('se agregó ',each_add_cart_btn.getAttribute('data-id_product'))

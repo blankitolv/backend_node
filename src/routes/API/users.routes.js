@@ -13,25 +13,26 @@ const router = Router();
 
 
 
-router.post("/reg",passport.authenticate('register', { failureRedirect: ('fail-handler'), successRedirect:'/', failureFlash: true }),
+router.post("/reg",passport.authenticate('register', { failureRedirect: ('fail-handler'), failureFlash: true }),
  async(req,res)=>{
-  res.send({status: 'success', message:'usuario registrado'})
+  res.redirect('http://localhost:8080/login');
+  // res.send({status: 'success', message:'usuario registrado'})
 })
 
 router.get("/fail-handler", async(req,res)=>{
   const mensaje = req.flash('error')[0]
-  console.log(req.session.messages,"<<")
-  const uri = "/fail?message="+encodeURIComponent(mensaje);
+  res.redirect('http://localhost:8080/login');
+  // const uri = "/fail?message="+encodeURIComponent(mensaje);
 
-  // const msg = {title: req.flash('title'), message: req.flash('message')}
-  res.status(400).json({status: 'fail',redirectTo:uri})
+  // // const msg = {title: req.flash('title'), message: req.flash('message')}
+  // res.status(400).json({status: 'fail',redirectTo:uri})
 })
 
 router.post("/login",passport.authenticate('login', { failureRedirect: ('fail-handler') }), 
 async( req, res )=>{
   console.log("LLEGUE A LOGIN ROUTER")
-  if (!req.user)
-    return res.status(401).send({ status: 'error', error: 'Incorrect credentials' });
+  if (!req.user) return res.status(401).send({ status: 'error', error: 'Incorrect credentials' });
+    
   req.session.user = {
     name: `${req.user.first_name} ${req.user.last_name}`,
     email: req.user.email,

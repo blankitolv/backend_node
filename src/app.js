@@ -85,7 +85,7 @@ charge_products(false)
 app.use(session({
   store: MongoStore.create({
       client: mongoose.connection.getClient(),
-      ttl: 15, // time to live = TTL
+      ttl: 3600, // time to live = TTL
       name:"Notflix"
   }),
   secret: '¡Palabra-Super-Secreta!',

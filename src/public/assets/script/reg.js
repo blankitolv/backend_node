@@ -18,17 +18,13 @@ form_reg.addEventListener('submit',(e)=>{
     body: JSON.stringify(newBody)
   })
   .then (resp => resp.json())
-  
-  .then(data => {
-    console.log(data);
-    if (data.status != "success") {
-      setTimeout(()=>{
-        return window.location.href=data.redirectTo;
-      },5000)
+  .then ( data => {
+    if (data.status == 'success') {
+      window.location.href="/login"
     }
-    // window.location.href="/login"
   })
   .catch(error => {
+    window.location.reload();
     console.log (error)
   });
 })

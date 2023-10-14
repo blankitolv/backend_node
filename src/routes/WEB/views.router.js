@@ -8,8 +8,10 @@ const expresion = new RegExp("/[a-z0-9]+/");
 
 
 const publicAccess = (req, res, next) => {
+  if(req.session.user) return res.redirect('/');
   next();
 }
+
 const alreadyLogged = (req,res, next) =>{
   if(req.session.user) return res.redirect('/');
   next();
@@ -25,7 +27,7 @@ const privateAcess = (req, res, next) => {
 const pm = new pManager();
 const cart = new cartManager();
 router.get("/",privateAcess, async (req, res) => {
-  res.redirect('/products')
+res.redirect('/products')
 });
 
 router.get("/products",privateAcess, async (req, res) => {
@@ -164,12 +166,11 @@ router.get("/chat",privateAcess, (req, res) => {
   res.status(200).render("chat", {});
 });
 
-router.get("/register",publicAccess,alreadyLogged, (req, res) => {
+router.get("/register", publicAccess, (req, res) => {
   res.status(200).render("register", {});
 });
 
-router.get("/login", publicAccess, alreadyLogged, (req, res) => {
+router.get("/login",publicAccess,  (req, res) => {
   res.status(200).render("login", {});
 });
-
 export default router;

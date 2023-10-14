@@ -1,26 +1,23 @@
-import { Router } from "express";
+/**
+ * NOTAS IMPORTAR UTILS Y QUITAR PATHS
+ * 
+ */
 
-// deprecar
-// import { ProductManager } from "../clase.js";
-// import { CartManager } from "../clase.js";
-// deprecar
+import { Router } from "express";
 
 import ProductManagerv2 from "../../dao/bdmanager/products.manager.js";
 
-import Response from "../../errorMessages.js";
+// import Response from "../../errorMessages.js";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import path from "path";
 import fs from "fs";
+import { __dirname } from "../../utils.js";
 
-import { socketServer } from "../../app.js";
 
 const router = Router();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const pm = new ProductManagerv2();
-
 // si el producto es eliminado o actualizado con imagenes, el archivo anterior se borra
 // luego de 3 segundos para poder ser visualizado, posteriormente se va a eliminar el tiempo
 const deleteFiles = async (...paths) => {
@@ -28,11 +25,9 @@ const deleteFiles = async (...paths) => {
   if (paths.length == 0) {
     return
   }
-  console.log(paths);
-  console.log(paths.length);
   setTimeout(() => {
     for (const one of paths) {
-      fs.promises.unlink(path.join(__dirname, "../public/img" + one));
+      fs.promises.unlink(path.join(__dirname, "..","/src/public/img" + one));
     }
   }, 1000);
 };
@@ -41,7 +36,7 @@ const deleteFiles = async (...paths) => {
 const storage = multer.diskStorage({
   // donde lo guardo
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../public/img"));
+    cb(null, path.join(__dirname, "..","/src/public/img"));
   },
 
   // como lo guardo
@@ -175,7 +170,9 @@ router.post("/", upload.array("img", 7), async (req, res) => {
       category,
       thumbnail: thumb_auxiliar
     });
-    socketServer.sockets.emit('new_products', resp);
+    // socketServer.sockets.emit('new_products', resp);
+    const io = req.app.get('socketio');
+    io.emit('new_products',resp);
     res.status(200).json({ status: "ok", payload: resp });
   } catch (error) {
     temp_image && thumb_auxiliar.length != 0 ? await deleteFiles(thumb_auxiliar) : false;
@@ -292,7 +289,9 @@ router.delete("/:id", async (req, res) => {
     const response = await pm.delete(id);
     console.log ("SE RETORNO: ",response);
     response.thumbnail.length != 0 ? await deleteFiles(response.thumbnail) : false;
-    socketServer.sockets.emit("del_product", { uid: id });
+    // socketServer.sockets.emit("del_product", { uid: id });
+    const io = req.app.get('socketio');
+    io.emit('del_product',{ uid: id });
     res.status(200).json({ status:"success", payload: response });
     return
   } catch (error) {

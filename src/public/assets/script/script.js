@@ -81,7 +81,7 @@ const addProducts = async (data) =>{
     html +=`
         <div class="col col_product d-flex align-items-stretch" data-product-id="${oneMovie._id}">
             <div class="card bg-dark text-light shadow p-3 mb-5 rounded" style="width: 15rem;">
-              <a href="/api/products/${oneMovie._id}"}>
+              <a href="/product/${oneMovie._id}"}>
                 <img src=${oneMovie.thumbnail.length == 0 ?`https://placedog.net/20${num2}/30${num}`:"./img/"+oneMovie.thumbnail[0]} class="card-img-top" alt="poster pelicula"/>
               </a>
               <div class="card-body">
@@ -94,7 +94,6 @@ const addProducts = async (data) =>{
         </div>
     `
   });
-
   html += `    </div>
   </div>`
   app.innerHTML = html;
@@ -112,17 +111,18 @@ const event_delete = () => {
 const delete_fetch_product = async (uid) => {
   console.log ("se quiere eliminar el producto con id: ",uid)
   try {
-    const response = await fetch(`/api/products/${uid}`, {
+    fetch(`/api/products/${uid}`, {
         method: 'DELETE'
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-    } else {
-        // La solicitud no fue exitosa
-        throw new Error(`Error en la solicitud: ${response.status}`);
-    }
+    })
+    .then ( resp => resp.json())
+    .then ( data => {
+      if (data.status == 'success') {
+        console.log("ELEMENTO ELIMINADO")
+      } else {
+        console.log("NO SE BORRO")
+        console.log(data)
+      }
+    })
   } catch (err) {
       console.log(err);
   }

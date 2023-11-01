@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const rolesPosibles = ["public", "admin"];
+const rolesPosibles = ["PUBLIC", "ADMIN", "USER"];
 
 const usersCollection = "users";
 
@@ -29,7 +29,7 @@ const usersSchema = new mongoose.Schema({
         enum: rolesPosibles, // Enumerador para roles permitidos
       },
     ],
-    default: ["public"],
+    default: ["USER"],
   }, // Valor predeterminado
   birthday: {
     type: String, // Puedes utilizar otro tipo de dato si prefieres una fecha

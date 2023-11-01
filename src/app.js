@@ -15,39 +15,34 @@ import mongoose from 'mongoose'
 
 import { Server } from 'socket.io'
 
-import session from 'express-session';
+// import session from 'express-session';
 
-import MongoStore from 'connect-mongo'
+// import MongoStore from 'connect-mongo'
 
 import passport from 'passport'
 
-import flash from 'express-flash'
+// import flash from 'express-flash'
 
 
 // mis recursos
 
 
-import { __dirname, mongo_data } from './utils.js'
+import { __dirname, mongo_data, charge_products } from './utils.js'
 
-import { tiempo } from './utils.js'
+// import { charge_products } from './utils.js'
 
-import { charge_products } from './utils.js'
-
-import { initPassport } from './config/passport.config.js'
+import initPassport from './config/passport.config.js'
 
 
 // routers
 import viewRouter from './routes/WEB/views.router.js'
 
-import routerCarts from './routes/API/carts.routes.js'
+import CartRouter from './routes/API/carts.routes.js'
 
-import routerCartsv2 from './routes/API/carts.js'
+// routerProducts
+import ProductRouter from './routes/API/products.routes.js'
 
-import routerProducts from './routes/API/products.routes.js'
-
-import routerProductsv2 from './routes/API/products.js'
-
-import routerUsers from './routes/API/users.routes.js'
+import UsersRouter from './routes/API/users.routes.js'
 
 import Sockets from './sockets/sockets.js'
 
@@ -55,6 +50,11 @@ import Sockets from './sockets/sockets.js'
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+const cartRouter = new CartRouter();
+const productRouter = new ProductRouter();
+const usersRouter = new UsersRouter();
+
 
 app.use(express.json())
 
@@ -72,34 +72,39 @@ app.set('socketio',io);
 
 Sockets(io);
 
-const conn = mongo_data.get('cloud')
+const conn = mongo_data.get('local')
 mongoose.connect(conn)
-.then(console.log ("connection with mongo"))
+.then(() => console.log ("connection with mongo"))
 .then(()=> console.log (" 💾 "+conn))
-.catch(e => console.log ("error in connection DB: ",e.message))
+.catch(e => {
+  console.log ("error in connection DB: ",e.message);
+  console.log("Bye Bye 💋.");
+  return
+})
 .finally(()=> console.log ("MONGODB: running"))
 
 // inserta productos en bd
-charge_products(false)
+charge_products(false);
 
 //middleware session cookie
-app.use(session({
-  store: MongoStore.create({
-      client: mongoose.connection.getClient(),
-      ttl: 3600, // time to live = TTL
-      name:"Notflix"
-  }),
-  secret: '¡Palabra-Super-Secreta!',
-  resave: true,
-  saveUninitialized: true,
-}));
+// app.use(session({
+//   store: MongoStore.create({
+//       client: mongoose.connection.getClient(),
+//       ttl: 3600, // time to live = TTL
+//       name:"Notflix"
+//   }),
+//   secret: '¡Palabra-Super-Secreta!',
+//   resave: true,
+//   saveUninitialized: true,
+// }));
 
 
 
 initPassport();
+
 app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+// app.use(passport.session());
+// app.use(flash());
 
 
 
@@ -151,16 +156,11 @@ app.set('view engine', 'handlebars')
 app.use(express.static(path.join(__dirname,'public')))
 // app.use('/static',express.static(path.join(__dirname,'public')))
 
-
 // routes
 app.use('/', viewRouter);
 
-app.use('/api/products',routerProducts);
+app.use('/api/products',productRouter.getRouter());
 
-app.use('/api/v2/products',routerProductsv2);
+app.use('/api/carts',cartRouter.getRouter());
 
-app.use('/api/carts',routerCarts);
-
-app.use('/api/v2/carts',routerCartsv2);
-
-app.use('/api/users',routerUsers);
+app.use('/api/users',usersRouter.getRouter());

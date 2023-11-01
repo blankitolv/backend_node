@@ -7,20 +7,20 @@ const router = Router();
 const expresion = new RegExp("/[a-z0-9]+/");
 
 
-const publicAccess = (req, res, next) => {
-  if(req.session.user) return res.redirect('/');
-  next();
-}
+// const publicAccess = (req, res, next) => {
+//   if(req.session.user) return res.redirect('/');
+//   next();
+// }
 
-const alreadyLogged = (req,res, next) =>{
-  if(req.session.user) return res.redirect('/');
-  next();
-}
+// const alreadyLogged = (req,res, next) =>{
+//   if(req.session.user) return res.redirect('/');
+//   next();
+// }
 
-const privateAcess = (req, res, next) => {
-  if(!req.session.user) return res.redirect('/login');
-  next();
-}
+// const privateAcess = (req, res, next) => {
+//   if(!req.session.user) return res.redirect('/login');
+//   next();
+// }
 
 
 // todos los productos (classic)

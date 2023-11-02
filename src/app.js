@@ -35,7 +35,7 @@ import initPassport from './config/passport.config.js'
 
 
 // routers
-import viewRouter from './routes/WEB/views.router.js'
+import ViewsRouter from './routes/WEB/views.router.js'
 
 import CartRouter from './routes/API/carts.routes.js'
 
@@ -51,6 +51,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
+const viewRouter = new ViewsRouter();
 const cartRouter = new CartRouter();
 const productRouter = new ProductRouter();
 const usersRouter = new UsersRouter();
@@ -157,7 +158,7 @@ app.use(express.static(path.join(__dirname,'public')))
 // app.use('/static',express.static(path.join(__dirname,'public')))
 
 // routes
-app.use('/', viewRouter);
+app.use('/', viewRouter.getRouter());
 
 app.use('/api/products',productRouter.getRouter());
 

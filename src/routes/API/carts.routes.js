@@ -145,7 +145,6 @@ export default class CartRouter extends Router{
     }
   }
   
-
   async updateProductCartQuantity(req,res){
     const { cid, pid } = req.params;
     const { quantity } = req.body;

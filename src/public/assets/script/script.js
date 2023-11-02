@@ -9,23 +9,29 @@ const form_create_product = document.getElementById('form_create_product');
 form_create_product.addEventListener('submit',async (e)=>{
   e.preventDefault();
   const formData = new FormData(form_create_product);
+  const token = localStorage.getItem('notflixToken');
+  if (token){
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token);
+    fetch('/api/products',{
+      method:'POST',
+      body: formData,
+      headers: headers
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.status === 'success') {
+        console.log ("Producto cargado")
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    })
+    .finally(()=>{
+      form_create_product.reset();
+    })
 
-  fetch('/api/products',{
-    method:'POST',
-    body: formData,
-  })
-  .then(resp => resp.json())
-  .then(data => {
-    if (data.status === 'success') {
-      console.log ("Producto cargado")
-    }
-  })
-  .catch(err =>{
-    console.log(err)
-  })
-  .finally(()=>{
-    form_create_product.reset();
-  })
+  }
 
   // for (const entry of formData.entries()) {
   //   const [name, value] = entry;

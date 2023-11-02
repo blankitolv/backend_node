@@ -5,24 +5,32 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (window.location.pathname === "/login") {
     nav_login_btn.setAttribute("hidden","true")
   }
-  fetch("/api/users/authstatus")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      if (data.authenticated) {
-        // usuario autenticado
-        nav_logout_btn.removeAttribute('hidden');
-      } else {
-        console.log("SALIO POR ELSE")
-        if (window.location.pathname != "/login") {
-          nav_login_btn.removeAttribute('hidden');
-        }
-        nav_register_btn.removeAttribute('hidden');
-      }
-    })
-    .catch((error) => {
-      console.error("Error al verificar el estado de autenticación:", error);
-    });
+
+  if (localStorage.getItem('notflixToken')) {
+    const raw_token = localStorage.getItem('notflixToken')
+    const decodedToken = JSON.parse(atob(raw_token.split('.')[1]));
+    console.log("DECODEDTOKEN: ",decodedToken)
+  }
+  // var payload = JSON.parse(window.atob(token.split('.')[1])); 
+  // console.log(payload);
+  // fetch("/api/users/authstatus")
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //     if (data.authenticated) {
+  //       // usuario autenticado
+  //       nav_logout_btn.removeAttribute('hidden');
+  //     } else {
+  //       console.log("SALIO POR ELSE")
+  //       if (window.location.pathname != "/login") {
+  //         nav_login_btn.removeAttribute('hidden');
+  //       }
+  //       nav_register_btn.removeAttribute('hidden');
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error al verificar el estado de autenticación:", error);
+  //   });
     nav_logout_btn.addEventListener('click', logout, false)
     nav_login_btn.addEventListener('click', login, false)
     nav_register_btn.addEventListener('click', register, false)

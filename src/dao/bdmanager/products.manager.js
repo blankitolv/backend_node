@@ -2,12 +2,6 @@ import { productsModel } from '../models/products.model.js'
 // se importa el schema e interactúa con mongodb
 // es la unión entre el esquema y la clase
 export default class ProductManagerv2 {
-  /**
-   *  TERMINE ACÄ TENGO QUE VOLVER A HACER LA CLASE
-   *  TENGO QUE HACER LAS VALIDACIONES EN ROUTER, LLEGAR LIMPIO
-   *  Y MANDAR A LA BASE DE DATOS
-   *  
-   */
   // getAll = async (options) => {
   //   let sort
   //   if (options.sort == null){
@@ -30,9 +24,9 @@ export default class ProductManagerv2 {
   getAll = async (options = {}, queries = {}) => {
     // let sort
     // if (options.sort == null){
-      //   sort = {}
-      // } else {
-        //   sort =  { price: options.sort}
+    //   sort = {}
+    // } else {
+    //   sort =  { price: options.sort}
     // }
     // option = limit, page, sort
     // query = category, status

@@ -1,7 +1,8 @@
 import Router from "../router.routes.js"
 
-import { ProductManager } from "../../dao/fsmanager/clase.js";
-import pManager from "../../dao/bdmanager/products.manager.js";
+// import { ProductManager } from "../../dao/fsmanager/clase.js";
+// import pManager from "../../dao/bdmanager/products.manager.js";
+import ProductManagerv2 from "../../dao/bdmanager/products.manager.js";
 import cartManager from "../../dao/bdmanager/carts.manager.js";
 import { accessRoles, passportStrategiesEnum } from "../../config/enums.config.js";
 
@@ -17,16 +18,17 @@ const expresion = new RegExp("/[a-z0-9]+/");
 export default class ViewsRouter extends Router {
   constructor(){
     super();
-    const pm = new pManager();
-    const cart = new cartManager();
+    this.pm = new ProductManagerv2();
+    this.cart = new cartManager();
   }
+
   init() {
     this.get('/',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.redirect)
-    this.get('/products', [accessRoles.USER], passportStrategiesEnum.JWT, this.render_products)
-    this.get('/realtime', [accessRoles.USER], passportStrategiesEnum.JWT, this.render_products)
-    this.get('/product/:id', [accessRoles.USER], passportStrategiesEnum.JWT, this.productId)
-    this.get('/cart/:cid', [accessRoles.USER], passportStrategiesEnum.JWT, this.cartId)
-    this.get('/chat', [accessRoles.USER], passportStrategiesEnum.JWT, this.chat)
+    this.get('/products', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.render_products)
+    this.get('/realtime', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.realTime)
+    this.get('/product/:id', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.productId)
+    this.get('/cart/:cid', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.cartId)
+    this.get('/chat', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.chat)
     this.get('/register', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.register)
     this.get('/login', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.login)
   }
@@ -63,7 +65,7 @@ export default class ViewsRouter extends Router {
     // console.log("original: ", req.originalUrl);
     // console.log(myFilters);
     try {
-      let data = await pm.getAll(options, query);
+      let data = await this.pm.getAll(options, query);
       if (data.payload == 0) {
         throw new Error("length of products are zero");
       }
@@ -85,7 +87,7 @@ export default class ViewsRouter extends Router {
       
       data.all_prev = all_prev;
       data.all = all;
-      data.user = req.session.user
+      data.user = "juan vega"
 
       res.render("products", { data });
     } catch (error) {
@@ -108,7 +110,7 @@ export default class ViewsRouter extends Router {
 
     console.log("SE SOLICITA ",pid)
     try {
-      const resp = await pm.getOne(pid)
+      const resp = await this.pm.getOne(pid)
       console.log(resp)
       res.render("oneProduct", resp);
     } catch (error) {
@@ -125,7 +127,7 @@ export default class ViewsRouter extends Router {
     }
 
     try {
-      const data = await cart.getOne(cid);
+      const data = await this.cart.getOne(cid);
       const objeto = data.toObject();
       console.log(objeto)
       // console.log("getOneCart: ",data);

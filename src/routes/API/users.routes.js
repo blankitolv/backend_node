@@ -21,8 +21,12 @@ export default class UsersRouter extends Router{
   init(){
     this.post('/login',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.userLogin);
     this.post('/reg',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.userRegister);
+    this.post('/verifyAuth',[accessRoles.USER], passportStrategiesEnum.JWT, this.verifyAuth);
   }
-
+  async verifyAuth(req,res){
+    console.log("LLEGO A VERIFYAUTH")
+    return res.sendSuccess();
+  }
   async userLogin(req,res) {
     const {user_email, password} = req.body;
     try {

@@ -80,6 +80,7 @@ export default class Router {
             passport.authenticate(strategy, function (err, user, info) {
                 if (err) return next(err);
                 if (!user) {
+                    console.log("no está user")
                     return res.status(401).send({error: info.messages? info.messages: info.toString()})
                 }
                 req.user = user;
@@ -95,11 +96,12 @@ export default class Router {
 
         //No validamos nada
         if(policies[0] === 'PUBLIC') return next();
-
-        if(!policies.includes(user.role.toUpperCase()))
+        const user = req.user
+        console.log("----> ",req.user)
+        console.log("----> ",typeof user.roles)
+        if(!policies.includes(user.roles.toString().toUpperCase()))
             return res.status(403).json({ error: 'not permissions' })
-
-        req.user = user;
+        console.log("mostrando user: ",user)
         next();
     }
 

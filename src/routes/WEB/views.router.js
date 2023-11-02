@@ -58,7 +58,8 @@ export default class ViewsRouter extends Router {
         if (req.query.status == "true" || req.query.status == "false") {
           query["status"] = req.query.status;
         } else {
-          res.status(400).json({ status: "error", message: "Invalid url param" });
+          return res.sendClientError('');
+          // res.status(400).json({ status: "error", message: "Invalid url param" });
         }
       }
     }
@@ -87,12 +88,12 @@ export default class ViewsRouter extends Router {
       
       data.all_prev = all_prev;
       data.all = all;
-      data.user = "juan vega"
+      // data.user = "juan vega"
 
       res.render("products", { data });
     } catch (error) {
       console.log(error);
-      res.status(500).json();
+      return res.sendServerError(error.message);
     }
   }
   async realTime(req,res){
@@ -104,8 +105,7 @@ export default class ViewsRouter extends Router {
     const { pid } = req.params;
 
     if (expresion.test(pid)) {
-      res.status(400).json({ status: "error", message: "Invalid product id" });
-      return;
+      return res.sendClientError('Invalid product id');
     }
 
     console.log("SE SOLICITA ",pid)
@@ -114,7 +114,7 @@ export default class ViewsRouter extends Router {
       console.log(resp)
       res.render("oneProduct", resp);
     } catch (error) {
-      console.log(error.message)
+      return res.sendServerError(error.message);
     }
   }
 
@@ -122,8 +122,7 @@ export default class ViewsRouter extends Router {
     const { cid } = req.params;
 
     if (expresion.test(cid)) {
-      res.status(400).json({ status: "error", message: "Invalid cart id" });
-      return;
+      return res.sendClientError('Invalid cart id');
     }
 
     try {
@@ -133,7 +132,7 @@ export default class ViewsRouter extends Router {
       // console.log("getOneCart: ",data);
       res.status(200).render("cart", objeto );
     } catch (error) {
-      console.log(error)
+      return res.sendServerError(error.message);
     }
   }
 

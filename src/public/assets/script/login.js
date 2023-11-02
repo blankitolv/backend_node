@@ -30,7 +30,7 @@ form_login.addEventListener('submit',(e)=>{
     // const decodedToken = JSON.parse(atob(raw_token.split('.')[1]));
     // console.log("DECODEDTOKEN: ",decodedToken)
     
-    // window.location.href="/products";
+    window.location.href="/products";
     
     // window.location.replace("/chat");
     // console.log(data); // Hacer algo con los datos recibidos

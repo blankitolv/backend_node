@@ -100,6 +100,7 @@ export default class ProductRouter extends Router{
 
   async getOneProductById(req,res){
       // valido id
+      console.log(" ESTAMOS BUSCANDO UN SOLO PRODUCTO ")
       const { id } = req.params;
 
       const expresion = new RegExp("/[a-z0-9]+/");
@@ -110,10 +111,11 @@ export default class ProductRouter extends Router{
 
       // solicito el producto por id
       try {
+        
         const product = await this.pm.getOne(id);
         // res.status(200).json({ status: "success", payload: product });
+        console.log ("SE LLAMO AL PRODUCTO: ",product)
         return res.sendSuccess(product)
-        
       } catch (error) {
         console.error(">> ERROR: ", error.message);
         console.error(">> USING: ", id);

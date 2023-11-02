@@ -26,7 +26,7 @@ export default class ViewsRouter extends Router {
     this.get('/',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.redirect)
     this.get('/products', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.render_products)
     this.get('/realtime', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.realTime)
-    this.get('/product/:id', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.productId)
+    this.get('/product/:pid', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.productId)
     this.get('/cart/:cid', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.cartId)
     this.get('/chat', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.chat)
     this.get('/register', [accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.register)

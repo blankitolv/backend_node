@@ -6,8 +6,47 @@ const vaciarDOM = (element)=> {
   };
 }
 
+const  verifyToken = async () =>{
+  console.log("verificando token... ... ...")
+  const token = JSON.parse(localStorage.getItem('notflixToken'));
+  if (token){
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token.accessToken);
+    await fetch('/api/users/verifyAuth',{
+      method:'POST',
+      headers: headers
+    })
+    .then(resp => {
+      if (resp.ok){
+        glb_token = token.accessToken
+        console.log("mmm... te podés quedar");
+      } else {
+        console.log("1 NO TE podés quedar");
+        const goto ="login";
+        const currentURL = window.location.href;
+        const actual = currentURL.split("/")
+        if (!actual.includes(goto)) {
+          window.location.href="/"+goto;
+        }    
+      }
+    })
+    .catch(error => {
+      console.log(error.message)
+      console.log("HUBO UN ERROR")
+    })
+  } else {
+    const goto ="login";
+    const currentURL = window.location.href;
+    const actual = currentURL.split("/")
+    if (!actual.includes(goto)) {
+      window.location.href="/"+goto;
+    }
+    
+  }
+}
 
 document.addEventListener('DOMContentLoaded', async function() {
+  await verifyToken();
   if (localStorage.getItem('cart_id')) {
     cartID = JSON.parse(localStorage.getItem('cart_id'))
     console.log ("tiene carrito: ",cartID)
@@ -33,8 +72,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 const fetch_cart_products = async() => {
   try {
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + glb_token);
+    headers.append('Content-Type', 'application/json');
     const response = await fetch(`/api/carts/${cartID}`, {
       method: 'GET',
+      headers:headers,
     });
 
     if (!response.ok) {

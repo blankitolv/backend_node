@@ -1,3 +1,34 @@
+let glb_token = ""
+const  verifyToken = async () =>{
+  console.log("verificando token... ... ...")
+  const token = JSON.parse(localStorage.getItem('notflixToken'));
+  if (token){
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token.accessToken);
+    await fetch('/api/users/verifyAuth',{
+      method:'POST',
+      headers: headers
+    })
+    .then(resp => {
+      if (resp.ok){
+        glb_token = token.accessToken
+        console.log("mmm... te podés quedar");
+      } else {
+        console.log("1 NO TE podés quedar");
+        window.location.href="/login";
+      }
+    })
+    .catch(error => {
+      console.log(error.message)
+      console.log("HUBO UN ERROR")
+    })
+  } else {
+    console.log("2 NO TE podés quedar");
+    window.location.href="/login";
+  }
+}
+document.addEventListener("DOMContentLoaded", verifyToken, true);
+
 const socket = io();
 // document.addEventListener("DOMContentLoaded", function() {
 //   console.log("se cargo el dom")

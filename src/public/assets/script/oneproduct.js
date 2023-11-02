@@ -1,45 +1,96 @@
+console.log("oneProduct.js charge")
+let glb_token = ""
+const  verifyToken = async () =>{
+  console.log("verificando token... ... ...")
+  const token = JSON.parse(localStorage.getItem('notflixToken'));
+  if (token){
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token.accessToken);
+    await fetch('/api/users/verifyAuth',{
+      method:'POST',
+      headers: headers
+    })
+    .then(resp => {
+      if (resp.ok){
+        glb_token = token.accessToken
+        console.log("mmm... te podés quedar");
+      } else {
+        console.log("1 NO TE podés quedar");
+        window.location.href="/login";
+      }
+    })
+    .catch(error => {
+      console.log(error.message)
+      console.log("HUBO UN ERROR")
+    })
+  } else {
+    console.log("2 NO TE podés quedar");
+    window.location.href="/login";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", verifyToken, true);
+
+
 if (localStorage.getItem('cart_id')) {
   cartID = JSON.parse(localStorage.getItem('cart_id'))
   console.log ("tiene carrito: ",cartID)
   document.getElementById('input_cart_id').value = cartID;
 } else {
-  console.log("No tiene un carrito de compras asociado...")
+  console.log("No tiene un carrito de compras en ls...")
 }
 
 const add_product_w_quantity = document.getElementById('add_product_w_quantity');
 add_product_w_quantity.addEventListener('click',async()=>{
   const product_title = document.getElementById('product_title').textContent.toLowerCase()
-  notification({ msg: `Se agregó <b>${product_title} </b> al carrito`, icon:'success', timer: 2000})
-  // notification2()
+  noty({ msg: `Se agregó <b>${product_title} </b> al carrito`, icon:'success', timer: 2000})
+  // noty2()
   const inputQuantity = document.getElementById('inputQuantity').value;
   const uid = add_product_w_quantity.getAttribute('data-product_id')
   createAnimation(add_product_w_quantity,'animate__bounceIn', 1000)
   let bandera
   if (cartID == "") {
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + glb_token);
+    headers.append('Content-Type', 'application/json');
     const product = [{ id: uid, quantity: inputQuantity }]
     fetch('/api/carts', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers:headers,
       body: JSON.stringify(product)
     })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status != 'success') {
-        throw new Error ("error en el carrito")
+    .then(res => {
+      if (res.status == 401){
+        console.log("401")
+        console.log ("token: ",glb_token)
+        console.log ("product: ",product)
+        // window.location.href="/login";
+      } else if (res.status == 400){
+        console.log("400")
+        console.log ("token: ",glb_token)
+        console.log ("product: ",product)
+      } else if (res.status <300) {
+        return res.json()
+      } else if (res.status == 500){
+        console.log("500")
+        console.log ("token: ",glb_token)
+        console.log ("product: ",product)
       }
-      localStorage.setItem('cart_id',JSON.stringify(data.payload));
-      cartID = data.payload;
+    })
+    .then(data => {
+      console.log("ESTO ES DATA: ",data)
+      localStorage.setItem('cart_id',JSON.stringify(data.payload._id));
+      cartID = data.payload._id;
       console.log("SE CREO: ",data.payload);
-      document.getElementById('input_cart_id').value = data.payload;
+      document.getElementById('input_cart_id').value = cartID;
       document.getElementById("nav_cart").classList.remove("disabled");
       handle_cart()
-      notification({ msg: 'carrito creado y producto agregado', icon:'success', timer: 2000})
+      noty({ msg: 'carrito creado y producto agregado', icon:'success', timer: 2000})
     })
     .catch(error => {
+      console.log("HUBO ERROR")
       bandera = { msg: 'error en el carrito', icon:'error', timer: 2000}
-      notification(bandera.msg, bandera.icon, bandera.timer)
+      noty(bandera.msg, bandera.icon, bandera.timer)
       console.log (error)
     })
 
@@ -47,11 +98,12 @@ add_product_w_quantity.addEventListener('click',async()=>{
     try {
       const URL = `/api/carts/${cartID}/product/${uid}`
       console.log(URL);
+      const headers = new Headers();
+      headers.append('Authorization', 'Bearer ' + glb_token);
+      headers.append('Content-Type', 'application/json');
       const response = await fetch(URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: headers,
           body: JSON.stringify({ quantity: inputQuantity })
       });
   
@@ -60,7 +112,7 @@ add_product_w_quantity.addEventListener('click',async()=>{
           localStorage.setItem('cart_id',data.payload)
           handle_cart()
           bandera = { msg: 'carrito actualizado', icon:'success', timer: 2000}
-          await notification(bandera.msg, bandera.icon, bandera.timer)
+          await noty(bandera.msg, bandera.icon, bandera.timer)
           console.log(data);
       } else {
           // La solicitud no fue exitosa
@@ -80,7 +132,7 @@ const createAnimation = (this_element, this_class, timer)=>{
   },timer)
 }
 
-const notification = async(obj) => {
+const noty = async(obj) => {
   console.log("LA NOTIFICACION ",obj.msg)
   const Toast = Swal.mixin({
     backdrop: true,
@@ -100,7 +152,7 @@ const notification = async(obj) => {
     title: obj.msg
   })
 }
-const notification2 = async() => {
+const noty2 = async() => {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

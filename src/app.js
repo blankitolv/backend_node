@@ -5,21 +5,23 @@ COM: 47300
 */
 
 // recursos de terceros
-import express from 'express'
+import express from 'express';
 
-import handlebars from 'express-handlebars'
+import handlebars from 'express-handlebars';
 
-import path from 'path'
+import path from 'path';
 
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-import { Server } from 'socket.io'
+import { Server } from 'socket.io';
+
+import { Command } from 'commander';
 
 // import session from 'express-session';
 
 // import MongoStore from 'connect-mongo'
 
-import passport from 'passport'
+import passport from 'passport';
 
 // import flash from 'express-flash'
 
@@ -51,28 +53,35 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-const viewRouter = new ViewsRouter();
-const cartRouter = new CartRouter();
-const productRouter = new ProductRouter();
-const usersRouter = new UsersRouter();
-
-
 app.use(express.json())
 
 app.use((express.urlencoded({extended:true})))
 
+// websocket
 // WEBSOCKET AND MOUNTING HTTP SERVER
 const httpServer = app.listen (PORT, ()=>{
   console.log ("listening on port: ",PORT);
   console.log("http://localhost:"+PORT);
 })
-
 const io = new Server(httpServer);
-
 app.set('socketio',io);
-
 Sockets(io);
 
+const program = new Command();
+program
+.option('-cp, --charge_products [value]', 'charge products to db', false)
+.option('-p [value]',' expecify server port, default 8080',8080)
+.option('-m, --mode [value]',' expecify server [local/cloud]','cloud')
+program.parse();
+
+const datos = program.opts();
+console.log(datos.mode)
+
+console.log("OPTIONS: ",program.opts());
+// inserta productos en bd
+charge_products(false);
+
+throw new Error ("hola");
 const conn = mongo_data.get('cloud')
 mongoose.connect(conn)
 .then(() => console.log ("connection with mongo"))
@@ -84,8 +93,7 @@ mongoose.connect(conn)
 })
 .finally(()=> console.log ("MONGODB: running"))
 
-// inserta productos en bd
-charge_products(false);
+
 
 //middleware session cookie
 // app.use(session({
@@ -145,6 +153,13 @@ const hbs = handlebars.create({
     }
   },
 });
+
+// router
+const viewRouter = new ViewsRouter();
+const cartRouter = new CartRouter();
+const productRouter = new ProductRouter();
+const usersRouter = new UsersRouter();
+
 
 app.locals.baseURL = "/";
 

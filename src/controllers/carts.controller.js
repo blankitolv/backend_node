@@ -1,7 +1,8 @@
 // cart.controller.js
-import CartManagerv2 from '../dao/bdmanager/carts.manager.js'
+// import CartManagerv2 from '../dao/bdmanager/carts.manager.js'
 
-const Cartv2 = new CartManagerv2();
+// const Cartv2 = new CartManagerv2();
+import { save, toEmptyCart } from "../services/cart.service.js"
 
 export const createCart = async(req, res) => {
  // take body of request
@@ -12,8 +13,6 @@ export const createCart = async(req, res) => {
  for (const one of raw_array_data) {
    if (!one.id || !one.quantity){
      return res.sendClientError("error, id and quantity are required")
-     // res.status(400).json({status:"error", message:"error, id and quantity are required"});
-     // return
    }
    // converts data from string to a number to check if the collected data is valid (int/double/float)
    const aux_quantity = Number(one.quantity)
@@ -28,17 +27,15 @@ export const createCart = async(req, res) => {
  }
  
  try {
-   const resp = await Cartv2.save(product_to_send)
+   const resp = await save(product_to_send)
+   if (!resp) {
+    throw new Error("error guardando el producto en el carrito")
+   }
    return res.sendSuccess(resp)
-   // res.status(200).json({ status:"success", message:"carrito creado", payload: resp._id });
-   // console.log(resp);  
-   // return
  } catch (error) {
    console.log(error)
    console.log(error.message)
    return res.sendServerError(error.message)
-   // res.status(500).json({ status:"error",message:"error creando el carrito" });
-   // return
  }
 };
 
@@ -46,19 +43,16 @@ export const deleteCartById = async(req, res) => {
   const { cid } = req.params;
   if (expresion.test(cid)) {
     return res.sendClientError('Invalid cart id');
-    // res.status(400).json({ status: "error", message: "Invalid cart id" });
-    return;
   }
   
   try {
-    const resp = await this.Cartv2.toEmptyCart( cid );
-    console.log(resp);
+    const resp = await toEmptyCart( cid );
+    if (!resp) {
+      throw new Error ("error eliminando el carrito")
+    }
     return res.sendSuccess(resp);
-    // res.status(200).json({ status:"success", message:"carrito vaciado", payload: resp });
   } catch (error) {
-    console.log(error.message);
     return res.sendServerError(error.message);
-    // res.status(500).json({ status: "error" });
   }
 };
 
@@ -67,24 +61,18 @@ export const deleteProdFromCart = async(req, res) => {
   
   if (expresion.test(cid)) {
     return res.sendClientError('Invalid cart id');
-    // res.status(400).json({ status: "error", message: "Invalid cart id" });
-    // return;
   }
   if (expresion.test(pid)) {
     return res.sendClientError('Invalid product id');
-    // res.status(400).json({ status: "error", message: "Invalid product id" });
-    // return;
   }
   const toSend = { cart_id: cid, product_id:pid}
   
   try {
-    const resp = this.Cartv2.deleteOneProduct(toSend);
+    const resp = deleteOneProduct(toSend);
+    if (!resp) throw new Error ("error eliminando un producto del carrito")
     return res.sendSuccess(resp);
-    // res.status(200).json({ status:"success", message:"carrito actualizado", payload: resp });
   } catch (error) {
     return res.sendServerError(error.message);
-    // console.log(error.message)
-    // res.status(500).json({ status: "error" });
   }
 };
 

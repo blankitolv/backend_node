@@ -22,14 +22,6 @@ export default class ProductManagerv2 {
   //   return products;
   // }
   getAll = async (options = {}, queries = {}) => {
-    // let sort
-    // if (options.sort == null){
-    //   sort = {}
-    // } else {
-    //   sort =  { price: options.sort}
-    // }
-    // option = limit, page, sort
-    // query = category, status
     let option = {}
     let query = {}
 
@@ -47,14 +39,6 @@ export default class ProductManagerv2 {
     }
     console.log(" ===== MANAGER =====")
     console.log(query, option)
-    // let filter = {}
-    // if (options.category != null){
-    //   filter.category = options.category
-    // } else if (options.status != null) {
-    //   filter.status = options.status
-    // }
-
-    // console.log(options.status);
     option["lean"]=true
     const { docs,
       totalDocs,

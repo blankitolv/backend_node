@@ -5,7 +5,7 @@ const  verifyToken = async () =>{
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + token.accessToken);
     fetch('/api/users/verifyAuth',{
-      method:'POST',
+      method:'GET',
       headers: headers
     })
     .then(resp => {

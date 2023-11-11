@@ -48,8 +48,22 @@ import UsersRouter from './routes/API/users.routes.js'
 
 import Sockets from './sockets/sockets.js'
 
+console.log("SEE ALL FLAGS ON --HELP -h")
+const program = new Command();
+program
+.option('-cp, --charge_products [value]', 'charge products to db', false)
+.option('-p, --port [value]',' expecify server port, default 8080',8080)
+.option('-m, --mode [value]',' expecify server [local/cloud]','cloud')
+program.parse();
 
-const PORT = process.env.PORT || 8080;
+if (program.opts().charge_products && program.opts().charge_products == true) {
+  // inserta productos en bd
+  charge_products(false);
+}
+console.log("OPTIONS: ",program.opts());
+
+
+const PORT = process.env.PORT || program.opts().port;
 
 const app = express();
 
@@ -66,23 +80,13 @@ const httpServer = app.listen (PORT, ()=>{
 const io = new Server(httpServer);
 app.set('socketio',io);
 Sockets(io);
-
-const program = new Command();
-program
-.option('-cp, --charge_products [value]', 'charge products to db', false)
-.option('-p [value]',' expecify server port, default 8080',8080)
-.option('-m, --mode [value]',' expecify server [local/cloud]','cloud')
-program.parse();
-
-const datos = program.opts();
-console.log(datos.mode)
-
-console.log("OPTIONS: ",program.opts());
-// inserta productos en bd
-charge_products(false);
-
-throw new Error ("hola");
-const conn = mongo_data.get('cloud')
+let db_mode
+if (program.opts().mode && program.opts().mode == "local" || program.opts().mode == "cloud") {
+  db_mode = program.opts().mode
+} else {
+  throw new Error ("Error in flags, only ['cloud'/'local'] are avaliable");
+}
+const conn = mongo_data.get(db_mode)
 mongoose.connect(conn)
 .then(() => console.log ("connection with mongo"))
 .then(()=> console.log (" 💾 "+conn))

@@ -5,10 +5,10 @@
 import Router from "../router.routes.js"
 import UsersManager from "../../dao/bdmanager/users.manager.js";
 import { accessRoles, passportStrategiesEnum } from '../../config/enums.config.js';
-import { CODIGO_SECRETO } from '../../config/constant.config.js';
-import { createHash } from "../../utils.js";
-import { isValidPassword } from "../../utils.js";
-import { generateToken } from '../../utils.js'
+// import { userLogin } from './'
+// import * as ProductController from "../../controllers/products.controller.js"
+import * as UserController from "../../controllers/users.controller.js"
+
 
 
 
@@ -19,95 +19,11 @@ export default class UsersRouter extends Router{
     this.usersManager = new UsersManager()
   }
   init(){
-    this.post('/login',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.userLogin);
-    this.post('/reg',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, this.userRegister);
-    this.post('/verifyAuth',[accessRoles.USER], passportStrategiesEnum.JWT, this.verifyAuth);
+    this.post('/login',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, UserController.userLogin);
+    this.post('/reg',[accessRoles.PUBLIC], passportStrategiesEnum.NOTHING, UserController.userRegister);
+    this.get('/verifyAuth',[accessRoles.USER], passportStrategiesEnum.JWT, UserController.verifyAuth);
   }
-  async verifyAuth(req,res){
-    console.log("LLEGO A VERIFYAUTH")
-    return res.sendSuccess();
-  }
-  async userLogin(req,res) {
-    const {user_email, password} = req.body;
-    try {
-      const resp = await this.usersManager.getOne(user_email)
-      if (!resp) return res.sendClientError('incorrect credentials');
-
-      const comparePass = isValidPassword(password, resp.password)
-      if (!comparePass) return res.sendClientError('incorrect credentials')
-
-      const accessToken = generateToken(resp);
-      return res.sendSuccess({accessToken});
-      
-    } catch(error){
-      return res.sendServerError(error.message);
-    }
-    //   if (resp) {
-    //     req.session.user = {
-    //       name: `${resp.first_name} ${resp.last_name}`,
-    //       email: resp.email,
-    //     }
-    //     return res.sendSuccess();
-    //     // res.status(200).json({status:"success",message:"ok"})
-    //   } else {
-    //     return res.sendClientError('fail');
-    //     // res.status(400).json({status:"fail",message:"fail"})
-    //   }
-    // } catch (error) {
-    //   return res.sendClientError('incorrect credenetials');
-    //   // return res.status(400).send({ status: 'error', message: 'incorrect credenetials' });
-    // }
-  }
-
-  async userRegister(req,res){
-    const { birthday, registration_code, user_email, first_name, last_name, password} = req.body;
-    let roles = []
-
-    if (registration_code) {
-      if (registration_code.toUpperCase() === CODIGO_SECRETO.toUpperCase()){
-        roles = ['ADMIN'];
-      } else {
-        return res.sendClientError('codigo incorrecto');
-      }
-    } else {
-      roles = ['USER'];
-    }
-    
-
-    const register = { first_name, last_name, roles, birthday, email: user_email, password }
-  
-
-    try {
-      if (!first_name || !last_name || !birthday || !user_email || !password ) return res.sendClientError('incomplete values');
-      
-      const userReturned = await this.usersManager.getOne(user_email)
-      if (userReturned) {
-        return res.sendClientError('Datos incorrectos en la creación del usuario');
-        // res.status(400).json({status: 'fail', message:"Datos icorrectos en la creación del usuario"})
-        // return
-      }
-
-      register.password = createHash(password);
-
-      const resp = await this.usersManager.save(register)
-      if (resp) {
-        const objResp = resp.toObject()
-        delete objResp.password;
-        console.log('Usuario creado exitosamente:', objResp);
-        return res.sendSuccess(objResp);
-        // res.status(200).json({status: 'success', message:"ok"})
-      } else {
-        console.error('La creación del usuario falló');
-        return res.sendServerError("fail");
-        // res.status(500).json({status: 'fail', message:"fail"})
-      }
-    } catch (error) {
-      return res.sendServerError(error.message);
-      // res.status(500).json({status: 'fail', message:"fail"})
-      // console.log (error)
-    }
-  
-  }
+ 
 }
 
 

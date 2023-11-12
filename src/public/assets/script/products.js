@@ -14,7 +14,7 @@ const  verifyToken = async () =>{
         console.log("mmm... te podés quedar");
       } else {
         console.log("1 NO TE podés quedar");
-        window.location.href="/login";
+        // window.location.href="/login";
       }
     })
     .catch(e=> {
@@ -22,12 +22,11 @@ const  verifyToken = async () =>{
     })
   } else {
     console.log("2 NO TE podés quedar");
-    window.location.href="/login";
+    // window.location.href="/login";
   }
 }
 
 document.addEventListener("DOMContentLoaded", verifyToken, true)
-
 
 let cardID = ""
 if (localStorage.getItem('cart_id')) {

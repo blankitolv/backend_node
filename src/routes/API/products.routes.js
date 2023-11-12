@@ -1,4 +1,3 @@
-// import { Router } from "express";
 
 
 
@@ -25,7 +24,6 @@ export default class ProductRouter extends Router{
     this.get('/:id',[accessRoles.ADMIN, accessRoles.USER], passportStrategiesEnum.JWT, ProductController.getOneProductById)
     this.put('/:id',[accessRoles.ADMIN],passportStrategiesEnum.JWT, ProductController.updateOneById)
     this.delete('/:id',[accessRoles.ADMIN],passportStrategiesEnum.JWT, ProductController.deleteProductById)
-
   }
 }
 export {

@@ -5,10 +5,6 @@ import jwt from 'passport-jwt';
 // import GitHubStrategy from 'passport-github2';
 
 // propios
-// import UsersManager from "../dao/bdmanager/users.manager.js";
-// import { createHash } from '../utils.js'
-// import { isValidPassword } from '../utils.js'
-
 import { PRIVATE_KEY_JWT } from './constant.config.js';
 import { passportStrategiesEnum } from './enums.config.js';
 
@@ -26,8 +22,10 @@ const initPassport = () => {
   }, async(jwt_payload, done)=>{
     // jwt_payload son los datos del usuario
     try {
+      console.log("PASSPORT: ",jwt_payload.user)
       return done(null, jwt_payload.user);
     } catch (error) {
+      console.log(error);
       return done (error);
     }
   }))

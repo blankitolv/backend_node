@@ -25,15 +25,10 @@ form_login.addEventListener('submit',(e)=>{
   })
   .then(data => {
     console.log(data);
+    console.log("ESTE ES DATA: ",data);
+    console.log("ESTE ES DATA.PAYLOAD: ",data.payload);
     localStorage.setItem('notflixToken',JSON.stringify(data.payload))
-    // const raw_token = localStorage.getItem('notflixToken')
-    // const decodedToken = JSON.parse(atob(raw_token.split('.')[1]));
-    // console.log("DECODEDTOKEN: ",decodedToken)
-    
     window.location.href="/products";
-    
-    // window.location.replace("/chat");
-    // console.log(data); // Hacer algo con los datos recibidos
   })
   .then(() => console.log(JSON.parse(localStorage.getItem('notflixToken'))))
   .catch(error => {

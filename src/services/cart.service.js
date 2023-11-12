@@ -1,24 +1,19 @@
-// // import ProductManagerv2 from "../dao/bdmanager/products.manager.js";
-// import ProductManagerv2 from "../dao/bdmanager/products.manager.js";
-// const pm = new ProductManagerv2();
-
 import CartManager from "../dao/bdmanager/carts.manager.js";
 const cm = new CartManager();
 
-const save = async(product) =>{
+export const save = async(product) =>{
   return await cm.save(product)
 }
 
-const toEmptyCart = async( id) => {
+export const toEmptyCart = async( id) => {
   return await cm.toEmptyCart( id );
 }
-const deleteOneProduct = async( product ) => {
+export const deleteOneProduct = async( product ) => {
   return await cm.deleteOneProduct( product );
 }
-
-
-export {
-  save,
-  toEmptyCart,
-  deleteOneProduct
+export const updateProductQuantity = async( product ) => {
+  return await cm.updateProductQuantity( product );
+}
+export const getOne = async( id ) => {
+  return await cm.getOne( id );
 }

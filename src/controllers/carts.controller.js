@@ -2,7 +2,7 @@
 // import CartManagerv2 from '../dao/bdmanager/carts.manager.js'
 
 // const Cartv2 = new CartManagerv2();
-import { save, toEmptyCart } from "../services/cart.service.js"
+import { save, toEmptyCart, updateProductQuantity } from "../services/cart.service.js"
 
 export const createCart = async(req, res) => {
  // take body of request
@@ -88,7 +88,10 @@ export const getCartProductsById = async(req, res) => {
   }
   
   try {
-    const resp = await this.Cartv2.getOne(cid) ;
+    const resp = await getOne(cid);
+    if (!resp) {
+      throw new Error ("error consultando por un carrito de compras")
+    }
     res.status(200).json({ status: "success", payload:resp});
     console.log(JSON.stringify(resp,null,2));
     return res.sendSuccess(resp);
@@ -107,31 +110,27 @@ export const updateProductCartQuantity = async(req, res) => {
   
   if (expresion.test(cid)) {
     return res.sendClientError('invalid cart id');
-    // res.status(400).json({ status: "error", message: "Invalid cart id" });
-    // return;
   }
   
   if (expresion.test(pid)) {
     return res.sendClientError('Invalid product id');
-    // res.status(400).json({ status: "error", message: "Invalid product id" });
-    // return;
   }
   
   console.log(cid, pid, quantity)
   if (!quantity) {
     return res.sendClientError('Invalid quantity 1');
-    // res.status(400).json({ status: "error", message: "Invalid quantity 1" });
-    // return
+
   }else {
     if (quantity < 0) {
       return res.sendClientError('Invalid quantity 2');
-      // res.status(400).json({ status: "error", message: "Invalid quantity 2" });
-      // return
     }
   };
   
   try {
-    const resp = await this.Cartv2.updateProductQuantity(pid, cid, quantity)
+    const resp = await updateProductQuantity(pid, cid, quantity)
+    if (!resp) {
+      throw new Error ("error actualizando la cantidad del producto en el carrito")
+    }
     return res.sendSuccess(resp);
   } catch (error) {
     return res.sendServerError(error.message);

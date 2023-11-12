@@ -9,9 +9,10 @@ const vaciarDOM = (element)=> {
 const  verifyToken = async () =>{
   console.log("verificando token... ... ...")
   const token = JSON.parse(localStorage.getItem('notflixToken'));
+  console.log("-> -> -> ",token)
   if (token){
     const headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + token.accessToken);
+    headers.append('Authorization', `Bearer ${token.accessToken}`);
     await fetch('/api/users/verifyAuth',{
       method:'GET',
       headers: headers
@@ -22,6 +23,7 @@ const  verifyToken = async () =>{
         console.log("mmm... te podés quedar");
       } else {
         console.log("1 NO TE podés quedar");
+        console.log(resp);
         const goto ="login";
         const currentURL = window.location.href;
         const actual = currentURL.split("/")
@@ -44,6 +46,7 @@ const  verifyToken = async () =>{
     
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', async function() {
   await verifyToken();

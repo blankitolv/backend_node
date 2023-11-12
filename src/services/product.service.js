@@ -23,6 +23,7 @@ const getAll = async (raw_limit, raw_page, raw_sort, raw_category, raw_status) =
   }
   return await pm.getAll(options, query);
 }
+
 const getOneById = async (id) => {
   const expresion = new RegExp("/[a-z0-9]+/");
   if (expresion.test(id)) {

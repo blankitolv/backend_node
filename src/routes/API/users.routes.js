@@ -1,12 +1,10 @@
 /*            terceros*/
-// import { Router } from "express";
+
 
 /*            propios*/
 import Router from "../router.routes.js"
 import UsersManager from "../../dao/bdmanager/users.manager.js";
 import { accessRoles, passportStrategiesEnum } from '../../config/enums.config.js';
-// import { userLogin } from './'
-// import * as ProductController from "../../controllers/products.controller.js"
 import * as UserController from "../../controllers/users.controller.js"
 
 
@@ -24,6 +22,9 @@ export default class UsersRouter extends Router{
     this.get('/verifyAuth',[accessRoles.USER], passportStrategiesEnum.JWT, UserController.verifyAuth);
   }
  
+}
+export {
+  UserController
 }
 
 
